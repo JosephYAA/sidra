@@ -1,0 +1,1559 @@
+{
+  "project": "Sidra: hotspot detection on reclaimed land",
+  "site": "Diyar Al Muharraq, Bahrain",
+  "study_bbox_lonlat": [
+    50.575,
+    26.27,
+    50.695,
+    26.355
+  ],
+  "crs": "EPSG:32639",
+  "pixel_m": 30,
+  "diyar_selection": "5 reclaimed pieces within 3 km of the published centre, after cutting links under ~200 m",
+  "settings": {
+    "STUDY_BBOX": [
+      50.575,
+      26.27,
+      50.695,
+      26.355
+    ],
+    "DIYAR_CENTRE": [
+      50.63,
+      26.31
+    ],
+    "DIYAR_RADIUS_M": 3000,
+    "DIYAR_SEPARATION_PX": 3,
+    "CRS": "EPSG:32639",
+    "PIXEL_M": 30,
+    "HISTORY_YEARS": [
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "BASELINE_WATER_YEARS": [
+      1998,
+      2002
+    ],
+    "RECENT_WATER_YEARS": [
+      2023,
+      2025
+    ],
+    "HISTORY_MAX_CLOUD": 30,
+    "HISTORY_SCENES_PER_YEAR": 8,
+    "WATER_MNDWI_THRESHOLD": 0.0,
+    "MIN_RECLAIMED_PATCH_PX": 5,
+    "CONVERSION_MIN_LAND_SHARE": 0.8,
+    "SUMMER": [
+      "06-01",
+      "09-30"
+    ],
+    "LST_RECENT_YEARS": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "LST_BASELINE_CANDIDATE_YEARS": [
+      1995,
+      1996,
+      1997,
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008
+    ],
+    "LST_MAX_CLOUD": 20,
+    "MIN_CLEAR_FRACTION": 0.6,
+    "SEA_REF_MIN_DIST_M": 300,
+    "S2_YEAR": 2025,
+    "S2_MAX_CLOUD": 10,
+    "S2_MAX_SCENES": 12,
+    "VEG_NDVI_THRESHOLD": 0.25,
+    "SHORE_BUFFER_M": "auto",
+    "SHORE_BUFFER_LIMITS_M": [
+      60,
+      300
+    ],
+    "CELL_M": 90,
+    "MIN_CORE_SHARE": 0.5555555555555556,
+    "GI_RADIUS_M": 135,
+    "FDR_Q": 0.05,
+    "HOT_PERCENTILE": 90,
+    "PERSISTENT_MIN_SHARE": 0.5,
+    "MIN_ZONE_CELLS": 2,
+    "N_THREADS": 8,
+    "NY": 315,
+    "NX": 401,
+    "EXTENT_KM": [
+      457.56,
+      469.59,
+      2905.62,
+      2915.07
+    ],
+    "PX_AREA_KM2": 0.0009,
+    "QA_BAD_BITS": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "HISTORY_PLATFORMS": [
+      "landsat-5",
+      "landsat-7",
+      "landsat-8",
+      "landsat-9"
+    ],
+    "SEA": 0,
+    "LAND": 1,
+    "RECLAIMED": 2,
+    "LOST": 3,
+    "HAVE_BASELINE": true,
+    "F": 3,
+    "CELL_HA": 0.81
+  },
+  "results": {
+    "diyar_reclaimed_area_km2": 11.37,
+    "diyar_reclamation_start_year_p5": 2007,
+    "recent_summer_scenes_used": 52,
+    "before_summer_scenes_used": 74,
+    "diyar_median_summer_lst_c": 47.65,
+    "before_after_table": [
+      {
+        "group": "Diyar reclaimed land",
+        "pixels": 12628,
+        "before_\u00b0C_above_sea": 0.0,
+        "now_\u00b0C_above_sea": 13.970000267028809,
+        "change_\u00b0C": 13.970000267028809
+      },
+      {
+        "group": "Other reclaimed land",
+        "pixels": 15459,
+        "before_\u00b0C_above_sea": 0.14000000059604645,
+        "now_\u00b0C_above_sea": 14.0600004196167,
+        "change_\u00b0C": 13.920000076293945
+      },
+      {
+        "group": "Original land",
+        "pixels": 8972,
+        "before_\u00b0C_above_sea": 14.460000038146973,
+        "now_\u00b0C_above_sea": 17.139999389648438,
+        "change_\u00b0C": 2.690000057220459
+      },
+      {
+        "group": "Stable sea",
+        "pixels": 89254,
+        "before_\u00b0C_above_sea": 0.0,
+        "now_\u00b0C_above_sea": 0.029999999329447746,
+        "change_\u00b0C": 0.029999999329447746
+      }
+    ],
+    "shore_buffer_m": 180,
+    "coastal_cooling_0_30m_c": 7.52,
+    "coastal_profile": [
+      {
+        "from_m": 0,
+        "to_m": 30,
+        "pixels": 1175,
+        "vs_diyar_median_c": -6.56
+      },
+      {
+        "from_m": 30,
+        "to_m": 60,
+        "pixels": 1101,
+        "vs_diyar_median_c": -4.61
+      },
+      {
+        "from_m": 60,
+        "to_m": 90,
+        "pixels": 1243,
+        "vs_diyar_median_c": -2.6
+      },
+      {
+        "from_m": 90,
+        "to_m": 120,
+        "pixels": 974,
+        "vs_diyar_median_c": -1.17
+      },
+      {
+        "from_m": 120,
+        "to_m": 150,
+        "pixels": 1194,
+        "vs_diyar_median_c": -0.33
+      },
+      {
+        "from_m": 150,
+        "to_m": 180,
+        "pixels": 710,
+        "vs_diyar_median_c": 0.46
+      },
+      {
+        "from_m": 180,
+        "to_m": 210,
+        "pixels": 621,
+        "vs_diyar_median_c": 0.78
+      },
+      {
+        "from_m": 210,
+        "to_m": 240,
+        "pixels": 694,
+        "vs_diyar_median_c": 0.99
+      },
+      {
+        "from_m": 240,
+        "to_m": 270,
+        "pixels": 622,
+        "vs_diyar_median_c": 1.09
+      },
+      {
+        "from_m": 270,
+        "to_m": 300,
+        "pixels": 566,
+        "vs_diyar_median_c": 1.18
+      },
+      {
+        "from_m": 300,
+        "to_m": 330,
+        "pixels": 397,
+        "vs_diyar_median_c": 1.29
+      },
+      {
+        "from_m": 330,
+        "to_m": 360,
+        "pixels": 351,
+        "vs_diyar_median_c": 1.3
+      },
+      {
+        "from_m": 360,
+        "to_m": 390,
+        "pixels": 407,
+        "vs_diyar_median_c": 1.37
+      },
+      {
+        "from_m": 390,
+        "to_m": 420,
+        "pixels": 310,
+        "vs_diyar_median_c": 1.39
+      },
+      {
+        "from_m": 420,
+        "to_m": 450,
+        "pixels": 273,
+        "vs_diyar_median_c": 1.37
+      },
+      {
+        "from_m": 450,
+        "to_m": 480,
+        "pixels": 215,
+        "vs_diyar_median_c": 1.36
+      },
+      {
+        "from_m": 480,
+        "to_m": 510,
+        "pixels": 243,
+        "vs_diyar_median_c": 1.25
+      },
+      {
+        "from_m": 510,
+        "to_m": 540,
+        "pixels": 202,
+        "vs_diyar_median_c": 1.15
+      },
+      {
+        "from_m": 540,
+        "to_m": 570,
+        "pixels": 199,
+        "vs_diyar_median_c": 0.88
+      },
+      {
+        "from_m": 570,
+        "to_m": 600,
+        "pixels": 172,
+        "vs_diyar_median_c": 0.62
+      }
+    ],
+    "hotspot_cell_m": 90,
+    "ranked_cells": 698,
+    "share_significant_uncorrected": 0.467,
+    "share_significant_fdr": 0.351,
+    "hotspot_area_ha": {
+      "Cool cluster": 98.0,
+      "Not significant": 366.9,
+      "Hotspot": 66.4,
+      "Persistent hotspot": 34.0
+    },
+    "hotspot_class_profile": [
+      {
+        "class": "Cool cluster",
+        "area_ha": 98.0,
+        "excess_\u00b0C": -1.399999976158142,
+        "persistence": 0.0,
+        "built_%": 58.87,
+        "bare_%": 41.13,
+        "vegetation_%": 1.04,
+        "NDVI": 0.04,
+        "dist_to_water_m": 401.91,
+        "median_year_created": 2009.0
+      },
+      {
+        "class": "Not significant",
+        "area_ha": 366.9,
+        "excess_\u00b0C": -0.03999999910593033,
+        "persistence": 0.05,
+        "built_%": 44.09,
+        "bare_%": 55.89,
+        "vegetation_%": 0.68,
+        "NDVI": 0.03,
+        "dist_to_water_m": 366.2,
+        "median_year_created": 2009.0
+      },
+      {
+        "class": "Hotspot",
+        "area_ha": 66.4,
+        "excess_\u00b0C": 0.9100000262260437,
+        "persistence": 0.26,
+        "built_%": 51.63,
+        "bare_%": 48.12,
+        "vegetation_%": 1.48,
+        "NDVI": 0.05,
+        "dist_to_water_m": 456.39,
+        "median_year_created": 2008.67
+      },
+      {
+        "class": "Persistent hotspot",
+        "area_ha": 34.0,
+        "excess_\u00b0C": 1.3600000143051147,
+        "persistence": 0.67,
+        "built_%": 67.67,
+        "bare_%": 32.33,
+        "vegetation_%": 0.91,
+        "NDVI": 0.04,
+        "dist_to_water_m": 520.63,
+        "median_year_created": 2008.33
+      }
+    ],
+    "vegetation_cover_ranked_pct": 0.85,
+    "robustness": [
+      {
+        "check": "Earlier summers (before 2023) vs later (2023 on)",
+        "jaccard_hotspots": 0.61,
+        "spearman_gi": 0.9
+      },
+      {
+        "check": "Neighbourhood 90 m vs 135 m",
+        "jaccard_hotspots": 0.47,
+        "spearman_gi": 0.99
+      },
+      {
+        "check": "Neighbourhood 180 m vs 135 m",
+        "jaccard_hotspots": 0.75,
+        "spearman_gi": 0.99
+      },
+      {
+        "check": "Persistent class with top 15% vs top 10%",
+        "jaccard_hotspots": 0.55,
+        "spearman_gi": null
+      },
+      {
+        "check": "Persistent class with top 5% vs top 10%",
+        "jaccard_hotspots": 0.31,
+        "spearman_gi": null
+      }
+    ],
+    "surface_correlations": [
+      {
+        "surface": "Built area share (land cover)",
+        "spearman_rho": -0.04,
+        "cells": 698
+      },
+      {
+        "surface": "Bare ground share (land cover)",
+        "spearman_rho": 0.04,
+        "cells": 698
+      },
+      {
+        "surface": "Vegetation share (Sentinel-2)",
+        "spearman_rho": 0.01,
+        "cells": 698
+      },
+      {
+        "surface": "Year the land was created",
+        "spearman_rho": -0.18,
+        "cells": 698
+      }
+    ],
+    "n_hotspot_zones": 5,
+    "stable_hotspot_area_ha": 44.6
+  },
+  "data_sources": {
+    "landsat_recent_summer_scenes": [
+      {
+        "id": "LC08_L2SP_163042_20210611_02_T1",
+        "date": "2021-06-11",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20210627_02_T1",
+        "date": "2021-06-27",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20210713_02_T1",
+        "date": "2021-07-13",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20210729_02_T1",
+        "date": "2021-07-29",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20210814_02_T1",
+        "date": "2021-08-14",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20210830_02_T1",
+        "date": "2021-08-30",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20210915_02_T1",
+        "date": "2021-09-15",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20220622_02_T1",
+        "date": "2022-06-22",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20220630_02_T1",
+        "date": "2022-06-30",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20220809_02_T1",
+        "date": "2022-08-09",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC09_L2SP_163042_20220825_02_T1",
+        "date": "2022-08-25",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20220902_02_T1",
+        "date": "2022-09-02",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20220910_02_T1",
+        "date": "2022-09-10",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20220918_02_T1",
+        "date": "2022-09-18",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20230601_02_T1",
+        "date": "2023-06-01",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20230609_02_T1",
+        "date": "2023-06-09",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20230617_02_T1",
+        "date": "2023-06-17",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20230625_02_T1",
+        "date": "2023-06-25",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20230703_02_T1",
+        "date": "2023-07-03",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20230711_02_T1",
+        "date": "2023-07-11",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20230719_02_T1",
+        "date": "2023-07-19",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20230804_02_T1",
+        "date": "2023-08-04",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20230812_02_T1",
+        "date": "2023-08-12",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20230820_02_T1",
+        "date": "2023-08-20",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20230828_02_T1",
+        "date": "2023-08-28",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20230905_02_T1",
+        "date": "2023-09-05",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20230913_02_T1",
+        "date": "2023-09-13",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20230921_02_T1",
+        "date": "2023-09-21",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20230929_02_T1",
+        "date": "2023-09-29",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20240603_02_T1",
+        "date": "2024-06-03",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20240611_02_T1",
+        "date": "2024-06-11",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20240619_02_T1",
+        "date": "2024-06-19",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20240627_02_T1",
+        "date": "2024-06-27",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC09_L2SP_163042_20240713_02_T1",
+        "date": "2024-07-13",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20240721_02_T1",
+        "date": "2024-07-21",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20240729_02_T1",
+        "date": "2024-07-29",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC09_L2SP_163042_20240814_02_T1",
+        "date": "2024-08-14",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20240822_02_T1",
+        "date": "2024-08-22",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20240830_02_T1",
+        "date": "2024-08-30",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20240923_02_T1",
+        "date": "2024-09-23",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20250606_02_T1",
+        "date": "2025-06-06",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20250614_02_T1",
+        "date": "2025-06-14",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20250622_02_T1",
+        "date": "2025-06-22",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20250630_02_T1",
+        "date": "2025-06-30",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20250708_02_T1",
+        "date": "2025-07-08",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20250716_02_T1",
+        "date": "2025-07-16",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20250724_02_T1",
+        "date": "2025-07-24",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20250809_02_T1",
+        "date": "2025-08-09",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC08_L2SP_163042_20250825_02_T1",
+        "date": "2025-08-25",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20250902_02_T1",
+        "date": "2025-09-02",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20250910_02_T1",
+        "date": "2025-09-10",
+        "satellite": "landsat-8"
+      },
+      {
+        "id": "LC09_L2SP_163042_20250918_02_T1",
+        "date": "2025-09-18",
+        "satellite": "landsat-9"
+      },
+      {
+        "id": "LC08_L2SP_163042_20250926_02_T1",
+        "date": "2025-09-26",
+        "satellite": "landsat-8"
+      }
+    ],
+    "landsat_before_summer_scenes": [
+      {
+        "id": "LT05_L2SP_163042_19950604_02_T1",
+        "date": "1995-06-04",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19950620_02_T1",
+        "date": "1995-06-20",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19950706_02_T1",
+        "date": "1995-07-06",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19950823_02_T1",
+        "date": "1995-08-23",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19950908_02_T1",
+        "date": "1995-09-08",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19950924_02_T2",
+        "date": "1995-09-24",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19960606_02_T1",
+        "date": "1996-06-06",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19960622_02_T1",
+        "date": "1996-06-22",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19960708_02_T2",
+        "date": "1996-07-08",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19960708_02_T1",
+        "date": "1996-07-08",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19960724_02_T1",
+        "date": "1996-07-24",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19960809_02_T1",
+        "date": "1996-08-09",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19960910_02_T1",
+        "date": "1996-09-10",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19960926_02_T1",
+        "date": "1996-09-26",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19970609_02_T1",
+        "date": "1997-06-09",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19970625_02_T1",
+        "date": "1997-06-25",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19970711_02_T1",
+        "date": "1997-07-11",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19970727_02_T1",
+        "date": "1997-07-27",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19970812_02_T1",
+        "date": "1997-08-12",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19970828_02_T1",
+        "date": "1997-08-28",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19970913_02_T1",
+        "date": "1997-09-13",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19970929_02_T1",
+        "date": "1997-09-29",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19980612_02_T1",
+        "date": "1998-06-12",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19980628_02_T1",
+        "date": "1998-06-28",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19980714_02_T1",
+        "date": "1998-07-14",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19980730_02_T1",
+        "date": "1998-07-30",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19980815_02_T1",
+        "date": "1998-08-15",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19980831_02_T1",
+        "date": "1998-08-31",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19980916_02_T1",
+        "date": "1998-09-16",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19990615_02_T1",
+        "date": "1999-06-15",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19990701_02_T2",
+        "date": "1999-07-01",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19990717_02_T1",
+        "date": "1999-07-17",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19990802_02_T1",
+        "date": "1999-08-02",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19990818_02_T1",
+        "date": "1999-08-18",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LE07_L2SP_163042_19990826_02_T1",
+        "date": "1999-08-26",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LT05_L2SP_163042_19990903_02_T1",
+        "date": "1999-09-03",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_19990919_02_T1",
+        "date": "1999-09-19",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20000601_02_T1",
+        "date": "2000-06-01",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LE07_L2SP_163042_20000609_02_T1",
+        "date": "2000-06-09",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LT05_L2SP_163042_20000617_02_T1",
+        "date": "2000-06-17",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20000703_02_T1",
+        "date": "2000-07-03",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LE07_L2SP_163042_20000711_02_T1",
+        "date": "2000-07-11",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LT05_L2SP_163042_20000719_02_T1",
+        "date": "2000-07-19",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20000804_02_T2",
+        "date": "2000-08-04",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20000820_02_T1",
+        "date": "2000-08-20",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20000905_02_T1",
+        "date": "2000-09-05",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20000921_02_T1",
+        "date": "2000-09-21",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20010604_02_T1",
+        "date": "2001-06-04",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LE07_L2SP_163042_20010612_02_T1",
+        "date": "2001-06-12",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LT05_L2SP_163042_20010620_02_T1",
+        "date": "2001-06-20",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20010722_02_T1",
+        "date": "2001-07-22",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20010807_02_T1",
+        "date": "2001-08-07",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LE07_L2SP_163042_20010815_02_T1",
+        "date": "2001-08-15",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LT05_L2SP_163042_20010823_02_T1",
+        "date": "2001-08-23",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20010908_02_T1",
+        "date": "2001-09-08",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20010924_02_T1",
+        "date": "2001-09-24",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20020607_02_T1",
+        "date": "2002-06-07",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LE07_L2SP_163042_20020615_02_T1",
+        "date": "2002-06-15",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LT05_L2SP_163042_20020623_02_T1",
+        "date": "2002-06-23",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20020709_02_T1",
+        "date": "2002-07-09",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LT05_L2SP_163042_20020725_02_T1",
+        "date": "2002-07-25",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LE07_L2SP_163042_20020802_02_T1",
+        "date": "2002-08-02",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LT05_L2SP_163042_20020810_02_T1",
+        "date": "2002-08-10",
+        "satellite": "landsat-5"
+      },
+      {
+        "id": "LE07_L2SP_163042_20030821_02_T1",
+        "date": "2003-08-21",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20040604_02_T1",
+        "date": "2004-06-04",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20040620_02_T1",
+        "date": "2004-06-20",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20040706_02_T1",
+        "date": "2004-07-06",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20040722_02_T1",
+        "date": "2004-07-22",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20050607_02_T1",
+        "date": "2005-06-07",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20050623_02_T1",
+        "date": "2005-06-23",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20050725_02_T1",
+        "date": "2005-07-25",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20060610_02_T1",
+        "date": "2006-06-10",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20060626_02_T1",
+        "date": "2006-06-26",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20060712_02_T1",
+        "date": "2006-07-12",
+        "satellite": "landsat-7"
+      },
+      {
+        "id": "LE07_L2SP_163042_20060728_02_T1",
+        "date": "2006-07-28",
+        "satellite": "landsat-7"
+      }
+    ],
+    "sentinel2_scenes": [
+      {
+        "id": "S2C_MSIL2A_20250607T070641_R106_T39RVK_20250607T105318",
+        "date": "2025-06-07",
+        "satellite": "Sentinel-2C"
+      },
+      {
+        "id": "S2A_MSIL2A_20250609T071321_R106_T39RVK_20250609T102317",
+        "date": "2025-06-09",
+        "satellite": "Sentinel-2A"
+      },
+      {
+        "id": "S2B_MSIL2A_20250612T070619_R106_T39RVK_20250612T092505",
+        "date": "2025-06-12",
+        "satellite": "Sentinel-2B"
+      },
+      {
+        "id": "S2C_MSIL2A_20250617T070641_R106_T39RVK_20250617T105317",
+        "date": "2025-06-17",
+        "satellite": "Sentinel-2C"
+      },
+      {
+        "id": "S2B_MSIL2A_20250702T070629_R106_T39RVK_20250702T093309",
+        "date": "2025-07-02",
+        "satellite": "Sentinel-2B"
+      },
+      {
+        "id": "S2C_MSIL2A_20250717T070651_R106_T39RVK_20250717T121520",
+        "date": "2025-07-17",
+        "satellite": "Sentinel-2C"
+      },
+      {
+        "id": "S2C_MSIL2A_20250806T070641_R106_T39RVK_20250806T110614",
+        "date": "2025-08-06",
+        "satellite": "Sentinel-2C"
+      },
+      {
+        "id": "S2C_MSIL2A_20250816T070641_R106_T39RVK_20250816T123516",
+        "date": "2025-08-16",
+        "satellite": "Sentinel-2C"
+      },
+      {
+        "id": "S2B_MSIL2A_20250821T070629_R106_T39RVK_20250821T091730",
+        "date": "2025-08-21",
+        "satellite": "Sentinel-2B"
+      },
+      {
+        "id": "S2B_MSIL2A_20250910T070619_R106_T39RVK_20250910T094831",
+        "date": "2025-09-10",
+        "satellite": "Sentinel-2B"
+      },
+      {
+        "id": "S2C_MSIL2A_20250915T070631_R106_T39RVK_20250915T135514",
+        "date": "2025-09-15",
+        "satellite": "Sentinel-2C"
+      },
+      {
+        "id": "S2C_MSIL2A_20250925T070641_R106_T39RVK_20250925T130102",
+        "date": "2025-09-25",
+        "satellite": "Sentinel-2C"
+      }
+    ],
+    "land_cover": {
+      "collection": "io-lulc-annual-v02",
+      "year": 2023,
+      "tiles": [
+        "39R-2023"
+      ]
+    },
+    "landsat_history_scenes_per_year": [
+      {
+        "year": 1998,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 1999,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2000,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2001,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2002,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2003,
+        "scenes": 4,
+        "median_clear_obs": 4
+      },
+      {
+        "year": 2004,
+        "scenes": 7,
+        "median_clear_obs": 6
+      },
+      {
+        "year": 2005,
+        "scenes": 8,
+        "median_clear_obs": 6
+      },
+      {
+        "year": 2006,
+        "scenes": 6,
+        "median_clear_obs": 5
+      },
+      {
+        "year": 2007,
+        "scenes": 8,
+        "median_clear_obs": 7
+      },
+      {
+        "year": 2008,
+        "scenes": 8,
+        "median_clear_obs": 6
+      },
+      {
+        "year": 2009,
+        "scenes": 8,
+        "median_clear_obs": 5
+      },
+      {
+        "year": 2010,
+        "scenes": 8,
+        "median_clear_obs": 6
+      },
+      {
+        "year": 2011,
+        "scenes": 8,
+        "median_clear_obs": 6
+      },
+      {
+        "year": 2012,
+        "scenes": 8,
+        "median_clear_obs": 6
+      },
+      {
+        "year": 2013,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2014,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2015,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2016,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2017,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2018,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2019,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2020,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2021,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2022,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2023,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2024,
+        "scenes": 8,
+        "median_clear_obs": 8
+      },
+      {
+        "year": 2025,
+        "scenes": 8,
+        "median_clear_obs": 8
+      }
+    ],
+    "landsat_history_scene_ids": {
+      "1998": [
+        "LT05_L2SP_163042_19980612_02_T1",
+        "LT05_L2SP_163042_19980628_02_T1",
+        "LT05_L2SP_163042_19980714_02_T1",
+        "LT05_L2SP_163042_19980730_02_T1",
+        "LT05_L2SP_163042_19980815_02_T1",
+        "LT05_L2SP_163042_19980831_02_T1",
+        "LT05_L2SP_163042_19981002_02_T1",
+        "LT05_L2SP_163042_19981018_02_T1"
+      ],
+      "1999": [
+        "LT05_L2SP_163042_19990412_02_T1",
+        "LT05_L2SP_163042_19990428_02_T1",
+        "LT05_L2SP_163042_19990514_02_T1",
+        "LT05_L2SP_163042_19990701_02_T2",
+        "LT05_L2SP_163042_19990802_02_T1",
+        "LT05_L2SP_163042_19990818_02_T1",
+        "LT05_L2SP_163042_19990919_02_T1",
+        "LT05_L2SP_163042_19991021_02_T1"
+      ],
+      "2000": [
+        "LE07_L2SP_163042_20000218_02_T1",
+        "LE07_L2SP_163042_20000321_02_T1",
+        "LT05_L2SP_163042_20000414_02_T1",
+        "LT05_L2SP_163042_20000601_02_T1",
+        "LE07_L2SP_163042_20000609_02_T1",
+        "LT05_L2SP_163042_20000617_02_T1",
+        "LE07_L2SP_163042_20000711_02_T1",
+        "LT05_L2SP_163042_20000719_02_T1"
+      ],
+      "2001": [
+        "LT05_L2SP_163042_20010111_02_T1",
+        "LE07_L2SP_163042_20010119_02_T1",
+        "LE07_L2SP_163042_20010324_02_T1",
+        "LT05_L2SP_163042_20010401_02_T1",
+        "LT05_L2SP_163042_20010519_02_T1",
+        "LT05_L2SP_163042_20010604_02_T1",
+        "LT05_L2SP_163042_20010620_02_T1",
+        "LT05_L2SP_163042_20010722_02_T1"
+      ],
+      "2002": [
+        "LT05_L2SP_163042_20020522_02_T1",
+        "LE07_L2SP_163042_20020530_02_T1",
+        "LT05_L2SP_163042_20020607_02_T1",
+        "LE07_L2SP_163042_20020615_02_T1",
+        "LT05_L2SP_163042_20020623_02_T1",
+        "LT05_L2SP_163042_20020709_02_T1",
+        "LT05_L2SP_163042_20020810_02_T1",
+        "LE07_L2SP_163042_20020122_02_T1"
+      ],
+      "2003": [
+        "LE07_L2SP_163042_20030821_02_T1",
+        "LE07_L2SP_163042_20031211_02_T1",
+        "LE07_L2SP_163042_20030314_02_T1",
+        "LE07_L2SP_163042_20030226_02_T1"
+      ],
+      "2004": [
+        "LE07_L2SP_163042_20040706_02_T1",
+        "LE07_L2SP_163042_20040722_02_T1",
+        "LE07_L2SP_163042_20040128_02_T1",
+        "LE07_L2SP_163042_20040316_02_T1",
+        "LE07_L2SP_163042_20040519_02_T1",
+        "LE07_L2SP_163042_20040604_02_T1",
+        "LE07_L2SP_163042_20040620_02_T1"
+      ],
+      "2005": [
+        "LE07_L2SP_163042_20050130_02_T1",
+        "LE07_L2SP_163042_20050607_02_T1",
+        "LE07_L2SP_163042_20050623_02_T1",
+        "LE07_L2SP_163042_20050725_02_T1",
+        "LE07_L2SP_163042_20050522_02_T1",
+        "LE07_L2SP_163042_20050114_02_T1",
+        "LE07_L2SP_163042_20050420_02_T1",
+        "LE07_L2SP_163042_20050709_02_T1"
+      ],
+      "2006": [
+        "LE07_L2SP_163042_20060306_02_T1",
+        "LE07_L2SP_163042_20060610_02_T1",
+        "LE07_L2SP_163042_20060626_02_T1",
+        "LE07_L2SP_163042_20060712_02_T1",
+        "LE07_L2SP_163042_20060525_02_T1",
+        "LE07_L2SP_163042_20060728_02_T1"
+      ],
+      "2007": [
+        "LE07_L2SP_163042_20070221_02_T1",
+        "LE07_L2SP_163042_20070613_02_T1",
+        "LE07_L2SP_163042_20070715_02_T1",
+        "LE07_L2SP_163042_20070731_02_T1",
+        "LE07_L2SP_163042_20070104_02_T1",
+        "LE07_L2SP_163042_20070512_02_T1",
+        "LE07_L2SP_163042_20070120_02_T1",
+        "LE07_L2SP_163042_20070528_02_T1"
+      ],
+      "2008": [
+        "LE07_L2SP_163042_20080311_02_T1",
+        "LE07_L2SP_163042_20080530_02_T1",
+        "LE07_L2SP_163042_20080701_02_T1",
+        "LE07_L2SP_163042_20080717_02_T1",
+        "LE07_L2SP_163042_20080224_02_T1",
+        "LE07_L2SP_163042_20080428_02_T1",
+        "LE07_L2SP_163042_20080514_02_T1",
+        "LE07_L2SP_163042_20081224_02_T1"
+      ],
+      "2009": [
+        "LE07_L2SP_163042_20090704_02_T1",
+        "LE07_L2SP_163042_20090805_02_T1",
+        "LE07_L2SP_163042_20090109_02_T1",
+        "LE07_L2SP_163042_20090415_02_T1",
+        "LE07_L2SP_163042_20090314_02_T1",
+        "LE07_L2SP_163042_20090226_02_T1",
+        "LE07_L2SP_163042_20090501_02_T1",
+        "LE07_L2SP_163042_20090821_02_T1"
+      ],
+      "2010": [
+        "LE07_L2SP_163042_20100317_02_T1",
+        "LE07_L2SP_163042_20100520_02_T1",
+        "LE07_L2SP_163042_20100621_02_T1",
+        "LE07_L2SP_163042_20100707_02_T1",
+        "LE07_L2SP_163042_20100402_02_T1",
+        "LE07_L2SP_163042_20101230_02_T1",
+        "LE07_L2SP_163042_20101214_02_T1",
+        "LE07_L2SP_163042_20100213_02_T1"
+      ],
+      "2011": [
+        "LE07_L2SP_163042_20110928_02_T1",
+        "LE07_L2SP_163042_20111014_02_T1",
+        "LE07_L2SP_163042_20110216_02_T1",
+        "LE07_L2SP_163042_20110912_02_T1",
+        "LE07_L2SP_163042_20111030_02_T1",
+        "LE07_L2SP_163042_20111201_02_T1",
+        "LE07_L2SP_163042_20111217_02_T1",
+        "LE07_L2SP_163042_20111115_02_T1"
+      ],
+      "2012": [
+        "LE07_L2SP_163042_20120626_02_T1",
+        "LE07_L2SP_163042_20120728_02_T1",
+        "LE07_L2SP_163042_20120829_02_T1",
+        "LE07_L2SP_163042_20120914_02_T1",
+        "LE07_L2SP_163042_20120102_02_T1",
+        "LE07_L2SP_163042_20120118_02_T1",
+        "LE07_L2SP_163042_20120306_02_T1",
+        "LE07_L2SP_163042_20120610_02_T1"
+      ],
+      "2013": [
+        "LC08_L2SP_163042_20130723_02_T1",
+        "LC08_L2SP_163042_20130824_02_T1",
+        "LC08_L2SP_163042_20130909_02_T1",
+        "LC08_L2SP_163042_20130925_02_T1",
+        "LC08_L2SP_163042_20131027_02_T1",
+        "LC08_L2SP_163042_20131112_02_T1",
+        "LC08_L2SP_163042_20130327_02_T1",
+        "LC08_L2SP_164042_20130322_02_T1"
+      ],
+      "2014": [
+        "LC08_L2SP_163042_20140608_02_T1",
+        "LC08_L2SP_163042_20140624_02_T1",
+        "LC08_L2SP_163042_20140710_02_T1",
+        "LC08_L2SP_163042_20140811_02_T1",
+        "LC08_L2SP_163042_20140912_02_T1",
+        "LC08_L2SP_163042_20140115_02_T1",
+        "LC08_L2SP_163042_20140405_02_T1",
+        "LC08_L2SP_163042_20140928_02_T1"
+      ],
+      "2015": [
+        "LC08_L2SP_163042_20150830_02_T1",
+        "LC08_L2SP_163042_20150915_02_T1",
+        "LC08_L2SP_163042_20151001_02_T1",
+        "LC08_L2SP_163042_20150627_02_T1",
+        "LC08_L2SP_163042_20151017_02_T1",
+        "LC08_L2SP_163042_20150611_02_T1",
+        "LC08_L2SP_163042_20150729_02_T1",
+        "LC08_L2SP_163042_20151118_02_T1"
+      ],
+      "2016": [
+        "LC08_L2SP_163042_20160629_02_T1",
+        "LC08_L2SP_163042_20160901_02_T1",
+        "LC08_L2SP_163042_20160917_02_T1",
+        "LC08_L2SP_163042_20161003_02_T1",
+        "LC08_L2SP_163042_20161019_02_T1",
+        "LC08_L2SP_163042_20160410_02_T1",
+        "LC08_L2SP_163042_20160613_02_T1",
+        "LC08_L2SP_163042_20160816_02_T1"
+      ],
+      "2017": [
+        "LC08_L2SP_163042_20170702_02_T1",
+        "LC08_L2SP_163042_20170904_02_T1",
+        "LC08_L2SP_163042_20171006_02_T1",
+        "LC08_L2SP_163042_20171022_02_T1",
+        "LC08_L2SP_163042_20170616_02_T1",
+        "LC08_L2SP_163042_20170328_02_T1",
+        "LC08_L2SP_163042_20170531_02_T1",
+        "LC08_L2SP_163042_20171107_02_T1"
+      ],
+      "2018": [
+        "LC08_L2SP_163042_20180603_02_T1",
+        "LC08_L2SP_163042_20180619_02_T1",
+        "LC08_L2SP_163042_20180705_02_T1",
+        "LC08_L2SP_163042_20180907_02_T1",
+        "LC08_L2SP_163042_20180923_02_T1",
+        "LC08_L2SP_163042_20181009_02_T1",
+        "LC08_L2SP_163042_20180822_02_T1",
+        "LC08_L2SP_163042_20181212_02_T1"
+      ],
+      "2019": [
+        "LC08_L2SP_163042_20190622_02_T1",
+        "LC08_L2SP_163042_20190825_02_T1",
+        "LC08_L2SP_163042_20190606_02_T1",
+        "LC08_L2SP_163042_20191012_02_T1",
+        "LC08_L2SP_163042_20190708_02_T1",
+        "LC08_L2SP_163042_20191231_02_T1",
+        "LC08_L2SP_163042_20190318_02_T1",
+        "LC08_L2SP_163042_20190926_02_T1"
+      ],
+      "2020": [
+        "LC08_L2SP_163042_20200608_02_T1",
+        "LC08_L2SP_163042_20200827_02_T1",
+        "LC08_L2SP_163042_20200912_02_T1",
+        "LC08_L2SP_163042_20200928_02_T1",
+        "LC08_L2SP_163042_20200624_02_T1",
+        "LC08_L2SP_163042_20201030_02_T1",
+        "LC08_L2SP_163042_20200726_02_T1",
+        "LC08_L2SP_163042_20200710_02_T1"
+      ],
+      "2021": [
+        "LC08_L2SP_163042_20210627_02_T1",
+        "LC08_L2SP_163042_20210814_02_T1",
+        "LC08_L2SP_163042_20210830_02_T1",
+        "LC08_L2SP_163042_20210915_02_T1",
+        "LC08_L2SP_163042_20211001_02_T1",
+        "LC08_L2SP_163042_20210526_02_T1",
+        "LC09_L2SP_163042_20211101_02_T1",
+        "LC08_L2SP_163042_20211017_02_T1"
+      ],
+      "2022": [
+        "LC09_L2SP_163042_20220622_02_T1",
+        "LC09_L2SP_163042_20220809_02_T1",
+        "LC08_L2SP_163042_20220902_02_T1",
+        "LC08_L2SP_163042_20220918_02_T1",
+        "LC09_L2SP_163042_20220910_02_T1",
+        "LC09_L2SP_163042_20221113_02_T1",
+        "LC09_L2SP_163042_20220419_02_T1",
+        "LC08_L2SP_163042_20221004_02_T1"
+      ],
+      "2023": [
+        "LC09_L2SP_163042_20230609_02_T1",
+        "LC08_L2SP_163042_20230617_02_T1",
+        "LC09_L2SP_163042_20230625_02_T1",
+        "LC08_L2SP_163042_20230703_02_T1",
+        "LC09_L2SP_163042_20230711_02_T1",
+        "LC08_L2SP_163042_20230719_02_T1",
+        "LC09_L2SP_163042_20230828_02_T1",
+        "LC09_L2SP_163042_20230929_02_T1"
+      ],
+      "2024": [
+        "LC08_L2SP_163042_20240603_02_T1",
+        "LC09_L2SP_163042_20240627_02_T1",
+        "LC09_L2SP_163042_20240713_02_T1",
+        "LC09_L2SP_163042_20240814_02_T1",
+        "LC09_L2SP_163042_20240830_02_T1",
+        "LC08_L2SP_163042_20240923_02_T1",
+        "LC09_L2SP_163042_20240611_02_T1",
+        "LC08_L2SP_163042_20240619_02_T1"
+      ],
+      "2025": [
+        "LC09_L2SP_163042_20250529_02_T1",
+        "LC09_L2SP_163042_20250614_02_T1",
+        "LC08_L2SP_163042_20250622_02_T1",
+        "LC08_L2SP_163042_20250724_02_T1",
+        "LC08_L2SP_163042_20250825_02_T1",
+        "LC09_L2SP_163042_20250902_02_T1",
+        "LC08_L2SP_163042_20250910_02_T1",
+        "LC08_L2SP_163042_20250926_02_T1"
+      ]
+    }
+  },
+  "software": {
+    "python": "3.14.7",
+    "odc-stac": "0.5.3",
+    "xarray": "2026.9.0",
+    "numpy": "2.5.3"
+  }
+}

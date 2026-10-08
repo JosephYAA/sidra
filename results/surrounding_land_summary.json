@@ -1,0 +1,2159 @@
+{
+  "downloaded_landsat": 50,
+  "sentinel_pairs": 20,
+  "unique_sentinel": 20,
+  "weather_unique_days": 100,
+  "weather_hours": 2400,
+  "weather_source": "s3://earthmover-icechunk-era5/icechunkV2",
+  "weather_snapshot": "ZFKDHBCTBVHVXM3BQFV0",
+  "weather_format": "NetCDF + locally converted GRIB2",
+  "verified_grib_messages": 14400,
+  "usable_temperature_dates": {
+    "before": 11,
+    "recent": 20,
+    "transition": 3
+  },
+  "pixel_metres": 120,
+  "max_st_qa_k": 3,
+  "provisional_fill_km2": 12.6,
+  "focus_bbox": [
+    50.595,
+    26.29,
+    50.66,
+    26.354
+  ],
+  "nearby_cells": 215,
+  "control_cells": 768,
+  "core_only_max_distance_change_m": 0.0,
+  "nearest_nearby_cell_to_fill_m": 536.6563145999496,
+  "equal_month_gap_change_c": 0.6743035316467285,
+  "monthly_results": [
+    {
+      "month": 6,
+      "before_dates": 2,
+      "recent_dates": 5,
+      "before_gap_c": -1.2024517059326172,
+      "recent_gap_c": -0.5545120239257812,
+      "change_c": 0.6479396820068359
+    },
+    {
+      "month": 7,
+      "before_dates": 2,
+      "recent_dates": 5,
+      "before_gap_c": -1.3250732421875,
+      "recent_gap_c": -0.2640869140625,
+      "change_c": 1.060986328125
+    },
+    {
+      "month": 8,
+      "before_dates": 4,
+      "recent_dates": 5,
+      "before_gap_c": -0.6227149963378906,
+      "recent_gap_c": 0.3164237976074219,
+      "change_c": 0.9391387939453125
+    },
+    {
+      "month": 9,
+      "before_dates": 3,
+      "recent_dates": 5,
+      "before_gap_c": -0.0321502685546875,
+      "recent_gap_c": 0.016999053955078124,
+      "change_c": 0.04914932250976563
+    }
+  ],
+  "conditional_date_bootstrap": {
+    "date_bootstrap_2_5_c": 0.44387775301933285,
+    "date_bootstrap_97_5_c": 0.8952077396710714,
+    "repeats": 1000,
+    "scope": "Date variability conditional on selected scenes, four-month weighting and fixed masks; not a causal interval; years not independently resampled"
+  },
+  "ml_validation": [
+    {
+      "model": "training_median",
+      "test": "space",
+      "rows": 2447,
+      "dates": 16,
+      "blocks": 8,
+      "mae_c": 1.9377973079681396,
+      "r2": -0.007401108741760254
+    },
+    {
+      "model": "training_median",
+      "test": "date",
+      "rows": 3061,
+      "dates": 4,
+      "blocks": 40,
+      "mae_c": 2.6492838859558105,
+      "r2": -0.6326919794082642
+    },
+    {
+      "model": "training_median",
+      "test": "space_and_date",
+      "rows": 612,
+      "dates": 4,
+      "blocks": 8,
+      "mae_c": 2.4546895027160645,
+      "r2": -0.48819196224212646
+    },
+    {
+      "model": "Landsat",
+      "test": "space",
+      "rows": 2447,
+      "dates": 16,
+      "blocks": 8,
+      "mae_c": 0.8011102761965733,
+      "r2": 0.8147173674296834
+    },
+    {
+      "model": "Landsat",
+      "test": "date",
+      "rows": 3061,
+      "dates": 4,
+      "blocks": 40,
+      "mae_c": 1.3229782564186703,
+      "r2": 0.6124299080341449
+    },
+    {
+      "model": "Landsat",
+      "test": "space_and_date",
+      "rows": 612,
+      "dates": 4,
+      "blocks": 8,
+      "mae_c": 1.4191773593416652,
+      "r2": 0.5514464799415919
+    },
+    {
+      "model": "Landsat+ERA5",
+      "test": "space",
+      "rows": 2447,
+      "dates": 16,
+      "blocks": 8,
+      "mae_c": 0.8045114885046539,
+      "r2": 0.8124796577361337
+    },
+    {
+      "model": "Landsat+ERA5",
+      "test": "date",
+      "rows": 3061,
+      "dates": 4,
+      "blocks": 40,
+      "mae_c": 1.409037403377158,
+      "r2": 0.5951315297136491
+    },
+    {
+      "model": "Landsat+ERA5",
+      "test": "space_and_date",
+      "rows": 612,
+      "dates": 4,
+      "blocks": 8,
+      "mae_c": 1.523810334893164,
+      "r2": 0.5293946981717719
+    },
+    {
+      "model": "Landsat+ERA5+Sentinel",
+      "test": "space",
+      "rows": 2447,
+      "dates": 16,
+      "blocks": 8,
+      "mae_c": 0.7564600808154698,
+      "r2": 0.835176260304797
+    },
+    {
+      "model": "Landsat+ERA5+Sentinel",
+      "test": "date",
+      "rows": 3061,
+      "dates": 4,
+      "blocks": 40,
+      "mae_c": 1.4087909878566185,
+      "r2": 0.5996453567040483
+    },
+    {
+      "model": "Landsat+ERA5+Sentinel",
+      "test": "space_and_date",
+      "rows": 612,
+      "dates": 4,
+      "blocks": 8,
+      "mae_c": 1.4983205694206108,
+      "r2": 0.5476914216012154
+    }
+  ],
+  "ml_held_out_dates": [
+    "2025-08-25",
+    "2025-09-02",
+    "2025-09-10",
+    "2025-09-26"
+  ],
+  "ml_features": [
+    "ndvi",
+    "ndbi",
+    "mndwi",
+    "brightness",
+    "swir22",
+    "historical_coast_km",
+    "season_sin",
+    "season_cos",
+    "sensor_l9",
+    "air_c",
+    "dewpoint_c",
+    "u10_ms",
+    "v10_ms",
+    "solar_wm2",
+    "rain24_mm",
+    "s2_ndvi",
+    "s2_ndbi",
+    "s2_mndwi",
+    "s2_brightness",
+    "s2_swir22",
+    "s2_vegetation_fraction"
+  ],
+  "supported_nearby_cells": 215,
+  "review_priority_cells": 7,
+  "comparison_robustness": [
+    {
+      "comparison": "original",
+      "nearby_cells": 215,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6743035316467285,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "controls_2.5_to_5km",
+      "nearby_cells": 215,
+      "control_cells": 303,
+      "before_dates": 12,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.9490484237670899,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "controls_2.5_to_5km_original_dates",
+      "nearby_cells": 215,
+      "control_cells": 303,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.9702864329020183,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "controls_at_least_5km",
+      "nearby_cells": 215,
+      "control_cells": 465,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.277182149887085,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "controls_at_least_5km_original_dates",
+      "nearby_cells": 215,
+      "control_cells": 465,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.277182149887085,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "historically_matched",
+      "nearby_cells": 215,
+      "control_cells": 215,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.9674176851908366,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "historically_matched_original_dates",
+      "nearby_cells": 215,
+      "control_cells": 215,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.9674176851908366,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "same_cells_every_date",
+      "nearby_cells": 215,
+      "control_cells": 765,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6768954594930013,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "distance_band_0_1000m",
+      "nearby_cells": 32,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 1.7976595401763915,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "distance_band_1000_1500m",
+      "nearby_cells": 83,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.4812934239705403,
+      "status": "all four summer months"
+    },
+    {
+      "comparison": "distance_band_1500_2000m",
+      "nearby_cells": 100,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6739740848541259,
+      "status": "all four summer months"
+    }
+  ],
+  "leave_year_out": [
+    {
+      "comparison": "omit_before_2000",
+      "nearby_cells": 215,
+      "control_cells": 768,
+      "before_dates": 9,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.8145647048950195,
+      "status": "all four summer months",
+      "omitted_era": "before",
+      "omitted_year": 2000
+    },
+    {
+      "comparison": "omit_before_2001",
+      "nearby_cells": 215,
+      "control_cells": 768,
+      "before_dates": 6,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.47304964065551763,
+      "status": "all four summer months",
+      "omitted_era": "before",
+      "omitted_year": 2001
+    },
+    {
+      "comparison": "omit_before_2002",
+      "nearby_cells": 215,
+      "control_cells": 768,
+      "before_dates": 7,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6400442123413086,
+      "status": "all four summer months",
+      "omitted_era": "before",
+      "omitted_year": 2002
+    },
+    {
+      "comparison": "omit_recent_2023",
+      "nearby_cells": 215,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 13,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.7181989351908366,
+      "status": "all four summer months",
+      "omitted_era": "recent",
+      "omitted_year": 2023
+    },
+    {
+      "comparison": "omit_recent_2024",
+      "nearby_cells": 215,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 14,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6503887971242269,
+      "status": "all four summer months",
+      "omitted_era": "recent",
+      "omitted_year": 2024
+    },
+    {
+      "comparison": "omit_recent_2025",
+      "nearby_cells": 215,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 13,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.643973429997762,
+      "status": "all four summer months",
+      "omitted_era": "recent",
+      "omitted_year": 2025
+    }
+  ],
+  "exploratory_year_bootstrap": {
+    "status": "conditional on replicates retaining all four months",
+    "requested_repeats": 2000,
+    "valid_repeats": 1781,
+    "missing_month_repeats": 219,
+    "before_years": [
+      2000,
+      2001,
+      2002
+    ],
+    "recent_years": [
+      2023,
+      2024,
+      2025
+    ],
+    "lower_c": 0.4098709878467378,
+    "upper_c": 0.8595311755225772,
+    "scope": "Exploratory whole-year resampling; only three years per era. Conditional on fixed masks, sensors and observed years; not a causal interval."
+  },
+  "repeated_ml_validation": [
+    {
+      "kind": "date",
+      "model": "Landsat",
+      "splits": 5,
+      "mean_mae_c": 1.9795041695993494,
+      "min_mae_c": 1.1478387295035166,
+      "max_mae_c": 2.9968165231191737,
+      "mean_bias_c": -0.059770805023376415
+    },
+    {
+      "kind": "date",
+      "model": "Landsat+ERA5",
+      "splits": 5,
+      "mean_mae_c": 2.0749319401890416,
+      "min_mae_c": 1.3298086859341516,
+      "max_mae_c": 2.9605739777217965,
+      "mean_bias_c": -0.030504905881827638
+    },
+    {
+      "kind": "date",
+      "model": "Landsat+ERA5+Sentinel",
+      "splits": 5,
+      "mean_mae_c": 2.0568115247195946,
+      "min_mae_c": 1.391127143731879,
+      "max_mae_c": 2.9295655330617696,
+      "mean_bias_c": 0.009297450820051756
+    },
+    {
+      "kind": "date",
+      "model": "training_median",
+      "splits": 5,
+      "mean_mae_c": 2.110225033760071,
+      "min_mae_c": 1.935095191001892,
+      "max_mae_c": 2.465034246444702,
+      "mean_bias_c": 0.40964164566248656
+    },
+    {
+      "kind": "forward_year",
+      "model": "Landsat",
+      "splits": 1,
+      "mean_mae_c": 1.265840888498609,
+      "min_mae_c": 1.265840888498609,
+      "max_mae_c": 1.265840888498609,
+      "mean_bias_c": 0.3025244467149031
+    },
+    {
+      "kind": "forward_year",
+      "model": "Landsat+ERA5",
+      "splits": 1,
+      "mean_mae_c": 1.4289087988141693,
+      "min_mae_c": 1.4289087988141693,
+      "max_mae_c": 1.4289087988141693,
+      "mean_bias_c": 0.5531187949634652
+    },
+    {
+      "kind": "forward_year",
+      "model": "Landsat+ERA5+Sentinel",
+      "splits": 1,
+      "mean_mae_c": 1.468053485706388,
+      "min_mae_c": 1.468053485706388,
+      "max_mae_c": 1.468053485706388,
+      "mean_bias_c": 0.5537344469001754
+    },
+    {
+      "kind": "forward_year",
+      "model": "training_median",
+      "splits": 1,
+      "mean_mae_c": 1.9420236349105835,
+      "min_mae_c": 1.9420236349105835,
+      "max_mae_c": 1.9420236349105835,
+      "mean_bias_c": 1.1658587455749512
+    },
+    {
+      "kind": "space",
+      "model": "Landsat",
+      "splits": 3,
+      "mean_mae_c": 0.8916620136765355,
+      "min_mae_c": 0.7162617284674945,
+      "max_mae_c": 1.0140762960853185,
+      "mean_bias_c": 0.18910298684765411
+    },
+    {
+      "kind": "space",
+      "model": "Landsat+ERA5",
+      "splits": 3,
+      "mean_mae_c": 0.8867623007810387,
+      "min_mae_c": 0.7101142831458831,
+      "max_mae_c": 1.0125216374541712,
+      "mean_bias_c": 0.196287039338965
+    },
+    {
+      "kind": "space",
+      "model": "Landsat+ERA5+Sentinel",
+      "splits": 3,
+      "mean_mae_c": 0.872607445389518,
+      "min_mae_c": 0.7172327069102027,
+      "max_mae_c": 0.9699077660472142,
+      "mean_bias_c": 0.246266057773637
+    },
+    {
+      "kind": "space",
+      "model": "training_median",
+      "splits": 3,
+      "mean_mae_c": 2.098992188771566,
+      "min_mae_c": 2.0464885234832764,
+      "max_mae_c": 2.1380133628845215,
+      "mean_bias_c": 0.33249707768360776
+    },
+    {
+      "kind": "space_and_date",
+      "model": "Landsat",
+      "splits": 3,
+      "mean_mae_c": 2.6701923500974973,
+      "min_mae_c": 1.920353480750919,
+      "max_mae_c": 3.0834294688838315,
+      "mean_bias_c": 0.09793548124609981
+    },
+    {
+      "kind": "space_and_date",
+      "model": "Landsat+ERA5",
+      "splits": 3,
+      "mean_mae_c": 2.56591592468964,
+      "min_mae_c": 1.6906177357953023,
+      "max_mae_c": 3.1424867630433027,
+      "mean_bias_c": 0.36110129545648695
+    },
+    {
+      "kind": "space_and_date",
+      "model": "Landsat+ERA5+Sentinel",
+      "splits": 3,
+      "mean_mae_c": 2.5843268470424796,
+      "min_mae_c": 1.691405075746439,
+      "max_mae_c": 3.3187746501078657,
+      "mean_bias_c": 0.49228484493270486
+    },
+    {
+      "kind": "space_and_date",
+      "model": "training_median",
+      "splits": 3,
+      "mean_mae_c": 2.175158898035685,
+      "min_mae_c": 2.066662549972534,
+      "max_mae_c": 2.3060545921325684,
+      "mean_bias_c": 0.5892965843280157
+    }
+  ],
+  "candidate_variant_comparison": [
+    {
+      "variant": "original / Landsat",
+      "supported_cells": 215,
+      "priority_cells": 8,
+      "baseline_candidates_retained": 7,
+      "rank_spearman_on_common_support": 0.9226943418097514,
+      "priority_jaccard": 0.875
+    },
+    {
+      "variant": "original / Landsat+ERA5",
+      "supported_cells": 215,
+      "priority_cells": 7,
+      "baseline_candidates_retained": 7,
+      "rank_spearman_on_common_support": 0.9324325629694028,
+      "priority_jaccard": 1.0
+    },
+    {
+      "variant": "original / Landsat+ERA5+Sentinel",
+      "supported_cells": 215,
+      "priority_cells": 7,
+      "baseline_candidates_retained": 7,
+      "rank_spearman_on_common_support": 1.0,
+      "priority_jaccard": 1.0
+    },
+    {
+      "variant": "controls_2.5_to_5km / Landsat",
+      "supported_cells": 215,
+      "priority_cells": 28,
+      "baseline_candidates_retained": 6,
+      "rank_spearman_on_common_support": 0.7711427467458766,
+      "priority_jaccard": 0.20689655172413793
+    },
+    {
+      "variant": "controls_2.5_to_5km / Landsat+ERA5",
+      "supported_cells": 215,
+      "priority_cells": 32,
+      "baseline_candidates_retained": 7,
+      "rank_spearman_on_common_support": 0.7735939047067063,
+      "priority_jaccard": 0.21875
+    },
+    {
+      "variant": "controls_2.5_to_5km / Landsat+ERA5+Sentinel",
+      "supported_cells": 215,
+      "priority_cells": 22,
+      "baseline_candidates_retained": 7,
+      "rank_spearman_on_common_support": 0.8025694897244561,
+      "priority_jaccard": 0.3181818181818182
+    },
+    {
+      "variant": "controls_at_least_5km / Landsat",
+      "supported_cells": 215,
+      "priority_cells": 5,
+      "baseline_candidates_retained": 5,
+      "rank_spearman_on_common_support": 0.8804595619309811,
+      "priority_jaccard": 0.7142857142857143
+    },
+    {
+      "variant": "controls_at_least_5km / Landsat+ERA5",
+      "supported_cells": 215,
+      "priority_cells": 8,
+      "baseline_candidates_retained": 6,
+      "rank_spearman_on_common_support": 0.878032553309667,
+      "priority_jaccard": 0.6666666666666666
+    },
+    {
+      "variant": "controls_at_least_5km / Landsat+ERA5+Sentinel",
+      "supported_cells": 215,
+      "priority_cells": 8,
+      "baseline_candidates_retained": 6,
+      "rank_spearman_on_common_support": 0.9214373686879664,
+      "priority_jaccard": 0.6666666666666666
+    },
+    {
+      "variant": "historically_matched / Landsat",
+      "supported_cells": 214,
+      "priority_cells": 20,
+      "baseline_candidates_retained": 5,
+      "rank_spearman_on_common_support": 0.849083634604847,
+      "priority_jaccard": 0.22727272727272727
+    },
+    {
+      "variant": "historically_matched / Landsat+ERA5",
+      "supported_cells": 214,
+      "priority_cells": 19,
+      "baseline_candidates_retained": 6,
+      "rank_spearman_on_common_support": 0.8586982009422324,
+      "priority_jaccard": 0.3
+    },
+    {
+      "variant": "historically_matched / Landsat+ERA5+Sentinel",
+      "supported_cells": 214,
+      "priority_cells": 11,
+      "baseline_candidates_retained": 6,
+      "rank_spearman_on_common_support": 0.8963715787443636,
+      "priority_jaccard": 0.5
+    },
+    {
+      "variant": "original / full model date-crossfit",
+      "supported_cells": 215,
+      "priority_cells": 10,
+      "baseline_candidates_retained": 7,
+      "rank_spearman_on_common_support": 0.8991004371030452,
+      "priority_jaccard": 0.7
+    }
+  ],
+  "candidate_cards": 7,
+  "surface_change_comparisons": [
+    {
+      "comparison": "original",
+      "nearby_cells": 215,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6743035316467285,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "small_ndvi_change_0.03",
+      "nearby_cells": 95,
+      "control_cells": 308,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.951319694519043,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "small_ndvi_change_0.05",
+      "nearby_cells": 163,
+      "control_cells": 605,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6729257901509602,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "small_ndvi_change_0.10",
+      "nearby_cells": 208,
+      "control_cells": 735,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6289960543314616,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "small_optical_change",
+      "nearby_cells": 117,
+      "control_cells": 432,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.7956641832987468,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "small_recent_cover_change",
+      "nearby_cells": 187,
+      "control_cells": 636,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.9665654977162679,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "small_vegetation_and_recent_cover_change",
+      "nearby_cells": 138,
+      "control_cells": 520,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.9906936963399252,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "matched_optical_history",
+      "nearby_cells": 204,
+      "control_cells": 204,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.9261991024017335,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "matched_optical_history_same_nearby_original_controls",
+      "nearby_cells": 204,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.6397214730580647,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "matched_optical_and_recent_cover",
+      "nearby_cells": 186,
+      "control_cells": 186,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 1.1330796877543132,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    },
+    {
+      "comparison": "matched_optical_and_recent_cover_same_nearby_original_controls",
+      "nearby_cells": 186,
+      "control_cells": 768,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.7491087118784586,
+      "status": "all four summer months",
+      "original_dates_retained": true
+    }
+  ],
+  "surface_change_profiles": [
+    {
+      "cohort": "nearby",
+      "feature": "before_ndvi",
+      "supported_cells": 215,
+      "median": 0.05325837433338165,
+      "mean": 0.0764135867357254
+    },
+    {
+      "cohort": "nearby",
+      "feature": "before_ndbi",
+      "supported_cells": 215,
+      "median": 0.057061709463596344,
+      "mean": 0.05242213234305382
+    },
+    {
+      "cohort": "nearby",
+      "feature": "before_brightness",
+      "supported_cells": 215,
+      "median": 0.22834624350070953,
+      "mean": 0.23080629110336304
+    },
+    {
+      "cohort": "nearby",
+      "feature": "recent_ndvi",
+      "supported_cells": 215,
+      "median": 0.08731048554182053,
+      "mean": 0.09133771806955338
+    },
+    {
+      "cohort": "nearby",
+      "feature": "recent_ndbi",
+      "supported_cells": 215,
+      "median": 0.033523671329021454,
+      "mean": 0.034839075058698654
+    },
+    {
+      "cohort": "nearby",
+      "feature": "recent_brightness",
+      "supported_cells": 215,
+      "median": 0.19756120443344116,
+      "mean": 0.2012382298707962
+    },
+    {
+      "cohort": "nearby",
+      "feature": "change_ndvi",
+      "supported_cells": 215,
+      "median": 0.02570449188351631,
+      "mean": 0.01492414902895689
+    },
+    {
+      "cohort": "nearby",
+      "feature": "change_ndbi",
+      "supported_cells": 215,
+      "median": -0.021563977003097534,
+      "mean": -0.017583059147000313
+    },
+    {
+      "cohort": "nearby",
+      "feature": "change_brightness",
+      "supported_cells": 215,
+      "median": -0.02747902274131775,
+      "mean": -0.02956804633140564
+    },
+    {
+      "cohort": "nearby",
+      "feature": "built_2017",
+      "supported_cells": 215,
+      "median": 1.0,
+      "mean": 0.8405361757105942
+    },
+    {
+      "cohort": "nearby",
+      "feature": "vegetation_2017",
+      "supported_cells": 215,
+      "median": 0.0,
+      "mean": 0.0
+    },
+    {
+      "cohort": "nearby",
+      "feature": "bare_2017",
+      "supported_cells": 215,
+      "median": 0.0,
+      "mean": 0.15939922480620153
+    },
+    {
+      "cohort": "nearby",
+      "feature": "built_2023",
+      "supported_cells": 215,
+      "median": 1.0,
+      "mean": 0.8714793281653747
+    },
+    {
+      "cohort": "nearby",
+      "feature": "vegetation_2023",
+      "supported_cells": 215,
+      "median": 0.0,
+      "mean": 0.00016149870801033592
+    },
+    {
+      "cohort": "nearby",
+      "feature": "bare_2023",
+      "supported_cells": 215,
+      "median": 0.0,
+      "mean": 0.128359173126615
+    },
+    {
+      "cohort": "nearby",
+      "feature": "change_built_2017_2023",
+      "supported_cells": 215,
+      "median": 0.0,
+      "mean": 0.030943152454780364
+    },
+    {
+      "cohort": "nearby",
+      "feature": "change_vegetation_2017_2023",
+      "supported_cells": 215,
+      "median": 0.0,
+      "mean": 0.00016149870801033592
+    },
+    {
+      "cohort": "nearby",
+      "feature": "change_bare_2017_2023",
+      "supported_cells": 215,
+      "median": 0.0,
+      "mean": -0.031040051679586567
+    },
+    {
+      "cohort": "control",
+      "feature": "before_ndvi",
+      "supported_cells": 766,
+      "median": 0.039276622235774994,
+      "mean": 0.05339822173118591
+    },
+    {
+      "cohort": "control",
+      "feature": "before_ndbi",
+      "supported_cells": 766,
+      "median": 0.04572466015815735,
+      "mean": 0.04440324380993843
+    },
+    {
+      "cohort": "control",
+      "feature": "before_brightness",
+      "supported_cells": 766,
+      "median": 0.21782340109348297,
+      "mean": 0.23740719258785248
+    },
+    {
+      "cohort": "control",
+      "feature": "recent_ndvi",
+      "supported_cells": 766,
+      "median": 0.07256868481636047,
+      "mean": 0.08772981911897659
+    },
+    {
+      "cohort": "control",
+      "feature": "recent_ndbi",
+      "supported_cells": 766,
+      "median": 0.028048072010278702,
+      "mean": 0.025542452931404114
+    },
+    {
+      "cohort": "control",
+      "feature": "recent_brightness",
+      "supported_cells": 766,
+      "median": 0.1868039071559906,
+      "mean": 0.19096612930297852
+    },
+    {
+      "cohort": "control",
+      "feature": "change_ndvi",
+      "supported_cells": 766,
+      "median": 0.03258897364139557,
+      "mean": 0.03433160483837128
+    },
+    {
+      "cohort": "control",
+      "feature": "change_ndbi",
+      "supported_cells": 766,
+      "median": -0.018576039001345634,
+      "mean": -0.018860789015889168
+    },
+    {
+      "cohort": "control",
+      "feature": "change_brightness",
+      "supported_cells": 766,
+      "median": -0.031500570476055145,
+      "mean": -0.046441055834293365
+    },
+    {
+      "cohort": "control",
+      "feature": "built_2017",
+      "supported_cells": 766,
+      "median": 1.0,
+      "mean": 0.8458079489411082
+    },
+    {
+      "cohort": "control",
+      "feature": "vegetation_2017",
+      "supported_cells": 766,
+      "median": 0.0,
+      "mean": 0.0003082390484479257
+    },
+    {
+      "cohort": "control",
+      "feature": "bare_2017",
+      "supported_cells": 766,
+      "median": 0.0,
+      "mean": 0.15371156077748765
+    },
+    {
+      "cohort": "control",
+      "feature": "built_2023",
+      "supported_cells": 766,
+      "median": 1.0,
+      "mean": 0.9293044676530315
+    },
+    {
+      "cohort": "control",
+      "feature": "vegetation_2023",
+      "supported_cells": 766,
+      "median": 0.0,
+      "mean": 0.0005711488250652742
+    },
+    {
+      "cohort": "control",
+      "feature": "bare_2023",
+      "supported_cells": 766,
+      "median": 0.0,
+      "mean": 0.07003372497824194
+    },
+    {
+      "cohort": "control",
+      "feature": "change_built_2017_2023",
+      "supported_cells": 766,
+      "median": 0.0,
+      "mean": 0.08349651871192341
+    },
+    {
+      "cohort": "control",
+      "feature": "change_vegetation_2017_2023",
+      "supported_cells": 766,
+      "median": 0.0,
+      "mean": 0.00026290977661734837
+    },
+    {
+      "cohort": "control",
+      "feature": "change_bare_2017_2023",
+      "supported_cells": 766,
+      "median": 0.0,
+      "mean": -0.08367783579924573
+    }
+  ],
+  "landcover_sources": [
+    {
+      "year": 2017,
+      "item_id": "39R-2017",
+      "collection": "io-lulc-annual-v02",
+      "source": "https://planetarycomputer.microsoft.com/api/stac/v1",
+      "url": "https://ai4edataeuwest.blob.core.windows.net/io-lulc/io-annual-lulc-v02/39R_20170101-20180101.tif",
+      "license": "CC-BY-4.0",
+      "attribution": "Esri, Impact Observatory and Microsoft; derived from Copernicus Sentinel-2 imagery",
+      "documentation": "https://docs.impactobservatory.com/lulc-maps/maps-for-good.html",
+      "bbox": [
+        50.55,
+        26.22,
+        50.72,
+        26.355
+      ],
+      "epsg": 32639,
+      "pixel_metres": 10,
+      "grid_shape": [
+        1512,
+        1704
+      ],
+      "sampling": "nearest categorical resampling to aligned 10m grid",
+      "retrieved_utc": "2026-10-07T10:21:10.455660+00:00",
+      "path": "data/expanded/landcover/io_39R_2017_10m.npz",
+      "sha256": "845772ca00457c62db3fc3dca0f7e69420d572525232275f0cd9086b99f520d1"
+    },
+    {
+      "year": 2023,
+      "item_id": "39R-2023",
+      "collection": "io-lulc-annual-v02",
+      "source": "https://planetarycomputer.microsoft.com/api/stac/v1",
+      "url": "https://ai4edataeuwest.blob.core.windows.net/io-lulc/io-annual-lulc-v02/39R_20230101-20240101.tif",
+      "license": "CC-BY-4.0",
+      "attribution": "Esri, Impact Observatory and Microsoft; derived from Copernicus Sentinel-2 imagery",
+      "documentation": "https://docs.impactobservatory.com/lulc-maps/maps-for-good.html",
+      "bbox": [
+        50.55,
+        26.22,
+        50.72,
+        26.355
+      ],
+      "epsg": 32639,
+      "pixel_metres": 10,
+      "grid_shape": [
+        1512,
+        1704
+      ],
+      "sampling": "nearest categorical resampling to aligned 10m grid",
+      "retrieved_utc": "2026-10-07T10:21:12.201208+00:00",
+      "path": "data/expanded/landcover/io_39R_2023_10m.npz",
+      "sha256": "eb50a45aec05c514a85b424720dae44c70a2adab3e6d286babb3f5ae2b70895d"
+    }
+  ],
+  "surface_change_scope": "Descriptive conditioning on optical changes and 2017\u20132023 cover, not a total causal reclamation effect",
+  "stable_baseline_candidates": 5,
+  "candidate_inspection_areas": 1,
+  "site_review_gallery": "data/results/notebook_expanded/site_review.html",
+  "review_cell_geojson": "data/results/notebook_expanded/candidate_site_cells.geojson",
+  "runtime": {
+    "Python": "3.14.7",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "rasterio": "1.5.2",
+    "xarray": "2026.9.0",
+    "icechunk": "2.2.2",
+    "matplotlib": "3.11.2",
+    "eccodes": "2.49.0"
+  },
+  "interpretation": "Observed proximity gap change and recent-control residual screening; not a causal reclamation effect",
+  "extended_timeline": {
+    "total_cached_scenes": 96,
+    "admitted_dates": 62,
+    "admitted_historical_dates_1995_2002": 34,
+    "complete_historical_years": [
+      1995,
+      1996,
+      1997,
+      1998,
+      1999,
+      2001
+    ],
+    "complete_recent_years": [
+      2023,
+      2024,
+      2025
+    ],
+    "year_balanced_extended_gap_change_c": 1.0115731557210286,
+    "historical_gap_slope_c_per_year": 0.07417035784040182,
+    "historical_slope_resampling_lower": -0.022706334183855956,
+    "historical_slope_resampling_upper": 0.2118410382952011,
+    "historical_slope_resampling": {
+      "attempts": 2000,
+      "valid_repeats": 1966,
+      "seed": 710,
+      "minimum_distinct_years": 3
+    },
+    "scope": "Fixed original land cohorts; additional per-date land screening; complete summers with equal months and equal years",
+    "limitations": [
+      "Historical-era trend is not a validated pre-treatment trend",
+      "No event date or parallel-trends identification",
+      "Missing years are not interpolated",
+      "Sensor changes remain; additional dates do not resolve instrument differences"
+    ]
+  },
+  "matched_year_block_uncertainty": [
+    {
+      "comparison": "original",
+      "point_c": 0.6743035316467285,
+      "repeats": 500,
+      "valid_repeats": 434,
+      "valid_fraction": 0.868,
+      "lower_c": -0.12852563224732874,
+      "upper_c": 1.2308419197797775,
+      "status": "conditional interval"
+    },
+    {
+      "comparison": "matched_optical_history",
+      "point_c": 0.9261991024017335,
+      "repeats": 500,
+      "valid_repeats": 434,
+      "valid_fraction": 0.868,
+      "lower_c": 0.1947430495172739,
+      "upper_c": 1.3661242008209231,
+      "status": "conditional interval"
+    },
+    {
+      "comparison": "matched_optical_and_recent_cover",
+      "point_c": 1.1330796877543132,
+      "repeats": 500,
+      "valid_repeats": 434,
+      "valid_fraction": 0.868,
+      "lower_c": 0.35903424397110945,
+      "upper_c": 1.5948229104280471,
+      "status": "conditional interval"
+    }
+  ],
+  "coastal_placebos": [
+    {
+      "comparison": "PL-01",
+      "nearby_cells": 64,
+      "control_cells": 640,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.43555320103963213,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-01",
+      "variant": "unmatched",
+      "block": 204
+    },
+    {
+      "comparison": "PL-01_matched",
+      "nearby_cells": 64,
+      "control_cells": 64,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.41379432678222655,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-01",
+      "variant": "historically matched",
+      "block": 204
+    },
+    {
+      "comparison": "PL-02",
+      "nearby_cells": 32,
+      "control_cells": 717,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.22001204490661624,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-02",
+      "variant": "unmatched",
+      "block": 206
+    },
+    {
+      "comparison": "PL-02_matched",
+      "nearby_cells": 32,
+      "control_cells": 32,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.03409323692321775,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-02",
+      "variant": "historically matched",
+      "block": 206
+    },
+    {
+      "comparison": "PL-03",
+      "nearby_cells": 56,
+      "control_cells": 675,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.898047955830892,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-03",
+      "variant": "unmatched",
+      "block": 222
+    },
+    {
+      "comparison": "PL-03_matched",
+      "nearby_cells": 56,
+      "control_cells": 56,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.4135404268900553,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-03",
+      "variant": "historically matched",
+      "block": 222
+    },
+    {
+      "comparison": "PL-04",
+      "nearby_cells": 40,
+      "control_cells": 702,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.43501744270324705,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-04",
+      "variant": "unmatched",
+      "block": 224
+    },
+    {
+      "comparison": "PL-04_matched",
+      "nearby_cells": 40,
+      "control_cells": 40,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.40587725639343264,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-04",
+      "variant": "historically matched",
+      "block": 224
+    },
+    {
+      "comparison": "PL-05",
+      "nearby_cells": 41,
+      "control_cells": 701,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.4966055552164713,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-05",
+      "variant": "unmatched",
+      "block": 238
+    },
+    {
+      "comparison": "PL-05_matched",
+      "nearby_cells": 41,
+      "control_cells": 41,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.18373339970906577,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-05",
+      "variant": "historically matched",
+      "block": 238
+    },
+    {
+      "comparison": "PL-06",
+      "nearby_cells": 32,
+      "control_cells": 712,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.16248981157938644,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-06",
+      "variant": "unmatched",
+      "block": 253
+    },
+    {
+      "comparison": "PL-06_matched",
+      "nearby_cells": 31,
+      "control_cells": 31,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.5577552477518717,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-06",
+      "variant": "historically matched",
+      "block": 253
+    },
+    {
+      "comparison": "PL-07",
+      "nearby_cells": 45,
+      "control_cells": 703,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.5078575452168783,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-07",
+      "variant": "unmatched",
+      "block": 254
+    },
+    {
+      "comparison": "PL-07_matched",
+      "nearby_cells": 45,
+      "control_cells": 45,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.7550914128621419,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-07",
+      "variant": "historically matched",
+      "block": 254
+    },
+    {
+      "comparison": "PL-08",
+      "nearby_cells": 61,
+      "control_cells": 672,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.20843598047892253,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-08",
+      "variant": "unmatched",
+      "block": 256
+    },
+    {
+      "comparison": "PL-08_matched",
+      "nearby_cells": 61,
+      "control_cells": 61,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.10521589914957681,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-08",
+      "variant": "historically matched",
+      "block": 256
+    },
+    {
+      "comparison": "PL-09",
+      "nearby_cells": 33,
+      "control_cells": 716,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 2.174973742167155,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-09",
+      "variant": "unmatched",
+      "block": 263
+    },
+    {
+      "comparison": "PL-09_matched",
+      "nearby_cells": 29,
+      "control_cells": 29,
+      "before_dates": 0,
+      "recent_dates": 0,
+      "overlapping_months": NaN,
+      "gap_change_c": NaN,
+      "status": "insufficient cells",
+      "original_dates_retained": false,
+      "placebo": "PL-09",
+      "variant": "historically matched",
+      "block": 263
+    },
+    {
+      "comparison": "PL-10",
+      "nearby_cells": 32,
+      "control_cells": 716,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": -0.22600692113240559,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-10",
+      "variant": "unmatched",
+      "block": 274
+    },
+    {
+      "comparison": "PL-10_matched",
+      "nearby_cells": 32,
+      "control_cells": 32,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.025650151570638033,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-10",
+      "variant": "historically matched",
+      "block": 274
+    },
+    {
+      "comparison": "PL-11",
+      "nearby_cells": 40,
+      "control_cells": 697,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 2.332581202189128,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-11",
+      "variant": "unmatched",
+      "block": 281
+    },
+    {
+      "comparison": "PL-11_matched",
+      "nearby_cells": 40,
+      "control_cells": 40,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.45389115015665693,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-11",
+      "variant": "historically matched",
+      "block": 281
+    },
+    {
+      "comparison": "PL-12",
+      "nearby_cells": 33,
+      "control_cells": 716,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 2.6049694856007894,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-12",
+      "variant": "unmatched",
+      "block": 282
+    },
+    {
+      "comparison": "PL-12_matched",
+      "nearby_cells": 33,
+      "control_cells": 33,
+      "before_dates": 11,
+      "recent_dates": 20,
+      "overlapping_months": "6,7,8,9",
+      "gap_change_c": 0.5401092211405436,
+      "status": "all four summer months",
+      "original_dates_retained": true,
+      "placebo": "PL-12",
+      "variant": "historically matched",
+      "block": 282
+    }
+  ],
+  "satellite_feature_validation": [
+    {
+      "kind": "date",
+      "model": "+ All additions (2017)",
+      "splits": 5,
+      "mean_mae_c": 2.000514328980476,
+      "min_mae_c": 1.3063483796128765,
+      "max_mae_c": 2.9215645424009353,
+      "mean_bias_c": -0.01969785789401266,
+      "mae_change_vs_original_c": -0.09769982366474217
+    },
+    {
+      "kind": "date",
+      "model": "+ All additions (2023 retrospective)",
+      "splits": 5,
+      "mean_mae_c": 2.0022218688457127,
+      "min_mae_c": 1.2663329249263564,
+      "max_mae_c": 2.9840460564961173,
+      "mean_bias_c": -0.008425512845269401,
+      "mae_change_vs_original_c": -0.09599228379950553
+    },
+    {
+      "kind": "date",
+      "model": "+ Cell cover (2017)",
+      "splits": 5,
+      "mean_mae_c": 2.082688102947713,
+      "min_mae_c": 1.3849183386464003,
+      "max_mae_c": 2.9581223572923165,
+      "mean_bias_c": -0.02072262901307189,
+      "mae_change_vs_original_c": -0.015526049697505151
+    },
+    {
+      "kind": "date",
+      "model": "+ Sentinel variation",
+      "splits": 5,
+      "mean_mae_c": 2.0623117673443403,
+      "min_mae_c": 1.3524103031552266,
+      "max_mae_c": 3.006246220418995,
+      "mean_bias_c": -0.007389502141914495,
+      "mae_change_vs_original_c": -0.03590238530087797
+    },
+    {
+      "kind": "date",
+      "model": "+ Surroundings (2017)",
+      "splits": 5,
+      "mean_mae_c": 2.007951993395963,
+      "min_mae_c": 1.3015707528426925,
+      "max_mae_c": 2.921719240322025,
+      "mean_bias_c": -0.020409791071363113,
+      "mae_change_vs_original_c": -0.09026215924925518
+    },
+    {
+      "kind": "date",
+      "model": "Original features",
+      "splits": 5,
+      "mean_mae_c": 2.0982141526452183,
+      "min_mae_c": 1.3819800888920197,
+      "max_mae_c": 2.9996080747055953,
+      "mean_bias_c": -0.0204379572987071,
+      "mae_change_vs_original_c": 0.0
+    },
+    {
+      "kind": "date",
+      "model": "Training median",
+      "splits": 5,
+      "mean_mae_c": 2.1053266763687133,
+      "min_mae_c": 1.9356989860534668,
+      "max_mae_c": 2.456045150756836,
+      "mean_bias_c": 0.41100683286786077,
+      "mae_change_vs_original_c": 0.007112523723495023
+    },
+    {
+      "kind": "forward_year",
+      "model": "+ All additions (2017)",
+      "splits": 1,
+      "mean_mae_c": 1.3886048249933813,
+      "min_mae_c": 1.3886048249933813,
+      "max_mae_c": 1.3886048249933813,
+      "mean_bias_c": 0.5364647975258724,
+      "mae_change_vs_original_c": -0.0622758472777547
+    },
+    {
+      "kind": "forward_year",
+      "model": "+ All additions (2023 retrospective)",
+      "splits": 1,
+      "mean_mae_c": 1.3736971161867069,
+      "min_mae_c": 1.3736971161867069,
+      "max_mae_c": 1.3736971161867069,
+      "mean_bias_c": 0.5208966620472197,
+      "mae_change_vs_original_c": -0.07718355608442917
+    },
+    {
+      "kind": "forward_year",
+      "model": "+ Cell cover (2017)",
+      "splits": 1,
+      "mean_mae_c": 1.459038208135755,
+      "min_mae_c": 1.459038208135755,
+      "max_mae_c": 1.459038208135755,
+      "mean_bias_c": 0.5736213809772783,
+      "mae_change_vs_original_c": 0.00815753586461887
+    },
+    {
+      "kind": "forward_year",
+      "model": "+ Sentinel variation",
+      "splits": 1,
+      "mean_mae_c": 1.4700841992982456,
+      "min_mae_c": 1.4700841992982456,
+      "max_mae_c": 1.4700841992982456,
+      "mean_bias_c": 0.580841880738514,
+      "mae_change_vs_original_c": 0.01920352702710959
+    },
+    {
+      "kind": "forward_year",
+      "model": "+ Surroundings (2017)",
+      "splits": 1,
+      "mean_mae_c": 1.3939568446916966,
+      "min_mae_c": 1.3939568446916966,
+      "max_mae_c": 1.3939568446916966,
+      "mean_bias_c": 0.5710844315090177,
+      "mae_change_vs_original_c": -0.05692382757943948
+    },
+    {
+      "kind": "forward_year",
+      "model": "Original features",
+      "splits": 1,
+      "mean_mae_c": 1.450880672271136,
+      "min_mae_c": 1.450880672271136,
+      "max_mae_c": 1.450880672271136,
+      "mean_bias_c": 0.5611689187743429,
+      "mae_change_vs_original_c": 0.0
+    },
+    {
+      "kind": "forward_year",
+      "model": "Training median",
+      "splits": 1,
+      "mean_mae_c": 1.94287109375,
+      "min_mae_c": 1.94287109375,
+      "max_mae_c": 1.94287109375,
+      "mean_bias_c": 1.1722677946090698,
+      "mae_change_vs_original_c": 0.49199042147886396
+    },
+    {
+      "kind": "space",
+      "model": "+ All additions (2017)",
+      "splits": 3,
+      "mean_mae_c": 0.911073488823792,
+      "min_mae_c": 0.7832588549953561,
+      "max_mae_c": 1.0479320141952289,
+      "mean_bias_c": 0.19168699929229316,
+      "mae_change_vs_original_c": 0.028175991178894133
+    },
+    {
+      "kind": "space",
+      "model": "+ All additions (2023 retrospective)",
+      "splits": 3,
+      "mean_mae_c": 0.8859757895839179,
+      "min_mae_c": 0.7828992809057794,
+      "max_mae_c": 0.9476232374845442,
+      "mean_bias_c": 0.18414946362778864,
+      "mae_change_vs_original_c": 0.0030782919390199837
+    },
+    {
+      "kind": "space",
+      "model": "+ Cell cover (2017)",
+      "splits": 3,
+      "mean_mae_c": 0.8915772215940839,
+      "min_mae_c": 0.7306481159882793,
+      "max_mae_c": 0.9933571992661548,
+      "mean_bias_c": 0.2559352915661474,
+      "mae_change_vs_original_c": 0.008679723949186036
+    },
+    {
+      "kind": "space",
+      "model": "+ Sentinel variation",
+      "splits": 3,
+      "mean_mae_c": 0.8867213397030485,
+      "min_mae_c": 0.719257115213509,
+      "max_mae_c": 0.9740635715488595,
+      "mean_bias_c": 0.2034748166779848,
+      "mae_change_vs_original_c": 0.0038238420581505617
+    },
+    {
+      "kind": "space",
+      "model": "+ Surroundings (2017)",
+      "splits": 3,
+      "mean_mae_c": 0.925524038427244,
+      "min_mae_c": 0.7814823092875703,
+      "max_mae_c": 1.0555979477528183,
+      "mean_bias_c": 0.21408496404642022,
+      "mae_change_vs_original_c": 0.04262654078234607
+    },
+    {
+      "kind": "space",
+      "model": "Original features",
+      "splits": 3,
+      "mean_mae_c": 0.8828974976448979,
+      "min_mae_c": 0.712000351955702,
+      "max_mae_c": 1.002609712828714,
+      "mean_bias_c": 0.20724720591047738,
+      "mae_change_vs_original_c": 0.0
+    },
+    {
+      "kind": "space",
+      "model": "Training median",
+      "splits": 3,
+      "mean_mae_c": 2.098933696746826,
+      "min_mae_c": 2.047874927520752,
+      "max_mae_c": 2.1421470642089844,
+      "mean_bias_c": 0.30936021481951076,
+      "mae_change_vs_original_c": 1.2160361991019282
+    },
+    {
+      "kind": "space_and_date",
+      "model": "+ All additions (2017)",
+      "splits": 3,
+      "mean_mae_c": 2.59071557615912,
+      "min_mae_c": 1.6463218790029928,
+      "max_mae_c": 3.331477281931354,
+      "mean_bias_c": 0.42046659010101406,
+      "mae_change_vs_original_c": -0.042492749447564204
+    },
+    {
+      "kind": "space_and_date",
+      "model": "+ All additions (2023 retrospective)",
+      "splits": 3,
+      "mean_mae_c": 2.6284026114805923,
+      "min_mae_c": 1.7285097654912482,
+      "max_mae_c": 3.4248851215309593,
+      "mean_bias_c": 0.4389685935045124,
+      "mae_change_vs_original_c": -0.004805714126091765
+    },
+    {
+      "kind": "space_and_date",
+      "model": "+ Cell cover (2017)",
+      "splits": 3,
+      "mean_mae_c": 2.618474443926699,
+      "min_mae_c": 1.725139932685806,
+      "max_mae_c": 3.2713075517531482,
+      "mean_bias_c": 0.4714793618917798,
+      "mae_change_vs_original_c": -0.014733881679985128
+    },
+    {
+      "kind": "space_and_date",
+      "model": "+ Sentinel variation",
+      "splits": 3,
+      "mean_mae_c": 2.5956388377516624,
+      "min_mae_c": 1.714797116209971,
+      "max_mae_c": 3.2506483050243884,
+      "mean_bias_c": 0.4308039363235217,
+      "mae_change_vs_original_c": -0.03756948785502168
+    },
+    {
+      "kind": "space_and_date",
+      "model": "+ Surroundings (2017)",
+      "splits": 3,
+      "mean_mae_c": 2.576707484634394,
+      "min_mae_c": 1.618710513928487,
+      "max_mae_c": 3.3004724155649314,
+      "mean_bias_c": 0.4069180405108416,
+      "mae_change_vs_original_c": -0.056500840972290245
+    },
+    {
+      "kind": "space_and_date",
+      "model": "Original features",
+      "splits": 3,
+      "mean_mae_c": 2.633208325606684,
+      "min_mae_c": 1.7163022957732759,
+      "max_mae_c": 3.2945484513385956,
+      "mean_bias_c": 0.4106588625343144,
+      "mae_change_vs_original_c": 0.0
+    },
+    {
+      "kind": "space_and_date",
+      "model": "Training median",
+      "splits": 3,
+      "mean_mae_c": 2.1708287398020425,
+      "min_mae_c": 2.070098638534546,
+      "max_mae_c": 2.2911155223846436,
+      "mean_bias_c": 0.5674296965201696,
+      "mae_change_vs_original_c": -0.46237958580464156
+    }
+  ],
+  "satellite_feature_experiment": {
+    "configurations": {
+      "Training median": [],
+      "Original features": [
+        "ndvi",
+        "ndbi",
+        "mndwi",
+        "brightness",
+        "swir22",
+        "historical_coast_km",
+        "season_sin",
+        "season_cos",
+        "sensor_l9",
+        "air_c",
+        "dewpoint_c",
+        "u10_ms",
+        "v10_ms",
+        "solar_wm2",
+        "rain24_mm",
+        "s2_ndvi",
+        "s2_ndbi",
+        "s2_mndwi",
+        "s2_brightness",
+        "s2_swir22",
+        "s2_vegetation_fraction"
+      ],
+      "+ Cell cover (2017)": [
+        "ndvi",
+        "ndbi",
+        "mndwi",
+        "brightness",
+        "swir22",
+        "historical_coast_km",
+        "season_sin",
+        "season_cos",
+        "sensor_l9",
+        "air_c",
+        "dewpoint_c",
+        "u10_ms",
+        "v10_ms",
+        "solar_wm2",
+        "rain24_mm",
+        "s2_ndvi",
+        "s2_ndbi",
+        "s2_mndwi",
+        "s2_brightness",
+        "s2_swir22",
+        "s2_vegetation_fraction",
+        "cover_built",
+        "cover_bare",
+        "cover_vegetation"
+      ],
+      "+ Surroundings (2017)": [
+        "ndvi",
+        "ndbi",
+        "mndwi",
+        "brightness",
+        "swir22",
+        "historical_coast_km",
+        "season_sin",
+        "season_cos",
+        "sensor_l9",
+        "air_c",
+        "dewpoint_c",
+        "u10_ms",
+        "v10_ms",
+        "solar_wm2",
+        "rain24_mm",
+        "s2_ndvi",
+        "s2_ndbi",
+        "s2_mndwi",
+        "s2_brightness",
+        "s2_swir22",
+        "s2_vegetation_fraction",
+        "surrounding_built_240m",
+        "surrounding_bare_240m",
+        "surrounding_vegetation_240m",
+        "surrounding_water_240m",
+        "surrounding_built_480m",
+        "surrounding_bare_480m",
+        "surrounding_vegetation_480m",
+        "surrounding_water_480m"
+      ],
+      "+ Sentinel variation": [
+        "ndvi",
+        "ndbi",
+        "mndwi",
+        "brightness",
+        "swir22",
+        "historical_coast_km",
+        "season_sin",
+        "season_cos",
+        "sensor_l9",
+        "air_c",
+        "dewpoint_c",
+        "u10_ms",
+        "v10_ms",
+        "solar_wm2",
+        "rain24_mm",
+        "s2_ndvi",
+        "s2_ndbi",
+        "s2_mndwi",
+        "s2_brightness",
+        "s2_swir22",
+        "s2_vegetation_fraction",
+        "s2_ndvi_std",
+        "s2_ndvi_p90_p10",
+        "s2_brightness_std",
+        "s2_brightness_edge_difference",
+        "s2_ndbi_std"
+      ],
+      "+ All additions (2017)": [
+        "ndvi",
+        "ndbi",
+        "mndwi",
+        "brightness",
+        "swir22",
+        "historical_coast_km",
+        "season_sin",
+        "season_cos",
+        "sensor_l9",
+        "air_c",
+        "dewpoint_c",
+        "u10_ms",
+        "v10_ms",
+        "solar_wm2",
+        "rain24_mm",
+        "s2_ndvi",
+        "s2_ndbi",
+        "s2_mndwi",
+        "s2_brightness",
+        "s2_swir22",
+        "s2_vegetation_fraction",
+        "cover_built",
+        "cover_bare",
+        "cover_vegetation",
+        "surrounding_built_240m",
+        "surrounding_bare_240m",
+        "surrounding_vegetation_240m",
+        "surrounding_water_240m",
+        "surrounding_built_480m",
+        "surrounding_bare_480m",
+        "surrounding_vegetation_480m",
+        "surrounding_water_480m",
+        "s2_ndvi_std",
+        "s2_ndvi_p90_p10",
+        "s2_brightness_std",
+        "s2_brightness_edge_difference",
+        "s2_ndbi_std"
+      ],
+      "+ All additions (2023 retrospective)": [
+        "ndvi",
+        "ndbi",
+        "mndwi",
+        "brightness",
+        "swir22",
+        "historical_coast_km",
+        "season_sin",
+        "season_cos",
+        "sensor_l9",
+        "air_c",
+        "dewpoint_c",
+        "u10_ms",
+        "v10_ms",
+        "solar_wm2",
+        "rain24_mm",
+        "s2_ndvi",
+        "s2_ndbi",
+        "s2_mndwi",
+        "s2_brightness",
+        "s2_swir22",
+        "s2_vegetation_fraction",
+        "cover_built",
+        "cover_bare",
+        "cover_vegetation",
+        "surrounding_built_240m",
+        "surrounding_bare_240m",
+        "surrounding_vegetation_240m",
+        "surrounding_water_240m",
+        "surrounding_built_480m",
+        "surrounding_bare_480m",
+        "surrounding_vegetation_480m",
+        "surrounding_water_480m",
+        "s2_ndvi_std",
+        "s2_ndvi_p90_p10",
+        "s2_brightness_std",
+        "s2_brightness_edge_difference",
+        "s2_ndbi_std"
+      ]
+    },
+    "cover_sources": [
+      2017,
+      2023
+    ],
+    "primary_cover_year": 2017,
+    "primary_temporal_scope": "Fixed pre-observation map; may be stale",
+    "retrospective_scope": "Fixed 2023 annual map for all dates; not an operational forecast evaluation",
+    "surroundings": "Circular center-excluding rings at 240/480m; >=80% of full window reliable",
+    "native_variation": "QA-masked reflectance at native 10/20m; >=80% valid samples/edges within cell",
+    "original_rows": 15321,
+    "common_rows": 14760,
+    "dropped_rows": 561,
+    "algorithm": "Original HistGradientBoostingRegressor, unchanged parameters and seed",
+    "model_selection": "Predefined ablations; no tuning or winner chosen from outer tests",
+    "support": "Primary ablations share full-added-feature marginal ranges; joint overlap unverified",
+    "limitations": [
+      "No thermal predictors or held-out thermal neighbors",
+      "Paired Sentinel may be +/-7 days",
+      "Annual cover is classified and needs local checks",
+      "Features do not establish causation",
+      "Original 13-variant inspection stability is separate from these feature ablations"
+    ]
+  },
+  "satellite_feature_candidate_comparison": [
+    {
+      "model": "+ All additions (2017)",
+      "evaluation": "all control dates",
+      "supported_cells": 209,
+      "shortlisted_cells": 6,
+      "original_card_cells": 7,
+      "original_cards_retained": 5,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 2
+    },
+    {
+      "model": "+ All additions (2017)",
+      "evaluation": "date crossfit",
+      "supported_cells": 209,
+      "shortlisted_cells": 7,
+      "original_card_cells": 7,
+      "original_cards_retained": 5,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 2
+    },
+    {
+      "model": "+ All additions (2023 retrospective)",
+      "evaluation": "all control dates",
+      "supported_cells": 204,
+      "shortlisted_cells": 5,
+      "original_card_cells": 7,
+      "original_cards_retained": 4,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 3
+    },
+    {
+      "model": "+ All additions (2023 retrospective)",
+      "evaluation": "date crossfit",
+      "supported_cells": 204,
+      "shortlisted_cells": 6,
+      "original_card_cells": 7,
+      "original_cards_retained": 5,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 2
+    },
+    {
+      "model": "+ Cell cover (2017)",
+      "evaluation": "all control dates",
+      "supported_cells": 209,
+      "shortlisted_cells": 9,
+      "original_card_cells": 7,
+      "original_cards_retained": 7,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 0
+    },
+    {
+      "model": "+ Cell cover (2017)",
+      "evaluation": "date crossfit",
+      "supported_cells": 209,
+      "shortlisted_cells": 8,
+      "original_card_cells": 7,
+      "original_cards_retained": 6,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 1
+    },
+    {
+      "model": "+ Sentinel variation",
+      "evaluation": "all control dates",
+      "supported_cells": 209,
+      "shortlisted_cells": 6,
+      "original_card_cells": 7,
+      "original_cards_retained": 6,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 1
+    },
+    {
+      "model": "+ Sentinel variation",
+      "evaluation": "date crossfit",
+      "supported_cells": 209,
+      "shortlisted_cells": 9,
+      "original_card_cells": 7,
+      "original_cards_retained": 6,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 1
+    },
+    {
+      "model": "+ Surroundings (2017)",
+      "evaluation": "all control dates",
+      "supported_cells": 209,
+      "shortlisted_cells": 8,
+      "original_card_cells": 7,
+      "original_cards_retained": 6,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 1
+    },
+    {
+      "model": "+ Surroundings (2017)",
+      "evaluation": "date crossfit",
+      "supported_cells": 209,
+      "shortlisted_cells": 10,
+      "original_card_cells": 7,
+      "original_cards_retained": 6,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 1
+    },
+    {
+      "model": "Original features",
+      "evaluation": "all control dates",
+      "supported_cells": 209,
+      "shortlisted_cells": 7,
+      "original_card_cells": 7,
+      "original_cards_retained": 6,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 1
+    },
+    {
+      "model": "Original features",
+      "evaluation": "date crossfit",
+      "supported_cells": 209,
+      "shortlisted_cells": 11,
+      "original_card_cells": 7,
+      "original_cards_retained": 7,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 0
+    },
+    {
+      "model": "Training median",
+      "evaluation": "all control dates",
+      "supported_cells": 209,
+      "shortlisted_cells": 47,
+      "original_card_cells": 7,
+      "original_cards_retained": 7,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 0
+    },
+    {
+      "model": "Training median",
+      "evaluation": "date crossfit",
+      "supported_cells": 209,
+      "shortlisted_cells": 71,
+      "original_card_cells": 7,
+      "original_cards_retained": 7,
+      "original_cards_unassessable": 0,
+      "original_cards_below_threshold": 0
+    }
+  ]
+}

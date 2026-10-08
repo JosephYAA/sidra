@@ -1,0 +1,17 @@
+.venv/
+venv/
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+outputs/
+notebooks/outputs/
+hotspot_outputs.zip
+*.grib
+*.nc
+/data/sample_input/*.source.json
+/data/expanded/
+/notebooks/data/expanded/
