@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>The Sidra Idea</title>
+<meta content="Why Sidra exists: satellite evidence on the surface-heat cost of building new land on the sea in Bahrain." name="description"/>
+<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;🌳&lt;/text&gt;&lt;/svg&gt;" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+<a class="brand" href="index.html">
+<span class="brand-mark" data-icon="tree" data-size="20"></span>
+<span data-i18n="">Sidra<small>Thermal intelligence</small></span>
+</a>
+<nav class="nav">
+<a href="index.html#overview"><span data-icon="layers" data-size="15"></span><span data-i18n="">Dashboard</span></a>
+<a href="index.html#hotspots"><span data-icon="flame" data-size="15"></span><span data-i18n="">Hotspots</span></a>
+<a href="index.html#surroundings"><span data-icon="building" data-size="15"></span><span data-i18n="">Surroundings</span></a>
+<a href="index.html#mapview"><span data-icon="map" data-size="15"></span><span data-i18n="">Map View</span></a>
+<a class="active" href="idea.html"><span data-icon="bulb" data-size="15"></span><span data-i18n="">The Idea</span></a>
+</nav>
+<div class="top-actions">
+<button aria-label="Switch language" class="lang-btn" id="lang-btn" type="button"><span data-i18n="">العربية</span></button>
+<a class="btn-neon" href="index.html"><span data-icon="chart" data-size="16"></span><span data-i18n="">Open dashboard</span></a>
+</div>
+</header>
+<!-- Hero -->
+<section class="hero-idea">
+<div class="hero-split">
+<div>
+<span class="eyebrow" data-i18n="">Theme 05 · Sustainable Urban Planning &amp; Smart Cities</span>
+<h1 data-i18n="">Every island we build on the sea comes with a hidden <em>heat cost</em>.</h1>
+<p class="lead" data-i18n="">Bahrain keeps growing into the Gulf. Sidra uses three decades of summer satellite data to show where new
+          land became hotter, which places stay hot year after year, and where a field visit should start.</p>
+<div class="ctas">
+<a class="btn-neon" href="index.html"><span data-icon="chart" data-size="16"></span><span data-i18n="">Explore the dashboard</span></a>
+<a class="btn-ghost" data-i18n="" href="#how">How it works</a>
+</div>
+<div class="big-stat">
+<div><b id="s-change"><span data-i18n="">--</span></b><span data-i18n="">Heat change on Diyar vs open sea</span></div>
+<div><b id="s-area"><span data-i18n="">--</span></b><span data-i18n="">Reclaimed land measured from space</span></div>
+<div><b id="s-hot"><span data-i18n="">--</span></b><span data-i18n="">Persistent inland hotspots</span></div>
+</div>
+</div>
+<div id="scan"></div>
+</div>
+</section>
+<!-- Problem -->
+<section class="section">
+<span class="eyebrow" data-i18n="">The problem</span>
+<h2 data-i18n="">We are swapping the sea for concrete</h2>
+<p class="intro" data-i18n="">Projects like Diyar Al Muharraq create new land by filling in the sea. Water stays cool in the summer sun.
+      The sand, concrete and asphalt that replace it heat up much more, and the neighbourhoods built on top live with that heat.</p>
+<div class="grid g-3">
+<div class="card feature"><span class="icon-ring land" data-icon="flame"></span><h3 data-i18n="">Hotter neighbourhoods</h3><p data-i18n="">Surface heat builds up on the new land, where thousands of people will live, walk and work.</p></div>
+<div class="card feature"><span class="icon-ring warn" data-icon="clock"></span><h3 data-i18n="">Measured too late</h3><p data-i18n="">Heat is rarely checked after a project is built, so planners don't know which streets need shade first.</p></div>
+<div class="card feature"><span class="icon-ring sea" data-icon="waves"></span><h3 data-i18n="">Generic guidelines</h3><p data-i18n="">Global design rules don't capture Bahrain's specific coast, climate and building materials.</p></div>
+</div>
+</section>
+<!-- Solution -->
+<section class="section">
+<span class="eyebrow" data-i18n="">Our solution</span>
+<h2 data-i18n="">Sidra: satellite evidence for coastal heat planning</h2>
+<p class="intro" data-i18n="">Sidra turns free, open satellite archives into three things planners can act on.</p>
+<div class="grid g-3">
+<div class="card feature"><span class="icon-ring" data-icon="thermo"></span><h3 data-i18n="">1. Measure</h3><p data-i18n="">Compare summer surface temperatures before and after reclamation, relative to open sea, at the same locations.</p></div>
+<div class="card feature"><span class="icon-ring" data-icon="target"></span><h3 data-i18n="">2. Locate</h3><p data-i18n="">Find the hotspots that stay hot summer after summer, and check whether nearby existing land is warming too.</p></div>
+<div class="card feature"><span class="icon-ring" data-icon="building"></span><h3 data-i18n="">3. Act</h3><p data-i18n="">Shortlist the cells a field team should inspect first, so shade, greenery or material changes go where they matter.</p></div>
+</div>
+</section>
+<!-- How it works -->
+<section class="section" id="how">
+<span class="eyebrow" data-i18n="">How it works</span>
+<h2 data-i18n="">From satellite to decision</h2>
+<p class="intro" data-i18n="">Everything runs on open data and open-source tools, so the analysis can be repeated for any coastline.</p>
+<div class="grid g-main">
+<div class="card">
+<ol class="steps">
+<li><b data-i18n="">Find the new land</b><span data-i18n="">Track the water index (MNDWI) year by year with Landsat to see where sea turned into land, and when.</span></li>
+<li><b data-i18n="">Measure the heat</b><span data-i18n="">Use June–September Landsat surface temperature from before and after reclamation, minus the open sea temperature on the same day.</span></li>
+<li><b data-i18n="">Map persistent hotspots</b><span data-i18n="">Run a Getis–Ord Gi* hotspot test on 90 m cells and keep only the places that stay in the hottest 10% on most dates.</span></li>
+<li><b data-i18n="">Check the surroundings</b><span data-i18n="">Compare nearby existing land with control land far away, and test how sure we are by resampling whole years and areas.</span></li>
+<li><b data-i18n="">Model and shortlist</b><span data-i18n="">Train a gradient-boosting model on satellite indicators and ERA5 weather, then flag cells that are repeatedly hotter than predicted.</span></li>
+</ol>
+</div>
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">Why satellites?</div></div><span class="icon-ring" data-icon="satellite"></span></div>
+<ul class="list-clean">
+<li data-i18n="">Decades of history, so we can compare before and after reclamation.</li>
+<li data-i18n="">Cover entire islands at once instead of a few weather stations.</li>
+<li data-i18n="">Free and open: Landsat (USGS), Sentinel-2 (ESA) and ERA5 (Copernicus).</li>
+<li data-i18n="">Repeatable for any new project in Bahrain or the Gulf.</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Who + compare -->
+<section class="section">
+<span class="eyebrow" data-i18n="">Who it's for</span>
+<h2 data-i18n="">Built for the people who design new land</h2>
+<p class="intro" data-i18n="">Coastal developers, municipalities and the Ministry of Works, Municipalities Affairs and Urban Planning decide
+      where shade, trees and cooler materials go. Sidra shows them where to look first.</p>
+<div class="card">
+<table class="compare">
+<thead><tr><th></th><th data-i18n="">Today</th><th data-i18n="">With Sidra</th></tr></thead>
+<tbody>
+<tr><td data-i18n="">Where heat is checked</td><td data-i18n="">A few weather stations</td><td data-i18n="">Every 90 m cell on the island</td></tr>
+<tr><td data-i18n="">Time span</td><td data-i18n="">Recent readings only</td><td data-i18n="">Summers from 1995 to 2025</td></tr>
+<tr><td data-i18n="">Design guidance</td><td data-i18n="">Generic global rules</td><td data-i18n="">Measured on Bahrain's own coast</td></tr>
+<tr><td data-i18n="">Where to act first</td><td data-i18n="">Guesswork</td><td data-i18n="">A ranked field-visit shortlist</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Honest limits -->
+<section class="section">
+<span class="eyebrow" data-i18n="">Honest limits</span>
+<h2 data-i18n="">What the satellites can and can't tell us</h2>
+<div class="grid g-3">
+<div class="card feature"><span class="icon-ring warn" data-icon="thermo"></span><h3 data-i18n="">Surface, not air</h3><p data-i18n="">Landsat measures late-morning ground temperature, not the air people breathe or how hot it feels on the street.</p></div>
+<div class="card feature"><span class="icon-ring warn" data-icon="target"></span><h3 data-i18n="">Evidence, not proof</h3><p data-i18n="">The comparisons show strong patterns, but they can't on their own prove that reclamation caused every degree.</p></div>
+<div class="card feature"><span class="icon-ring warn" data-icon="building"></span><h3 data-i18n="">Ground truth needed</h3><p data-i18n="">Ground sensors, material checks and monitored trials are needed before choosing the right cooling measure.</p></div>
+</div>
+</section>
+<!-- Roadmap -->
+<section class="section">
+<span class="eyebrow" data-i18n="">Roadmap</span>
+<h2 data-i18n="">Where we are, and what's next</h2>
+<p class="intro" data-i18n="">The satellite analysis is done. The next steps move from space to the street.</p>
+<div class="roadmap">
+<div class="card done"><div class="phase" data-i18n="">Phase 1 · Done</div><h3 data-i18n="" style="margin:10px 0 6px">Satellite evidence</h3><p class="muted" data-i18n="" style="margin:0;font-size:.9rem">Reclaimed area, before/after heat, persistent hotspots and a field-visit shortlist.</p></div>
+<div class="card"><div class="phase" data-i18n="">Phase 2 · Next</div><h3 data-i18n="" style="margin:10px 0 6px">Field visit</h3><p class="muted" data-i18n="" style="margin:0;font-size:.9rem">Inspect the shortlisted area: surfaces, materials, shade and who uses the space.</p></div>
+<div class="card"><div class="phase" data-i18n="">Phase 3</div><h3 data-i18n="" style="margin:10px 0 6px">Ground sensors</h3><p class="muted" data-i18n="" style="margin:0;font-size:.9rem">Measure air temperature and heat stress, and test cooling measures like trees and shade.</p></div>
+<div class="card"><div class="phase" data-i18n="">Phase 4</div><h3 data-i18n="" style="margin:10px 0 6px">More sites</h3><p class="muted" data-i18n="" style="margin:0;font-size:.9rem">Madinat Salman and other Gulf reclamation projects.</p></div>
+</div>
+</section>
+<!-- Name -->
+<section class="section">
+<div class="grid g-main">
+<div class="card">
+<span class="eyebrow" data-i18n="">Why "Sidra"?</span>
+<h2 data-i18n="" style="margin-top:10px">Named after a tree that survives the heat</h2>
+<p class="muted" data-i18n="" style="line-height:1.7;margin:0">The sidr tree (Ziziphus spina-christi) is one of Bahrain's most loved native trees. It thrives in
+          extreme heat and little water, and has given shade for generations. We want Bahrain's new islands to be just as resilient.</p>
+</div>
+<div class="card" style="display:grid;place-items:center;text-align:center">
+<div><div data-i18n="" style="font-size:4.5rem">🌳</div><div class="tiny" data-i18n="">Resilience · Shade · Heritage</div></div>
+</div>
+</div>
+</section>
+<!-- Team -->
+<section class="section">
+<span class="eyebrow" data-i18n="">The team</span>
+<h2 data-i18n="">Team Sidra · American University of Bahrain</h2>
+<div class="team" id="team" style="margin-top:20px"></div>
+</section>
+<section class="cta-band">
+<h2 data-i18n="">See the numbers for yourself</h2>
+<p data-i18n="">Explore the measurements, the hotspot map and the field-visit shortlist, or ask Sidra a question.</p>
+<a class="btn-neon" href="index.html"><span data-icon="chart" data-size="16"></span><span data-i18n="">Open the dashboard</span></a>
+</section>
+<footer class="footer-big" id="site-footer"></footer>
+</div>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/assistant.js"></script>
+<script>
+  document.getElementById("team").innerHTML = TEAM.map((m) => `
+    <div class="card member"><div class="avatar">${initials(m.name)}</div><b>${t(m.name)}</b><span>${t(m.major)}</span><span>${t(m.role)}</span></div>`).join("");
+  let R = null;
+  renderScan(document.getElementById("scan"));
+  initChatWidget(() => summarizeResults(R));
+  loadResults().then((res) => {
+    R = res;
+    const M = summarizeResults(R);
+    if (M.diyar_change_vs_sea_c != null) document.getElementById("s-change").textContent = `+${M.diyar_change_vs_sea_c.toFixed(1)}°C`;
+    if (M.reclaimed_area_km2 != null) document.getElementById("s-area").textContent = `${M.reclaimed_area_km2.toFixed(1)} ${t("km²")}`;
+    if (M.persistent_hotspot_ha != null) document.getElementById("s-hot").textContent = `${Math.round(M.persistent_hotspot_ha)} ${t("ha")}`;
+  }).catch(() => {});
+</script>
+</body>
+</html>

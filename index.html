@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Sidra Dashboard</title>
+<meta content="Sidra: satellite evidence for coastal heat planning in Diyar Al Muharraq, Bahrain." name="description"/>
+<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;🌳&lt;/text&gt;&lt;/svg&gt;" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/vendor/leaflet/leaflet.css" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app" id="app">
+<header class="topbar">
+<a class="brand" href="index.html">
+<span class="brand-mark" data-icon="tree" data-size="20"></span>
+<span data-i18n="">Sidra<small>Thermal intelligence</small></span>
+</a>
+<nav class="nav" id="nav">
+<button class="active" data-view="overview"><span data-icon="layers" data-size="15"></span><span data-i18n="">Overview</span></button>
+<button data-view="hotspots"><span data-icon="flame" data-size="15"></span><span data-i18n="">Hotspots</span></button>
+<button data-view="surroundings"><span data-icon="building" data-size="15"></span><span data-i18n="">Surroundings</span></button>
+<button data-view="model"><span data-icon="chart" data-size="15"></span><span data-i18n="">Model</span></button>
+<button data-view="fieldvisit"><span data-icon="target" data-size="15"></span><span data-i18n="">Field visit</span></button>
+<button data-view="mapview"><span data-icon="map" data-size="15"></span><span data-i18n="">Map View</span></button>
+<a href="idea.html"><span data-icon="bulb" data-size="15"></span><span data-i18n="">The Idea</span></a>
+</nav>
+<div class="top-actions">
+<button aria-label="Switch language" class="lang-btn" id="lang-btn" type="button"><span data-i18n="">العربية</span></button>
+<button class="btn-neon" id="report-btn"><span data-icon="download" data-size="16"></span><span data-i18n="">Generate report</span></button>
+</div>
+</header>
+<main id="main">
+<!-- ===================== Overview ===================== -->
+<section class="view active" id="view-overview">
+<div class="page-head">
+<div>
+<div class="eyebrow" data-i18n="">Diyar Al Muharraq · Bahrain</div>
+<h1 data-i18n="">Overview</h1>
+<p data-i18n="">How has surface heat changed where Bahrain built new land on the sea? Three decades of summer satellite data.</p>
+</div>
+<span class="chip"><span data-icon="satellite" data-size="15"></span><span id="scene-chip"><span data-i18n="">--</span></span></span>
+</div>
+<div class="grid g-4">
+<div class="card kpi">
+<div class="card-head" style="margin:0"><span class="label" data-i18n="">Reclaimed area</span><span class="icon-ring" data-icon="layers"></span></div>
+<div class="value"><span id="k-area"><span data-i18n="">--</span></span><small data-i18n="">km²</small></div>
+<div class="foot"><span id="k-area-note"><span data-i18n="">--</span></span></div>
+</div>
+<div class="card kpi hero-kpi">
+<div class="card-head" style="margin:0"><span class="label" data-i18n="">Heat change vs open sea</span><span class="icon-ring" data-icon="flame"></span></div>
+<div class="value"><span id="k-change"><span data-i18n="">--</span></span><small data-i18n="">°C</small></div>
+<div class="foot"><span id="k-change-note"><span data-i18n="">--</span></span><a data-goto="hotspots" href="#"><span data-i18n="">Details</span> <span data-icon="arrow" data-size="13"></span></a></div>
+</div>
+<div class="card kpi">
+<div class="card-head" style="margin:0"><span class="label" data-i18n="">Median summer surface temperature</span><span class="icon-ring land" data-icon="thermo"></span></div>
+<div class="value"><span id="k-lst"><span data-i18n="">--</span></span><small data-i18n="">°C</small></div>
+<div class="foot"><span data-i18n="">Late-morning, June–September</span></div>
+</div>
+<div class="card kpi">
+<div class="card-head" style="margin:0"><span class="label" data-i18n="">Persistent hotspots</span><span class="icon-ring warn" data-icon="target"></span></div>
+<div class="value"><span id="k-hot"><span data-i18n="">--</span></span><small data-i18n="">ha</small></div>
+<div class="foot"><span id="k-hot-note"><span data-i18n="">--</span></span><a data-goto="fieldvisit" href="#"><span data-i18n="">Details</span> <span data-icon="arrow" data-size="13"></span></a></div>
+</div>
+</div>
+<div class="grid g-main mt">
+<div class="card">
+<div class="card-head">
+<div>
+<div class="card-title" data-i18n="">Before and after reclamation</div>
+<div class="card-sub" data-i18n="">Summer surface temperature above open sea, at the same locations</div>
+</div>
+<span class="icon-ring" data-icon="chart"></span>
+</div>
+<div class="legend" id="ba-legend" style="margin-bottom:10px"></div>
+<div class="chart-box"><canvas aria-label="Before and after temperature chart" id="ba-chart"></canvas></div>
+<div class="tiny" data-i18n="" style="margin-top:8px">Sea-centering compares each date with open sea. It does not by itself prove what caused the change.</div>
+</div>
+<div class="card">
+<div class="card-head">
+<div><div class="card-title" data-i18n="">Evidence base</div><div class="card-sub" data-i18n="">Open satellite and weather data</div></div>
+<span class="icon-ring" data-icon="satellite"></span>
+</div>
+<div class="tiles" id="evidence-tiles"></div>
+<ul class="checklist mt" id="source-list"></ul>
+</div>
+</div>
+<div class="grid g-main mt">
+<div class="card">
+<div class="card-head">
+<div>
+<div class="card-title" data-i18n="">The sea cools the coastline</div>
+<div class="card-sub" data-i18n="">Temperature by distance from the shoreline, compared with Diyar's median</div>
+</div>
+<span class="icon-ring sea" data-icon="waves"></span>
+</div>
+<div class="chart-box"><canvas aria-label="Coastal cooling profile" id="coast-chart"></canvas></div>
+</div>
+<div class="card">
+<div class="card-head">
+<div><div class="card-title" data-i18n="">Sidra insights</div><div class="card-sub" data-i18n="">Generated automatically from the latest results</div></div>
+<span class="icon-ring" data-icon="sparkle"></span>
+</div>
+<div id="insights"></div>
+</div>
+</div>
+</section>
+<!-- ===================== Hotspots ===================== -->
+<section class="view" id="view-hotspots">
+<div class="page-head">
+<div>
+<div class="eyebrow" data-i18n="">Part 1 · Reclaimed land</div>
+<h1 data-i18n="">Hotspots</h1>
+<p data-i18n="">Where inside Diyar is it repeatedly hotter than the rest of the development?</p>
+</div>
+<span class="chip"><span data-icon="target" data-size="15"></span><span data-i18n="">Getis–Ord Gi* · 90 m cells</span></span>
+</div>
+<div class="grid g-4">
+<div class="card kpi"><div class="label" data-i18n="">Persistent hotspot area</div><div class="value"><span id="h-persist"><span data-i18n="">--</span></span><small data-i18n="">ha</small></div><div class="foot"><span data-i18n="">Hottest 10% on at least half the dates</span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Stable under all checks</div><div class="value"><span id="h-stable"><span data-i18n="">--</span></span><small data-i18n="">ha</small></div><div class="foot"><span data-i18n="">Neighbourhood and period checks</span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Hotspot zones</div><div class="value"><span id="h-zones"><span data-i18n="">--</span></span></div><div class="foot"><span id="h-cells"><span data-i18n="">--</span></span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Shoreline land, 0–30 m from water</div><div class="value"><span id="h-coast"><span data-i18n="">--</span></span><small data-i18n="">°C</small></div><div class="foot"><span id="h-buffer"><span data-i18n="">--</span></span></div></div>
+</div>
+<div class="grid g-main mt">
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">Area by hotspot class</div><div class="card-sub" data-i18n="">Hectares of 90 m cells inside Diyar</div></div><span class="icon-ring" data-icon="flame"></span></div>
+<div class="chart-box sm"><canvas aria-label="Area by hotspot class" id="class-chart"></canvas></div>
+<div class="table-wrap mt"><table class="data-table" id="class-table"></table></div>
+</div>
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">How robust are the hotspots?</div><div class="card-sub" data-i18n="">Overlap of hotspots when the method changes</div></div><span class="icon-ring warn" data-icon="alert"></span></div>
+<div id="robust-bars"></div>
+<div class="tiny" data-i18n="">Jaccard overlap: 1 = identical hotspots, 0 = no overlap.</div>
+</div>
+</div>
+<div class="grid g-2 mt gallery">
+<div class="card"><div class="card-head"><div><div class="card-title" data-i18n="">Hotspots and persistence</div></div></div><img alt="Reclaimed-land hotspots and persistence" src="results/reclaimed_land_hotspots.png"/></div>
+<div class="card"><div class="card-head"><div><div class="card-title" data-i18n="">Before vs after reclamation</div></div></div><img alt="Surface temperature before and after reclamation" src="results/reclaimed_land_before_after.png"/></div>
+</div>
+<div class="card mt gallery"><div class="card-head"><div><div class="card-title" data-i18n="">Reclamation history from satellite water index</div></div></div><img alt="Reclamation history" src="results/reclamation_history.png"/></div>
+</section>
+<!-- ===================== Surroundings ===================== -->
+<section class="view" id="view-surroundings">
+<div class="page-head">
+<div>
+<div class="eyebrow" data-i18n="">Part 2 · Existing land nearby</div>
+<h1 data-i18n="">Surroundings</h1>
+<p data-i18n="">Did older neighbourhoods next to the new land get warmer compared with similar land further away?</p>
+</div>
+<span class="chip"><span data-icon="building" data-size="15"></span><span data-i18n="">120 m cells · quality-masked</span></span>
+</div>
+<div class="grid g-3">
+<div class="card kpi hero-kpi"><div class="label" data-i18n="">Nearby-minus-control gap change</div><div class="value"><span id="s-gap"><span data-i18n="">--</span></span><small data-i18n="">°C</small></div><div class="foot"><span id="s-gap-ci"><span data-i18n="">--</span></span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Cells compared</div><div class="value"><span id="s-cells"><span data-i18n="">--</span></span></div><div class="foot"><span id="s-cells-note"><span data-i18n="">--</span></span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Usable summer dates</div><div class="value"><span id="s-dates"><span data-i18n="">--</span></span></div><div class="foot"><span id="s-dates-note"><span data-i18n="">--</span></span></div></div>
+</div>
+<div class="grid g-main mt">
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">Gap by summer month</div><div class="card-sub" data-i18n="">Nearby land minus control land, before vs recent period</div></div><span class="icon-ring" data-icon="chart"></span></div>
+<div class="legend" id="month-legend" style="margin-bottom:10px"></div>
+<div class="chart-box"><canvas aria-label="Monthly gap chart" id="month-chart"></canvas></div>
+</div>
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">Uncertainty</div><div class="card-sub" data-i18n="">Whole-year and spatial-block resampling</div></div><span class="icon-ring warn" data-icon="alert"></span></div>
+<div id="ci-rows"></div>
+<div class="callout warn mt" id="s-interpret"></div>
+</div>
+</div>
+<div class="card mt gallery"><div class="card-head"><div><div class="card-title" data-i18n="">Nearby existing-land temperature comparison</div></div></div><img alt="Nearby existing-land temperature comparison" src="results/surrounding_land_temperature.png"/></div>
+</section>
+<!-- ===================== Model ===================== -->
+<section class="view" id="view-model">
+<div class="page-head">
+<div>
+<div class="eyebrow" data-i18n="">Under the hood</div>
+<h1 data-i18n="">Model</h1>
+<p data-i18n="">A gradient-boosting model predicts recent surface temperature on control land, tested on dates and places it never saw.</p>
+</div>
+</div>
+<div class="grid g-3">
+<div class="card kpi"><div class="label" data-i18n="">Best spatial-test error (MAE)</div><div class="value"><span id="m-space"><span data-i18n="">--</span></span><small data-i18n="">°C</small></div><div class="foot"><span id="m-space-note"><span data-i18n="">--</span></span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Held-out dates error (MAE)</div><div class="value"><span id="m-date"><span data-i18n="">--</span></span><small data-i18n="">°C</small></div><div class="foot"><span id="m-date-note"><span data-i18n="">--</span></span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Input features</div><div class="value"><span id="m-features"><span data-i18n="">--</span></span></div><div class="foot"><span data-i18n="">Landsat, Sentinel-2 and ERA5 weather</span></div></div>
+</div>
+<div class="grid g-main mt">
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">Prediction error by validation test</div><div class="card-sub" data-i18n="">Mean absolute error in °C, lower is better</div></div><span class="icon-ring" data-icon="chart"></span></div>
+<div class="legend" id="ml-legend" style="margin-bottom:10px"></div>
+<div class="chart-box"><canvas aria-label="Model error chart" id="ml-chart"></canvas></div>
+</div>
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">How we validate</div><div class="card-sub" data-i18n="">Nearby pixels and dates are related, so we hold out whole groups</div></div><span class="icon-ring" data-icon="layers"></span></div>
+<ol class="steps">
+<li><b data-i18n="">Space</b><span data-i18n="">Whole spatial blocks are withheld, so the model is tested on areas it never saw.</span></li>
+<li><b data-i18n="">Date</b><span data-i18n="">Whole summer dates are withheld, so it is tested on new weather and seasons.</span></li>
+<li><b data-i18n="">Space and date</b><span data-i18n="">Both at once: the hardest test.</span></li>
+<li><b data-i18n="">Forward year</b><span data-i18n="">All of 2025 is held out to test prediction into the future.</span></li>
+</ol>
+<div class="callout" data-i18n="">The model is used to screen for cells that are warmer than expected. It does not measure how much cooling an intervention would achieve.</div>
+</div>
+</div>
+<div class="card mt gallery"><div class="card-head"><div><div class="card-title" data-i18n="">Additional satellite features on the same held-out observations</div></div></div><img alt="Additional satellite features compared" src="results/satellite_feature_comparison.png"/></div>
+</section>
+<!-- ===================== Field visit ===================== -->
+<section class="view" id="view-fieldvisit">
+<div class="page-head">
+<div>
+<div class="eyebrow" data-i18n="">From data to action</div>
+<h1 data-i18n="">Field visit</h1>
+<p data-i18n="">Cells that were repeatedly warmer than the model predicted, shortlisted for an on-the-ground inspection.</p>
+</div>
+</div>
+<div class="grid g-3">
+<div class="card kpi hero-kpi"><div class="label" data-i18n="">Priority cells</div><div class="value"><span id="f-cells"><span data-i18n="">--</span></span></div><div class="foot"><span id="f-area"><span data-i18n="">--</span></span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Model and control choices tested</div><div class="value"><span id="f-variants"><span data-i18n="">--</span></span></div><div class="foot"><span data-i18n="">Selection checked across all of them</span></div></div>
+<div class="card kpi"><div class="label" data-i18n="">Cells reviewed</div><div class="value"><span id="f-supported"><span data-i18n="">--</span></span></div><div class="foot"><span data-i18n="">Nearby cells with enough clear data</span></div></div>
+</div>
+<div class="grid g-main mt">
+<div class="card gallery"><div class="card-head"><div><div class="card-title" data-i18n="">Inspection candidates</div></div></div><img alt="Inspection candidate cells" src="results/inspection_candidates.png"/></div>
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">What to check on site</div></div><span class="icon-ring" data-icon="target"></span></div>
+<ul class="list-clean">
+<li data-i18n="">Surface materials: dark paving, roofs, bare sand.</li>
+<li data-i18n="">Shade and vegetation: trees, irrigation, shaded walkways.</li>
+<li data-i18n="">Air flow: building layout blocking sea breezes.</li>
+<li data-i18n="">Local activity: car parks, industry, heat sources.</li>
+</ul>
+<div class="callout warn mt" data-i18n="">Satellites measure late-morning ground temperature, not air temperature or how hot people feel. Ground measurements are needed before choosing interventions.</div>
+</div>
+</div>
+</section>
+<!-- ===================== Map ===================== -->
+<section class="view" id="view-mapview">
+<div class="page-head">
+<div>
+<div class="eyebrow" data-i18n="">Study area</div>
+<h1 data-i18n="">Map view</h1>
+<p data-i18n="">Where we measured, and what the satellites see.</p>
+</div>
+</div>
+<div class="grid g-main">
+<div class="card"><div id="map"></div></div>
+<div class="card">
+<div class="card-head"><div><div class="card-title" data-i18n="">Study settings</div><div class="card-sub" data-i18n="">From the notebooks' saved settings</div></div><span class="icon-ring" data-icon="satellite"></span></div>
+<div id="scene-kv"></div>
+</div>
+</div>
+<div class="card mt gallery"><div class="card-head"><div><div class="card-title" data-i18n="">Example input: Landsat 8, 26 September 2025</div><div class="card-sub" data-i18n="">Natural colour and surface temperature after quality screening</div></div></div><img alt="Landsat sample preview" src="results/sample_preview.png"/></div>
+</section>
+</main>
+<footer class="footer-big" id="site-footer"></footer>
+</div>
+<div class="tooltip" id="tooltip"></div>
+<script src="assets/vendor/chart.umd.js"></script>
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/assistant.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>
