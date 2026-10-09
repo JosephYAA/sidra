@@ -1,0 +1,72 @@
+# Re-runs both notebooks on GitHub and publishes their outputs to results/,
+# so the website (GitHub Pages) shows the new numbers without any manual copying.
+#
+# Runs when a notebook or requirements.txt changes on main, or by hand:
+# Actions tab -> "Update results from notebooks" -> Run workflow.
+name: Update results from notebooks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "notebooks/**"
+      - "requirements.txt"
+      - "scripts/publish_results.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-results
+  cancel-in-progress: true
+
+jobs:
+  run-notebooks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      # Downloaded satellite inputs are reused between runs to save time.
+      - name: Cache downloaded inputs
+        uses: actions/cache@v4
+        with:
+          path: data/expanded
+          key: sidra-inputs-${{ hashFiles('notebooks/**') }}
+          restore-keys: sidra-inputs-
+
+      - name: Run notebook 1 (reclaimed land)
+        run: >
+          jupyter nbconvert --to notebook --execute --inplace
+          --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3
+          "notebooks/Sidra_Hotspots_Problem_🏝️.ipynb"
+
+      - name: Run notebook 2 (surrounding land)
+        run: >
+          jupyter nbconvert --to notebook --execute --inplace
+          --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3
+          notebooks/02_surrounding_land_heat.ipynb
+
+      - name: Publish outputs to results/
+        run: python scripts/publish_results.py
+
+      - name: Commit updated results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results notebooks
+          if git diff --cached --quiet; then
+            echo "Results unchanged."
+          else
+            git commit -m "Update results from notebooks"
+            git push
+          fi
