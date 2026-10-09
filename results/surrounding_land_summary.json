@@ -1066,9 +1066,9 @@
         1704
       ],
       "sampling": "nearest categorical resampling to aligned 10m grid",
-      "retrieved_utc": "2026-10-07T10:21:10.455660+00:00",
+      "retrieved_utc": "2026-10-09T12:03:23.931031+00:00",
       "path": "data/expanded/landcover/io_39R_2017_10m.npz",
-      "sha256": "845772ca00457c62db3fc3dca0f7e69420d572525232275f0cd9086b99f520d1"
+      "sha256": "7f93843db5b324a4dea2c10e236622f314d11ec45545836e6324d1963b20b0f7"
     },
     {
       "year": 2023,
@@ -1092,18 +1092,18 @@
         1704
       ],
       "sampling": "nearest categorical resampling to aligned 10m grid",
-      "retrieved_utc": "2026-10-07T10:21:12.201208+00:00",
+      "retrieved_utc": "2026-10-09T12:03:25.485836+00:00",
       "path": "data/expanded/landcover/io_39R_2023_10m.npz",
-      "sha256": "eb50a45aec05c514a85b424720dae44c70a2adab3e6d286babb3f5ae2b70895d"
+      "sha256": "29d4625fcfa7858c6b8170f998f35c351b20a449c7c00e67f3055cec9193ff72"
     }
   ],
   "surface_change_scope": "Descriptive conditioning on optical changes and 2017\u20132023 cover, not a total causal reclamation effect",
   "stable_baseline_candidates": 5,
   "candidate_inspection_areas": 1,
-  "site_review_gallery": "data/results/notebook_expanded/site_review.html",
-  "review_cell_geojson": "data/results/notebook_expanded/candidate_site_cells.geojson",
+  "site_review_gallery": "outputs/surrounding_land/site_review.html",
+  "review_cell_geojson": "outputs/surrounding_land/candidate_site_cells.geojson",
   "runtime": {
-    "Python": "3.14.7",
+    "Python": "3.14.8",
     "numpy": "2.5.3",
     "pandas": "3.0.6",
     "scikit-learn": "1.9.1",
@@ -1132,9 +1132,9 @@
       2025
     ],
     "year_balanced_extended_gap_change_c": 1.0115731557210286,
-    "historical_gap_slope_c_per_year": 0.07417035784040182,
-    "historical_slope_resampling_lower": -0.022706334183855956,
-    "historical_slope_resampling_upper": 0.2118410382952011,
+    "historical_gap_slope_c_per_year": 0.07417035784040177,
+    "historical_slope_resampling_lower": -0.022706334183855932,
+    "historical_slope_resampling_upper": 0.21184103829520107,
     "historical_slope_resampling": {
       "attempts": 2000,
       "valid_repeats": 1966,
