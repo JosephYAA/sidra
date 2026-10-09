@@ -1133,8 +1133,8 @@
     ],
     "year_balanced_extended_gap_change_c": 1.0115731557210286,
     "historical_gap_slope_c_per_year": 0.07417035784040177,
-    "historical_slope_resampling_lower": -0.022706334183855932,
-    "historical_slope_resampling_upper": 0.21184103829520107,
+    "historical_slope_resampling_lower": -0.02270633418385602,
+    "historical_slope_resampling_upper": 0.2118410382952009,
     "historical_slope_resampling": {
       "attempts": 2000,
       "valid_repeats": 1966,
