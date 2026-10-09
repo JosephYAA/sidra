@@ -40,7 +40,7 @@
 <div>
 <div class="eyebrow" data-i18n="">Diyar Al Muharraq · Bahrain</div>
 <h1 data-i18n="">Overview</h1>
-<p data-i18n="">How has surface heat changed where Bahrain built new land on the sea? Three decades of summer satellite data.</p>
+<p data-i18n="">How does reclaimed land compare with similar existing land? Same-date summer observations and persistent hotspot maps.</p>
 </div>
 <span class="chip"><span data-icon="satellite" data-size="15"></span><span id="scene-chip"><span data-i18n="">--</span></span></span>
 </div>
@@ -51,7 +51,7 @@
 <div class="foot"><span id="k-area-note"><span data-i18n="">--</span></span></div>
 </div>
 <div class="card kpi hero-kpi">
-<div class="card-head" style="margin:0"><span class="label" data-i18n="">Heat change vs open sea</span><span class="icon-ring" data-icon="flame"></span></div>
+<div class="card-head" style="margin:0"><span class="label" data-i18n="">Gap vs matched existing land</span><span class="icon-ring" data-icon="flame"></span></div>
 <div class="value"><span id="k-change"><span data-i18n="">--</span></span><small data-i18n="">°C</small></div>
 <div class="foot"><span id="k-change-note"><span data-i18n="">--</span></span><a data-goto="hotspots" href="#"><span data-i18n="">Details</span> <span data-icon="arrow" data-size="13"></span></a></div>
 </div>
@@ -70,14 +70,15 @@
 <div class="card">
 <div class="card-head">
 <div>
-<div class="card-title" data-i18n="">Before and after reclamation</div>
-<div class="card-sub" data-i18n="">Summer surface temperature above open sea, at the same locations</div>
+<div class="card-title" data-i18n="">Matched reclaimed and existing land</div>
+<div class="card-sub" data-i18n="">Comparable inland cells observed on the same summer dates</div>
 </div>
 <span class="icon-ring" data-icon="chart"></span>
 </div>
 <div class="legend" id="ba-legend" style="margin-bottom:10px"></div>
-<div class="chart-box"><canvas aria-label="Before and after temperature chart" id="ba-chart"></canvas></div>
-<div class="tiny" data-i18n="" style="margin-top:8px">Sea-centering compares each date with open sea. It does not by itself prove what caused the change.</div>
+<div class="chart-box"><canvas aria-label="Matched land temperature chart" id="ba-chart"></canvas></div>
+<div class="tiny" id="matched-support" style="margin-top:8px"></div>
+<div class="tiny" data-i18n="" style="margin-top:8px">Matching accounts for measured surface differences. Results describe the matched subset; unmeasured differences can remain.</div>
 </div>
 <div class="card">
 <div class="card-head">
@@ -138,7 +139,7 @@
 </div>
 <div class="grid g-2 mt gallery">
 <div class="card"><div class="card-head"><div><div class="card-title" data-i18n="">Hotspots and persistence</div></div></div><img alt="Reclaimed-land hotspots and persistence" src="results/reclaimed_land_hotspots.png"/></div>
-<div class="card"><div class="card-head"><div><div class="card-title" data-i18n="">Before vs after reclamation</div></div></div><img alt="Surface temperature before and after reclamation" src="results/reclaimed_land_before_after.png"/></div>
+<div class="card"><div class="card-head"><div><div class="card-title" data-i18n="">Matched land comparison</div></div></div><img alt="Matched existing-land surface-temperature comparison" src="results/reclaimed_land_matched.png"/></div>
 </div>
 <div class="card mt gallery"><div class="card-head"><div><div class="card-title" data-i18n="">Reclamation history from satellite water index</div></div></div><img alt="Reclamation history" src="results/reclamation_history.png"/></div>
 </section>
@@ -256,9 +257,9 @@
 <div class="tooltip" id="tooltip"></div>
 <script src="assets/vendor/chart.umd.js"></script>
 <script src="assets/vendor/leaflet/leaflet.js"></script>
-<script src="assets/js/i18n.js"></script>
-<script src="assets/js/common.js"></script>
-<script src="assets/js/assistant.js"></script>
-<script src="assets/js/dashboard.js"></script>
+<script src="assets/js/i18n.js?v=matched-land-1"></script>
+<script src="assets/js/common.js?v=matched-land-1"></script>
+<script src="assets/js/assistant.js?v=matched-land-1"></script>
+<script src="assets/js/dashboard.js?v=matched-land-1"></script>
 </body>
 </html>

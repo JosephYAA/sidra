@@ -28,16 +28,16 @@ const fx = (n, d = 2) => Number(n).toFixed(d);
 const TOPICS = [
   {
     id: "tax",
-    q: ["How much hotter did the new land get?", "كم ازدادت حرارة الأرض الجديدة؟"],
-    kw: ["thermal tax", "tax", "how much hotter", "how hot", "difference", "warmer", "hotter than", "result", "finding", "change", "الضريبه الحراريه", "ضريبه", "الفرق", "كم ازدادت", "اكثر حراره", "النتيجه", "النتائج", "التغير"],
+    q: ["How does reclaimed land compare with existing land?", "كيف تقارن الأرض المستصلحة بالأرض القائمة؟"],
+    kw: ["matched land", "compare with existing land", "تقارن الأرض المستصلحة", "الأرض القائمة المطابقة", "thermal tax", "tax", "how much hotter", "how hot", "difference", "warmer", "hotter than", "result", "finding", "change", "الضريبه الحراريه", "ضريبه", "الفرق", "كم ازدادت", "اكثر حراره", "النتيجه", "النتائج", "التغير"],
     a: (M) => [
-      `At the same locations, Diyar's summer surface temperature rose by about ${fx(M.diyar_change_vs_sea_c, 1)}°C relative to open sea after it was built on the sea, compared with only ${fx(M.original_land_change_vs_sea_c, 1)}°C on original land. Today Diyar's median late-morning summer surface temperature is about ${fx(M.diyar_median_summer_lst_c, 1)}°C. This compares surface histories; on its own it doesn't prove cause.`,
-      `في المواقع نفسها، ارتفعت حرارة سطح ديار المحرق صيفاً بنحو ${fx(M.diyar_change_vs_sea_c, 1)}°م مقارنة بالبحر المفتوح بعد بنائها فوق البحر، مقابل ${fx(M.original_land_change_vs_sea_c, 1)}°م فقط على الأرض الأصلية. واليوم يبلغ وسيط حرارة سطح ديار صيفاً قبل الظهر نحو ${fx(M.diyar_median_summer_lst_c, 1)}°م. هذه مقارنة بين تواريخ الأسطح، ولا تثبت السبب وحدها.`],
+      M.diyar_matched_land_gap_c == null ? "There is insufficient matching support for a reclaimed-versus-existing-land estimate. Check the notebook coverage and balance diagnostics." : `Diyar minus matched existing-land surface temperature is ${fx(M.diyar_matched_land_gap_c, 2)}°C across ${M.matched_land_complete_summers} complete summers. Positive means warmer; negative means cooler. Cells are paired on the same dates using measured surface cover, vegetation, surrounding development and distance from water. This applies to matched inland cells and does not establish causation. ${M.matched_land_support_status === "limited_balance" ? "Residual feature imbalance is flagged in the results." : ""}`,
+      M.diyar_matched_land_gap_c == null ? "لا توجد مطابقة كافية لتقدير الفرق بين الأرض المستصلحة والقائمة. راجع تغطية المطابقة وتوازن الخصائص في الدفتر." : `فرق حرارة سطح ديار ناقص الأرض القائمة المطابقة هو ${fx(M.diyar_matched_land_gap_c, 2)}°م خلال ${M.matched_land_complete_summers} مواسم صيف كاملة. الموجب يعني أدفأ والسالب أبرد. تُطابق الخلايا في التواريخ نفسها بحسب الغطاء السطحي والنباتات والعمران المحيط والمسافة من الماء. ينطبق ذلك على الخلايا الداخلية المطابقة ولا يثبت السببية، ${M.matched_land_support_status === "limited_balance" ? "وتشير النتائج إلى بقاء فروق في توازن الخصائص." : ""}`],
     next: ["why", "hotspots", "cause"],
   },
   {
     id: "why",
-    q: ["Why is reclaimed land hotter?", "لماذا الأرض المستصلحة أكثر حرارة؟"],
+    q: ["What affects surface heat?", "ما الذي يؤثر في حرارة السطح؟"],
     kw: ["why", "reason", "how come", "hotter", "heat up", "لماذا", "ليش", "ليه", "سبب", "تسخن"],
     a: () => [
       "Seawater is a natural heat sink: it absorbs the sun's energy, mixes it into deeper water and stays cool. Reclaimed land replaces it with sand, concrete and asphalt, which absorb sunlight, heat up quickly and release that heat into the air and the neighbourhoods built on top.",
@@ -49,8 +49,8 @@ const TOPICS = [
     q: ["Did reclamation cause the heat?", "هل الاستصلاح هو سبب الحرارة؟"],
     kw: ["cause", "caused", "causal", "prove", "proof", "because of reclamation", "responsible", "يسبب", "سببت", "اثبات", "يثبت", "السبب"],
     a: () => [
-      "Not proven yet. Our comparisons are observational: they show that reclaimed locations warmed far more relative to the sea than original land did, but sensors changed over the decades and control areas may have developed too. Ground measurements, material checks and monitored interventions are needed to isolate the effect of reclamation.",
-      "لم يثبت ذلك بعد. مقارناتنا قائمة على الملاحظة: تُظهر أن المواقع المستصلحة سخنت أكثر بكثير مقارنة بالبحر من الأرض الأصلية، لكن أجهزة الاستشعار تغيرت عبر العقود وقد تكون مناطق المقارنة تطورت أيضاً. نحتاج إلى قياسات ميدانية وفحص للمواد ومراقبة للتدخلات لعزل أثر الاستصلاح."],
+      "Our comparisons are observational. Matching reclaimed and existing land on the same dates accounts for measured surface differences, but materials, shade, building height, irrigation and local winds can still differ. The observed gap cannot isolate reclamation's causal effect. Ground measurements and material checks are needed.",
+      "مقارناتنا قائمة على الملاحظة. مطابقة الأرض المستصلحة والقائمة في التواريخ نفسها تراعي الخصائص المقاسة، لكن المواد والظل وارتفاع المباني والري والرياح المحلية قد تختلف. لا يعزل الفرق المرصود الأثر السببي للاستصلاح، ونحتاج إلى قياسات ميدانية وفحص المواد."],
     next: ["limits", "fieldvisit", "tax"],
   },
   {
@@ -166,7 +166,7 @@ const TOPICS = [
     q: ["How do you measure temperature?", "كيف تقيسون الحرارة؟"],
     kw: ["lst", "land surface temperature", "measure temperature", "thermal band", "measure heat", "how do you measure", "درجه حراره السطح", "تقيسون", "قياس الحراره", "النطاق الحراري", "كيف تقيس"],
     a: () => [
-      "We use Landsat Collection 2 Level-2 surface temperature from June–September, with quality masks (clouds, shadows, and an ST_QA uncertainty of at most 3 K). It's late-morning ground temperature, not air temperature or how hot people feel. Each date is compared with the median temperature of open sea.",
+      "We use Landsat Collection 2 Level-2 surface temperature from June–September, with quality masks (clouds, shadows, and an ST_QA uncertainty of at most 3 K). It's late-morning ground temperature, not air temperature or how hot people feel. The reclaimed-land benchmark uses matched existing-land cells observed on the same date.",
       "نستخدم حرارة السطح من لاندسات المجموعة 2 المستوى 2 للفترة من يونيو إلى سبتمبر، مع أقنعة الجودة (الغيوم والظلال وعدم يقين ST_QA لا يتجاوز 3 كلفن). إنها حرارة الأرض قبل الظهر، وليست حرارة الهواء أو ما يشعر به الناس. ويُقارن كل تاريخ بوسيط حرارة البحر المفتوح."],
     next: ["data", "resolution", "limits"],
   },
@@ -175,8 +175,8 @@ const TOPICS = [
     q: ["What data do you use?", "ما البيانات التي تستخدمونها؟"],
     kw: ["data", "dataset", "satellite", "source", "scene", "sentinel", "landsat", "era5", "weather", "land cover", "بيانات", "قمر", "اقمار", "مصدر", "مصادر", "صور", "سنتينل", "لاندسات", "الطقس"],
     a: (M) => [
-      `Four open sources: Landsat Collection 2 Level-2 (USGS; ${M.summer_scenes_before} earlier and ${M.summer_scenes_recent} recent summer scenes in Part 1), Sentinel-2 Level-2A (ESA Copernicus), the annual 10 m land-cover map from Impact Observatory, and ERA5 hourly weather from Copernicus C3S. All are accessed through Microsoft Planetary Computer or public mirrors, with no API keys.`,
-      `أربعة مصادر مفتوحة: لاندسات المجموعة 2 المستوى 2 (هيئة المسح الجيولوجي الأمريكية؛ ${M.summer_scenes_before} صورة صيفية سابقة و${M.summer_scenes_recent} حديثة في الجزء الأول)، وسنتينل-2 المستوى 2A (كوبرنيكوس)، وخريطة الغطاء الأرضي السنوية بدقة 10 م من Impact Observatory، وبيانات الطقس الساعية ERA5 من كوبرنيكوس. وكلها متاحة عبر Microsoft Planetary Computer أو مرايا عامة دون مفاتيح.`],
+      `Four open sources: Landsat Collection 2 Level-2 (USGS; ${M.summer_scenes_recent} recent summer scenes in Part 1), Sentinel-2 Level-2A (ESA Copernicus), the annual 10 m land-cover map from Impact Observatory, and ERA5 hourly weather from Copernicus C3S. All are accessed through Microsoft Planetary Computer or public mirrors, with no API keys.`,
+      `أربعة مصادر مفتوحة: لاندسات المجموعة 2 المستوى 2 (هيئة المسح الجيولوجي الأمريكية؛ ${M.summer_scenes_recent} صورة صيفية حديثة في الجزء الأول)، وسنتينل-2 المستوى 2A (كوبرنيكوس)، وخريطة الغطاء الأرضي السنوية بدقة 10 م من Impact Observatory، وبيانات الطقس الساعية ERA5 من كوبرنيكوس. وكلها متاحة عبر Microsoft Planetary Computer أو مرايا عامة دون مفاتيح.`],
     next: ["whysat", "lst", "resolution"],
   },
   {
@@ -184,7 +184,7 @@ const TOPICS = [
     q: ["Why use satellites?", "لماذا الأقمار الصناعية؟"],
     kw: ["why satellite", "why satellites", "weather station", "sensors on the ground", "لماذا الاقمار", "ليش الاقمار", "محطات الطقس", "حساسات"],
     a: () => [
-      "Satellites cover whole islands at once, and Landsat goes back to the 1990s, before Diyar existed, so we can compare before and after. The data is free and open, and the method can be repeated for any coastline. Weather stations only measure a few points.",
+      "Satellites cover whole islands at once. Landsat optical history identifies reclaimed land, while recent thermal images compare matched reclaimed and existing land on the same dates. The data is free and open, and the method can be repeated for any coastline. Weather stations only measure a few points.",
       "تغطي الأقمار الصناعية جزراً كاملة دفعة واحدة، ويعود أرشيف لاندسات إلى التسعينيات قبل وجود ديار، لذا يمكن المقارنة بين ما قبل وما بعد. البيانات مجانية ومفتوحة، ويمكن تكرار المنهجية لأي ساحل. أما محطات الطقس فتقيس نقاطاً قليلة فقط."],
     next: ["data", "elsewhere", "how"],
   },
@@ -238,8 +238,8 @@ const TOPICS = [
     q: ["How does Sidra work?", "كيف تعمل سدرة؟"],
     kw: ["how does", "how it works", "how do you", "method", "methodology", "pipeline", "steps", "process", "approach", "كيف تعمل", "كيف يعمل", "المنهجيه", "الطريقه", "الخطوات", "طريقه العمل"],
     a: () => [
-      "Two parts. Part 1 (reclaimed land): find water-to-land changes with MNDWI, compare summer temperatures with open sea before and after, then map persistent hotspots with Getis–Ord Gi*. Part 2 (surrounding land): compare nearby and control land over time with quality-masked Landsat data, then use a validated model to shortlist cells for a field visit.",
-      "جزءان. الجزء الأول (الأرض المستصلحة): تحديد التحول من ماء إلى يابسة بمؤشر MNDWI، ومقارنة حرارة الصيف بالبحر المفتوح قبل وبعد، ثم رسم النقاط الساخنة الدائمة بإحصاء Getis–Ord Gi*. الجزء الثاني (الأراضي المحيطة): مقارنة الأراضي القريبة وأراضي المقارنة عبر الزمن ببيانات لاندسات بعد أقنعة الجودة، ثم استخدام نموذج مُختبر لترشيح خلايا للزيارة الميدانية."],
+      "Two parts. Part 1 (reclaimed land): find water-to-land changes with MNDWI, compare same-date summer temperatures with matched existing land, then map persistent hotspots with Getis–Ord Gi*. Part 2 (surrounding land): compare nearby and control land over time with quality-masked Landsat data, then use a validated model to shortlist cells for a field visit.",
+      "جزءان. الجزء الأول (الأرض المستصلحة): تحديد التحول من ماء إلى يابسة بمؤشر MNDWI، ومقارنة حرارة الصيف بالأرض القائمة المطابقة في التواريخ نفسها، ثم رسم النقاط الساخنة الدائمة بإحصاء Getis–Ord Gi*. الجزء الثاني (الأراضي المحيطة): مقارنة الأراضي القريبة وأراضي المقارنة عبر الزمن ببيانات لاندسات بعد أقنعة الجودة، ثم استخدام نموذج مُختبر لترشيح خلايا للزيارة الميدانية."],
     next: ["data", "hotspots", "surround"],
   },
   {
@@ -319,8 +319,8 @@ const TOPICS = [
     q: ["What can you help with?", "بماذا تساعدني؟"],
     kw: ["help", "what can you", "what do you know", "options", "menu", "ساعدني", "مساعده", "ماذا تعرف", "بماذا"],
     a: () => [
-      "I can explain our findings (heat change vs the sea, hotspots, shoreline cooling, nearby neighbourhoods), the method (MNDWI, Gi*, validation, the model), the data sources, the limitations and the field-visit shortlist. You can also tap the microphone and ask by voice.",
-      "يمكنني شرح نتائجنا (تغير الحرارة مقارنة بالبحر، والنقاط الساخنة، وتبريد الشاطئ، والأحياء المجاورة)، والمنهجية (MNDWI وGi* والتحقق والنموذج)، ومصادر البيانات، والحدود، وقائمة الفحص الميداني. ويمكنك أيضاً الضغط على الميكروفون وطرح سؤالك بالصوت."],
+      "I can explain our findings (matched existing-land comparison, hotspots, shoreline profiles, nearby neighbourhoods), the method (MNDWI, Gi*, validation, the model), the data sources, the limitations and the field-visit shortlist. You can also tap the microphone and ask by voice.",
+      "يمكنني شرح نتائجنا (المقارنة بالأرض القائمة المطابقة، والنقاط الساخنة، وتبريد الشاطئ، والأحياء المجاورة)، والمنهجية (MNDWI وGi* والتحقق والنموذج)، ومصادر البيانات، والحدود، وقائمة الفحص الميداني. ويمكنك أيضاً الضغط على الميكروفون وطرح سؤالك بالصوت."],
     next: ["tax", "hotspots", "how"],
   },
   {
@@ -343,6 +343,8 @@ const DEFAULT_SUGGESTIONS = ["tax", "hotspots", "coast", "surround", "fieldvisit
 
 function matchTopic(question) {
   const q = normalizeText(question);
+  const exact = TOPICS.find((tp) => tp.q.some((label) => normalizeText(label) === q));
+  if (exact) return exact;
   let best = null, bestScore = 0;
   for (const tp of TOPICS) {
     let score = 0;

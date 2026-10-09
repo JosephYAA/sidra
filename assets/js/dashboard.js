@@ -50,33 +50,38 @@ function initNav() {
 /* ---------- Overview ---------- */
 function renderOverview() {
   const r = R.hot.results, s = R.sur;
-  const ba = Object.fromEntries(r.before_after_table.map((row) => [row.group, row]));
-  const diyar = ba["Diyar reclaimed land"], orig = ba["Original land"];
+  const matched = r.matched_land_comparison || {};
 
-  $("scene-chip").textContent = t("{n} summer Landsat scenes · 1995–2025", { n: r.before_summer_scenes_used + r.recent_summer_scenes_used });
+  $("scene-chip").textContent = t("{n} recent summer Landsat scenes · 2021–2025", { n: r.recent_summer_scenes_used });
   $("k-area").textContent = fmt(r.diyar_reclaimed_area_km2, 1);
   $("k-area-note").textContent = t("Built on the sea since about {y}", { y: r.diyar_reclamation_start_year_p5 });
-  $("k-change").textContent = signed(diyar["change_°C"], 1);
-  $("k-change-note").textContent = t("Original land: {v}°C", { v: signed(orig["change_°C"], 1) });
+  $("k-change").textContent = (matched.gap_c == null ? "--" : signed(matched.gap_c, 2));
+  $("k-change-note").textContent = (matched.gap_c == null ? t("Insufficient matching support") : t("{n} complete summers", { n: matched.complete_summers.length }));
   $("k-lst").textContent = fmt(r.diyar_median_summer_lst_c, 1);
   $("k-hot").textContent = fmt(r.hotspot_area_ha["Persistent hotspot"], 0);
   $("k-hot-note").textContent = t("{n} zones · {s} ha under all checks", { n: r.n_hotspot_zones, s: fmt(r.stable_hotspot_area_ha, 0) });
 
-  // Before / after grouped bars
-  const groups = r.before_after_table.filter((g) => g.group !== "Stable sea");
-  legend($("ba-legend"), [[t("Before reclamation"), COLORS.blue], [t("Recent summers"), COLORS.orange]]);
+  const matchInterval = matched.conditional_year_target_block_interval;
+  $("matched-support").textContent = matched.gap_c == null ? t("Insufficient matching support") : [
+    t("Median eligible target share matched: {v}%", { v: fmt(100 * matched.median_matched_target_share, 0) }),
+    matchInterval ? t("Conditional 95% interval: {lo} to {hi}°C", { lo: signed(matchInterval.lower_c, 2), hi: signed(matchInterval.upper_c, 2) }) : t("Interval unavailable"),
+    (matched.balance || []).some((b) => b.after_smd > 0.1) ? t("Residual measured-feature imbalance remains") : "",
+  ].filter(Boolean).join(" · ");
+
+  // Same-date matched land benchmark
+  const groups = matched.surface_temperature_table || [];
+  legend($("ba-legend"), [[t("Matched Diyar reclaimed land"), COLORS.orange], [t("Matched existing land"), COLORS.blue]]);
   charts.ba = new Chart($("ba-chart"), {
     type: "bar",
     data: {
       labels: groups.map((g) => t(g.group)),
       datasets: [
-        { label: t("Before reclamation"), data: groups.map((g) => g["before_°C_above_sea"]), backgroundColor: COLORS.blue, borderRadius: 4, borderSkipped: "start" },
-        { label: t("Recent summers"), data: groups.map((g) => g["now_°C_above_sea"]), backgroundColor: COLORS.orange, borderRadius: 4, borderSkipped: "start" },
+        { label: t("Matched summer surface temperature"), data: groups.map((g) => g.surface_temperature_c), backgroundColor: [COLORS.orange, COLORS.blue], borderRadius: 4 },
       ],
     },
     options: {
       maintainAspectRatio: false,
-      scales: { y: { beginAtZero: true, title: { display: true, text: t("°C above open sea") }, grid: { color: COLORS.grid } }, x: { grid: { display: false } } },
+      scales: { y: { beginAtZero: true, title: { display: true, text: t("Surface temperature (°C)") }, grid: { color: COLORS.grid } }, x: { grid: { display: false } } },
       plugins: { tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${signed(c.raw, 1)}°C` } } },
     },
   });
@@ -84,7 +89,7 @@ function renderOverview() {
   // Evidence tiles + sources
   const used = s.usable_temperature_dates || {};
   const tiles = [
-    [t("Summer scenes, Part 1"), r.before_summer_scenes_used + r.recent_summer_scenes_used, "satellite"],
+    [t("Summer scenes, Part 1"), r.recent_summer_scenes_used, "satellite"],
     [t("Landsat scenes, Part 2"), s.downloaded_landsat, "satellite"],
     [t("Sentinel-2 pairs"), s.sentinel_pairs, "layers"],
     [t("ERA5 weather days"), s.weather_unique_days, "waves"],
@@ -122,11 +127,12 @@ function renderOverview() {
 
 function renderInsights() {
   const r = R.hot.results, s = R.sur;
-  const ba = Object.fromEntries(r.before_after_table.map((row) => [row.group, row]));
+  const matched = r.matched_land_comparison || {};
   const ci = (s.matched_year_block_uncertainty || []).find((x) => x.comparison === "original") || {};
   const items = [
-    { warn: false, tag: t("Measured"), title: t("New land runs about {v}°C warmer relative to the sea", { v: fmt(ba["Diyar reclaimed land"]["change_°C"], 0) }),
-      text: t("At the same locations, summer surface temperature rose by {d}°C relative to open sea, compared with {o}°C on original land.", { d: fmt(ba["Diyar reclaimed land"]["change_°C"], 1), o: fmt(ba["Original land"]["change_°C"], 1) }) },
+    { warn: matched.gap_c == null || (matched.balance || []).some((b) => b.after_smd > 0.1), tag: t("Matched comparison"),
+      title: matched.gap_c == null ? t("Insufficient matching support") : t("Matched land gap: {v}°C", { v: signed(matched.gap_c, 2) }),
+      text: t("Same-date inland pairs matched on measured surfaces and distance from water. The gap applies to the matched subset and does not isolate a causal reclamation effect.") },
     { warn: false, tag: t("Measured"), title: t("The sea cools the first ~{m} m of coast", { m: r.shore_buffer_m }), text: t("Land within 30 m of the water is about {v}°C cooler than Diyar's interior (more than 450 m from water). The cooling fades within about {m} m.", { v: fmt(r.coastal_cooling_0_30m_c, 1), m: r.shore_buffer_m }) },
     { warn: false, tag: t("Hotspots"), title: t("{a} ha of persistent hotspots in {n} zones", { a: fmt(r.hotspot_area_ha["Persistent hotspot"], 0), n: r.n_hotspot_zones }), text: t("These cells are in the hottest 10% on at least half of the summer dates, and {s} ha stay hot under every robustness check.", { s: fmt(r.stable_hotspot_area_ha, 0) }) },
     { warn: true, tag: t("Uncertain"), title: t("Nearby land: +{v}°C, but not certain", { v: fmt(s.equal_month_gap_change_c, 2) }), text: t("The interval ({lo} to {hi}°C) includes zero, so we cannot yet say the surrounding neighbourhoods warmed.", { lo: fmt(ci.lower_c, 2), hi: signed(ci.upper_c, 2) }) },
@@ -275,7 +281,7 @@ function initMap() {
     }
     const [clon, clat] = set.DIYAR_CENTRE;
     L.circle([clat, clon], { radius: set.DIYAR_RADIUS_M, color: "#F08A55", weight: 2, fillOpacity: 0.08 }).addTo(map)
-      .bindPopup(`<b>${t("Diyar Al Muharraq")}</b><br>${t("Reclaimed area: {a} km²", { a: fmt(R.hot.results.diyar_reclaimed_area_km2, 1) })}<br>${t("Change vs sea: {v}°C", { v: signed(summarizeResults(R).diyar_change_vs_sea_c, 1) })}`);
+      .bindPopup(`<b>${t("Diyar Al Muharraq")}</b><br>${t("Reclaimed area: {a} km²", { a: fmt(R.hot.results.diyar_reclaimed_area_km2, 1) })}<br>${t("Matched land gap: {v}°C", { v: summarizeResults(R).diyar_matched_land_gap_c == null ? "--" : signed(summarizeResults(R).diyar_matched_land_gap_c, 2) })}`);
     map.fitBounds([[so, w], [n, e]], { padding: [20, 20] });
     setTimeout(() => map.invalidateSize(), 200);
   } catch (err) {

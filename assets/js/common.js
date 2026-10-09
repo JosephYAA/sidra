@@ -69,18 +69,20 @@ async function loadResults() {
 function summarizeResults(R) {
   if (!R) return null;
   const r = R.hot.results, s = R.sur;
-  const ba = Object.fromEntries((r.before_after_table || []).map((row) => [row.group, row]));
+  const matched = r.matched_land_comparison || {};
   const ci = (s.matched_year_block_uncertainty || []).find((x) => x.comparison === "original") || {};
   const ml = (name, test) => (s.ml_validation || []).find((x) => x.model === name && x.test === test) || {};
   return {
     site: R.hot.site,
     reclaimed_area_km2: r.diyar_reclaimed_area_km2,
     reclamation_start_year: r.diyar_reclamation_start_year_p5,
-    summer_scenes_before: r.before_summer_scenes_used,
     summer_scenes_recent: r.recent_summer_scenes_used,
     diyar_median_summer_lst_c: r.diyar_median_summer_lst_c,
-    diyar_change_vs_sea_c: ba["Diyar reclaimed land"] ? ba["Diyar reclaimed land"]["change_°C"] : null,
-    original_land_change_vs_sea_c: ba["Original land"] ? ba["Original land"]["change_°C"] : null,
+    diyar_matched_land_gap_c: matched.gap_c ?? null,
+    matched_land_interval_c: matched.conditional_year_target_block_interval ? [matched.conditional_year_target_block_interval.lower_c, matched.conditional_year_target_block_interval.upper_c] : null,
+    matched_land_support_status: matched.status,
+    matched_land_target_share: matched.median_matched_target_share,
+    matched_land_complete_summers: (matched.complete_summers || []).length,
     persistent_hotspot_ha: (r.hotspot_area_ha || {})["Persistent hotspot"],
     stable_hotspot_ha: r.stable_hotspot_area_ha,
     hotspot_zones: r.n_hotspot_zones,

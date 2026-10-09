@@ -4,7 +4,7 @@ Team Sidra
 
 Theme: Sustainable urban planning and smart cities  
 
-Sidra uses satellite imagery to study summer surface heat on reclaimed land and nearby existing land. The two notebooks map persistent hotspots, compare historical and recent temperatures, and suggest an area for field inspection.
+Sidra uses satellite imagery to study summer surface heat on reclaimed land and nearby existing land. The two notebooks map persistent hotspots, compare reclaimed land with matched existing land on the same dates, and suggest an area for field inspection.
 
 ## Business use case
 
@@ -16,9 +16,9 @@ Sidra uses satellite imagery to study summer surface heat on reclaimed land and 
 
 | Source | Observations used | Purpose and licence |
 | --- | --- | --- |
-| USGS Landsat Collection 2 Level-2, via Microsoft Planetary Computer (`landsat-c2-l2`) | Part 1: annual optical history for 1998–2025 and June–September temperatures for 1995–2006 and 2021–2025. Part 2: selected scenes from 2000–2014 and 2023–2025, plus historical candidates from 1995–2014. Tier 1 is used where specified in the code. | Land/water history, daytime surface temperature and optical indicators. [Public domain](https://www.usgs.gov/faqs/are-landsat-data-cloud-still-considered-be-within-public-domain). |
+| USGS Landsat Collection 2 Level-2, via Microsoft Planetary Computer (`landsat-c2-l2`) | Part 1: annual optical history for 1998–2025 and June–September temperatures for 2021–2025. Part 2: selected scenes from 2000–2014 and 2023–2025, plus historical candidates from 1995–2014. Tier 1 is used where specified in the code. | Land/water history, daytime surface temperature and optical indicators. [Public domain](https://www.usgs.gov/faqs/are-landsat-data-cloud-still-considered-be-within-public-domain). |
 | Copernicus Sentinel-2 Level-2A, via Planetary Computer (`sentinel-2-l2a`) | Part 1: 12 summer 2025 scenes. Part 2: 20 scenes paired with recent Landsat dates in 2023–2025. Reflectance offsets and scene-classification masks are applied. | Vegetation, water, brightness and variation within each cell. [Copernicus Sentinel terms](https://dataspace.copernicus.eu/terms-and-conditions). |
-| Impact Observatory / Microsoft / Esri annual 10 m land cover, version 02 (`io-lulc-annual-v02`) | Part 1: the 2023 map. Part 2: the 2017 and 2023 maps, with nine classes. | Built-area, bare-ground and vegetation shares. [CC BY 4.0](https://docs.impactobservatory.com/lulc-maps/maps-for-good.html). |
+| Impact Observatory / Microsoft / Esri annual 10 m land cover, version 02 (`io-lulc-annual-v02`) | Part 1: annual maps at or before each recent observation year for matching; the latest map for hotspot descriptions. Part 2: the 2017 and 2023 maps, with nine classes. | Built-area, bare-ground and vegetation shares. [CC BY 4.0](https://docs.impactobservatory.com/lulc-maps/maps-for-good.html). |
 | Copernicus Climate Change Service / ECMWF ERA5 hourly reanalysis, via the public Earthmover mirror | Weather for selected observation dates in 1995–2014 and 2023–2025, on a 0.25° grid. Icechunk snapshot: `ZFKDHBCTBVHVXM3BQFV0`. | Regional air temperature, dew point, wind, radiation and rainfall in Part 2. [Mirror documentation and CC BY 4.0 attribution](https://registry.opendata.aws/earthmover-era5/). |
 
 Part 1 records scene IDs, dates, settings and software versions in `outputs/hotspots/hotspot_metrics.json`. Part 2 lists the Landsat IDs, ordered historical candidates, Sentinel pairings and weather snapshot in its Setup section.
@@ -31,7 +31,11 @@ Part 1: Reclaimed land
 
 Annual median MNDWI, an optical water index, is used to identify water-to-land transitions on aligned 30 m Landsat and 10 m Sentinel grids in UTM zone 39N. The reclaimed pieces around Diyar's centre form a satellite-derived outline, which is checked against imagery.
 
-For each summer temperature scene, we subtract the median temperature of open sea. We compare historical and recent observations at the same locations, then exclude the shoreline-gradient band before ranking inland heat. Temperature anomalies are aggregated to 90 m cells.
+Reclaimed land is compared with nearby existing land on the same recent summer dates. Matching uses 120 m inland cells, annual built/bare/vegetation shares, surrounding built share, same-date Landsat vegetation/built/brightness indicators, and distance from water. Surface classes must agree and all feature calipers must pass; controls are used at most once per date. Thermal QA and at least 80% clear/cohort coverage screen each cell. Unsupported targets remain unmatched.
+
+Date gaps are averaged within months, with June–September and complete summers weighted equally. The notebook reports matched coverage, feature balance, caliper/map-age sensitivity, and a conditional interval from whole-year and target-area block resampling. The result describes the matched subset and cannot isolate a causal reclamation effect. Annual maps may be stale and surrounding built share is only a density proxy.
+
+The sea-relative temperature layer remains descriptive context. Within-Diyar hotspots use recent temperature anomalies on 90 m cells after excluding the shoreline-gradient band.
 
 Hotspot clusters use Getis–Ord Gi* with a 135 m neighbourhood and Benjamini–Hochberg correction at 0.05. A persistent cell falls in the hottest 10% on at least half of its supported dates. Checks use neighbourhood radii of 90, 135 and 180 m and compare earlier and later summers. Sentinel vegetation and annual land-cover shares help describe each zone and suggest questions for a field visit.
 
@@ -75,7 +79,7 @@ A fresh run downloads several hundred megabytes of cropped inputs. Allow around 
 
 | Notebook | Generated files | Default output folder |
 | --- | --- | --- |
-| Part 1 | Maps, pixel table, GeoJSON zones, interactive HTML, figures and metrics | `outputs/hotspots/` |
+| Part 1 | Maps, matched pairs/balance/coverage/date summaries, pixel table, GeoJSON zones, interactive HTML, figures and metrics | `outputs/hotspots/` |
 | Part 2 | Figures, validation tables, source records, JSON summary and inspection cards | `outputs/surrounding_land/` |
 
 These folders are ignored by Git. Both notebooks find the repository root when opened from `notebooks/`, so their results go to the root `outputs/` folder. Set `SIDRA_ROOT` to use a different root. Part 1 also saves its results archive as `outputs/hotspot_outputs.zip`.
@@ -94,6 +98,8 @@ This sample illustrates the input format. Each notebook retrieves the full set o
 
 The figures below are saved outputs from the notebooks.
 
+![Reclaimed land compared with matched existing land](results/reclaimed_land_matched.png)
+
 ![Reclaimed-land hotspots and persistence](results/reclaimed_land_hotspots.png)
 
 ![Nearby existing-land temperature comparison](results/surrounding_land_temperature.png)
@@ -107,16 +113,18 @@ Model errors are reported as mean absolute error (MAE), in degrees Celsius. Lowe
 | Comparison | Result | What it tells us |
 | --- | --- | --- |
 | Heat within the reclaimed development | About 11.4 km² of satellite-derived reclaimed area. Persistent inland hotspots cover about 34 ha; about 45 ha remain under the broader stability checks. | Places within Diyar to investigate, based on summer daytime observations. |
-| Historical water-to-land change | Temperatures at Diyar's locations rose by about 14°C relative to open sea, compared with about 2.7°C on original land. | Different surface histories show different temperature changes. Sea-centering alone cannot establish causation. |
+| Matched reclaimed vs existing land | Diyar minus controls: −2.21°C; conditional year/target-block interval −2.72 to −1.65°C. Four complete summers; median 58% of eligible target cells matched per supported date. | The matched Diyar subset was cooler. Residual feature imbalance remains; this is not a causal reclamation effect. |
 | Existing surrounding land | The nearby-minus-control gap increased by about 0.67°C. The whole-year/spatial-block interval is approximately −0.13 to +1.23°C. | The central estimate is positive, but the interval includes zero. |
 | Additional satellite features | On the same observations, withheld-date MAE changes from about 2.10 to 2.00°C and forward-test MAE from 1.45 to 1.39°C. Spatial MAE changes from 0.88 to 0.91°C. | Predictive gains are modest and depend on the test. |
 | Inspection shortlist | Seven 120 m cells form one area; five are consistently selected across model/control choices. | An area for a field visit. Local heat exposure and suitable interventions still need assessment. |
+
+Part 1’s annual-cover sensitivity has only two complete summers with same-year maps, below the three-summer reporting threshold. The primary result uses older maps for 2024–2025 and is flagged `limited_balance`; its conditional interval does not include map or matching uncertainty. Matching diagnostics are saved as [feature balance](results/reclaimed_land_matched_balance.csv), [coverage](results/reclaimed_land_matched_coverage.csv), [date gaps](results/reclaimed_land_matched_dates.csv) and [annual gaps](results/reclaimed_land_matched_annual.csv). Complete pair assignments are generated in `outputs/hotspots/matched_land_pairs.csv`.
 
 The underlying values are in the [reclaimed-land metrics](results/reclaimed_land_metrics.json), [surrounding-land summary](results/surrounding_land_summary.json) and [feature comparison table](results/satellite_feature_summary.csv). The notebooks report source selection, quality checks and sensitivity results. Resampling includes whole years and areas because observations from the same summer or location are related.
 
 Landsat measures late-morning surface temperature. It does not directly measure air temperature or pedestrian heat stress. Its distributed 30 m products also do not provide independent 30 m thermal measurements: historical Landsat 5 thermal data have a native resolution of 120 m, while Part 1's 90 m hotspot grid is an aggregation choice. Near the shoreline, thermal footprints mix water and land.
 
-Historical and recent sensors have not been harmonized, and subtracting sea temperature does not establish agreement between them. Control areas may have developed over time. Annual land-cover maps begin in 2017, NDBI responds to sand as well as buildings, and ERA5's regional air-temperature and wind estimates are too coarse to resolve differences between streets or local sea breezes.
+Part 1 uses contemporaneous Landsat 8/9 land pairs; Part 2 still compares historical and recent sensors without harmonization. Control areas may have developed over time, and matching does not account for unmeasured materials, shade, building height or local wind. Annual land-cover maps begin in 2017, NDBI responds to sand as well as buildings, and ERA5's regional air-temperature and wind estimates are too coarse to resolve differences between streets or local sea breezes.
 
 These observational comparisons cannot isolate the effect of reclamation. Ground measurements, material checks and monitored interventions are needed to assess heat exposure and any cooling benefit.
 

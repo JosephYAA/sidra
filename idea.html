@@ -43,7 +43,7 @@
 <a class="btn-ghost" data-i18n="" href="#how">How it works</a>
 </div>
 <div class="big-stat">
-<div><b id="s-change"><span data-i18n="">--</span></b><span data-i18n="">Heat change on Diyar vs open sea</span></div>
+<div><b id="s-change"><span data-i18n="">--</span></b><span data-i18n="">Diyar gap vs matched existing land</span></div>
 <div><b id="s-area"><span data-i18n="">--</span></b><span data-i18n="">Reclaimed land measured from space</span></div>
 <div><b id="s-hot"><span data-i18n="">--</span></b><span data-i18n="">Persistent inland hotspots</span></div>
 </div>
@@ -69,7 +69,7 @@
 <h2 data-i18n="">Sidra: satellite evidence for coastal heat planning</h2>
 <p class="intro" data-i18n="">Sidra turns free, open satellite archives into three things planners can act on.</p>
 <div class="grid g-3">
-<div class="card feature"><span class="icon-ring" data-icon="thermo"></span><h3 data-i18n="">1. Measure</h3><p data-i18n="">Compare summer surface temperatures before and after reclamation, relative to open sea, at the same locations.</p></div>
+<div class="card feature"><span class="icon-ring" data-icon="thermo"></span><h3 data-i18n="">1. Measure</h3><p data-i18n="">Compare reclaimed and existing land on the same summer dates, matching measured surfaces and distance from water.</p></div>
 <div class="card feature"><span class="icon-ring" data-icon="target"></span><h3 data-i18n="">2. Locate</h3><p data-i18n="">Find the hotspots that stay hot summer after summer, and check whether nearby existing land is warming too.</p></div>
 <div class="card feature"><span class="icon-ring" data-icon="building"></span><h3 data-i18n="">3. Act</h3><p data-i18n="">Shortlist the cells a field team should inspect first, so shade, greenery or material changes go where they matter.</p></div>
 </div>
@@ -83,7 +83,7 @@
 <div class="card">
 <ol class="steps">
 <li><b data-i18n="">Find the new land</b><span data-i18n="">Track the water index (MNDWI) year by year with Landsat to see where sea turned into land, and when.</span></li>
-<li><b data-i18n="">Measure the heat</b><span data-i18n="">Use June–September Landsat surface temperature from before and after reclamation, minus the open sea temperature on the same day.</span></li>
+<li><b data-i18n="">Measure the heat</b><span data-i18n="">Match inland reclaimed and existing-land cells using surface cover, vegetation, development and coastline distance; compare same-date temperatures.</span></li>
 <li><b data-i18n="">Map persistent hotspots</b><span data-i18n="">Run a Getis–Ord Gi* hotspot test on 90 m cells and keep only the places that stay in the hottest 10% on most dates.</span></li>
 <li><b data-i18n="">Check the surroundings</b><span data-i18n="">Compare nearby existing land with control land far away, and test how sure we are by resampling whole years and areas.</span></li>
 <li><b data-i18n="">Model and shortlist</b><span data-i18n="">Train a gradient-boosting model on satellite indicators and ERA5 weather, then flag cells that are repeatedly hotter than predicted.</span></li>
@@ -92,7 +92,7 @@
 <div class="card">
 <div class="card-head"><div><div class="card-title" data-i18n="">Why satellites?</div></div><span class="icon-ring" data-icon="satellite"></span></div>
 <ul class="list-clean">
-<li data-i18n="">Decades of history, so we can compare before and after reclamation.</li>
+<li data-i18n="">Optical history identifies reclamation; recent thermal scenes compare similar land on the same dates.</li>
 <li data-i18n="">Cover entire islands at once instead of a few weather stations.</li>
 <li data-i18n="">Free and open: Landsat (USGS), Sentinel-2 (ESA) and ERA5 (Copernicus).</li>
 <li data-i18n="">Repeatable for any new project in Bahrain or the Gulf.</li>
@@ -167,9 +167,9 @@
 </section>
 <footer class="footer-big" id="site-footer"></footer>
 </div>
-<script src="assets/js/i18n.js"></script>
-<script src="assets/js/common.js"></script>
-<script src="assets/js/assistant.js"></script>
+<script src="assets/js/i18n.js?v=matched-land-1"></script>
+<script src="assets/js/common.js?v=matched-land-1"></script>
+<script src="assets/js/assistant.js?v=matched-land-1"></script>
 <script>
   document.getElementById("team").innerHTML = TEAM.map((m) => `
     <div class="card member"><div class="avatar">${initials(m.name)}</div><b>${t(m.name)}</b><span>${t(m.major)}</span><span>${t(m.role)}</span></div>`).join("");
@@ -179,7 +179,7 @@
   loadResults().then((res) => {
     R = res;
     const M = summarizeResults(R);
-    if (M.diyar_change_vs_sea_c != null) document.getElementById("s-change").textContent = `+${M.diyar_change_vs_sea_c.toFixed(1)}°C`;
+    if (M.diyar_matched_land_gap_c != null) document.getElementById("s-change").textContent = `${M.diyar_matched_land_gap_c >= 0 ? "+" : ""}${M.diyar_matched_land_gap_c.toFixed(2)}°C`;
     if (M.reclaimed_area_km2 != null) document.getElementById("s-area").textContent = `${M.reclaimed_area_km2.toFixed(1)} ${t("km²")}`;
     if (M.persistent_hotspot_ha != null) document.getElementById("s-hot").textContent = `${Math.round(M.persistent_hotspot_ha)} ${t("ha")}`;
   }).catch(() => {});
