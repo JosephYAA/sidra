@@ -34,6 +34,8 @@ const ICONS = {
   volume: '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>',
   mute: '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/>',
   close: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  // Sidra assistant: leaf-shaped chat bubble (two dots + a warm coral dot)
+  leafchat: '<path d="M4.6 20.2 6.4 15.6C4.4 11.2 7.3 5 19.6 4.2c-.1 9.9-4.9 12.4-10.2 12.3z"/><circle cx="9.4" cy="12.6" r="1.25" fill="currentColor" stroke="none"/><circle cx="12.4" cy="10.6" r="1.25" fill="currentColor" stroke="none"/><circle cx="15.6" cy="8.4" r="1.25" fill="#F2A285" stroke="none"/>',
   building: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',
 };
 
@@ -123,7 +125,7 @@ function initChatWidget(getM, getAnswer) {
   document.body.insertAdjacentHTML("beforeend", `
     <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Sidra assistant">
       <div class="cp-head">
-        <span class="cp-avatar" data-icon="tree" data-size="20"></span>
+        <span class="cp-avatar" data-icon="leafchat" data-size="22"></span>
         <div><b>${t("Sidra Assistant")}</b><div class="tiny"><span class="online"></span>${t("Online · answers from our results")}</div></div>
         <button class="cp-close" id="cp-close" aria-label="Close chat" data-icon="close" data-size="18"></button>
       </div>
@@ -136,7 +138,7 @@ function initChatWidget(getM, getAnswer) {
         <button class="send-round" type="submit" aria-label="Send" data-icon="send" data-size="17"></button>
       </form>
     </div>
-    <button class="fab" id="chat-fab" aria-label="Open Sidra assistant"><span data-icon="sparkle" data-size="24"></span></button>`);
+    <button class="fab" id="chat-fab" aria-label="Open Sidra assistant"><span data-icon="leafchat" data-size="30"></span></button>`);
   renderIcons(document.getElementById("chat-panel"));
   renderIcons(document.getElementById("chat-fab"));
   const panel = document.getElementById("chat-panel");
@@ -144,7 +146,7 @@ function initChatWidget(getM, getAnswer) {
   const toggle = (open) => {
     panel.classList.toggle("open", open);
     fab.classList.toggle("open", open);
-    fab.innerHTML = icon(open ? "close" : "sparkle", 24);
+    fab.innerHTML = icon(open ? "close" : "leafchat", open ? 24 : 30);
     if (open) setTimeout(() => document.getElementById("cp-text").focus(), 200);
   };
   fab.addEventListener("click", () => toggle(!panel.classList.contains("open")));
@@ -167,7 +169,7 @@ function renderFooter() {
   el.innerHTML = `
     <div class="fb-grid">
       <div class="fb-brand">
-        <a class="brand" href="${L("index.html")}"><span class="brand-mark" data-icon="tree" data-size="20"></span><span>${isAR ? "سـد<em>رة</em>" : "SID<em>RA</em>"}</span></a>
+        <a class="brand" href="${L("index.html")}"><img alt="" class="brand-logo" src="assets/img/logo.png"><span>${isAR ? "سـد<em>رة</em>" : "SID<em>RA</em>"}</span></a>
         <p>${t("Satellite evidence for coastal heat planning, for Bahrain's planners and coastal developers.")}</p>
         <div class="fb-badges"><span class="badge green">${t("Theme 05")}</span><span class="badge gold">${t("Open data")}</span></div>
       </div>

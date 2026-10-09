@@ -726,3 +726,9 @@ input[type=range]::-moz-range-thumb { border-color: #059669; }
 .ci-dot { position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #E8F0EC; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35); }
 .ci-zero { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: rgba(255, 255, 255, 0.7); }
 [dir="rtl"] .ci-track { direction: ltr; }
+
+/* ---------- Team logo ---------- */
+.brand-logo { height: 60px; width: auto; display: block; flex: none; padding: 5px 9px; border-radius: 16px;
+  background: linear-gradient(160deg, #F7F3EE, #E3EFEB); box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.35), 0 8px 24px -10px rgba(16, 185, 129, 0.55); }
+.fb-brand .brand-logo { height: 68px; }
+@media (max-width: 640px) { .brand-logo { height: 48px; padding: 4px 7px; border-radius: 13px; } }
