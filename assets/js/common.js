@@ -1,11 +1,11 @@
 /* Shared settings and helpers for every Sidra page. */
 
 const TEAM = [
-  { name: "Abdulaziz Ajlan", major: "Mechanical Engineering", role: "Physical dynamics analysis" },
-  { name: "Malak Alsalam", major: "Mechanical Engineering", role: "Thermal performance engineering" },
-  { name: "Yusuf Alatawi", major: "Cybersecurity", role: "Cloud pipeline & data compliance" },
-  { name: "Noor Alawadhi", major: "Computer Science", role: "Algorithms, STAC queries & web app" },
-  { name: "Rawan Mahdi", major: "Data Science & AI", role: "Model development & evaluation" },
+  { name: "Noor Alawadhi", major: "Computer Science", role: "Web app development", photo: "assets/img/team/noor.jpg" },
+  { name: "Rawan Mahdi", major: "Data Science & AI", role: "Data analysis, notebooks & modelling", photo: "assets/img/team/rawan.jpg" },
+  { name: "Yusuf Alatawi", major: "Cybersecurity", role: "Data analysis, notebooks & modelling", photo: "" },
+  { name: "Abdulaziz Ajlan", major: "Mechanical Engineering", role: "Data collection, selection & documentation", photo: "assets/img/team/abdulaziz.jpg" },
+  { name: "Malak Alsalam", major: "Mechanical Engineering", role: "Data collection, selection & documentation", photo: "assets/img/team/malak.jpg" },
 ];
 
 // ---- Small icon set (inline SVG, no downloads needed) ----
@@ -227,7 +227,7 @@ function renderScan(el) {
           ${glowDefs}
         </defs>
         <rect width="360" height="340" fill="url(#scan-grid)"/>
-        <path class="island" d="M70 70 L262 56 L302 150 L272 268 L190 318 L92 296 L52 190 Z"/>
+        <image class="scan-map" href="assets/img/diyar-pixels.png" x="38" y="8" width="284" height="324" preserveAspectRatio="xMidYMid meet"/>
         <g id="scan-spots">${spotsSVG()}</g>
         <rect class="beam" x="0" y="-60" width="360" height="60" fill="url(#beam)"/>
       </svg>

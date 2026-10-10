@@ -293,6 +293,9 @@ const AR = {
   "Abdulaziz Ajlan": "عبدالعزيز عجلان",
   "Malak Alsalam": "ملاك السلام",
   "Yusuf Alatawi": "يوسف العطاوي",
+  "Web app development": "تطوير تطبيق الويب",
+  "Data analysis, notebooks & modelling": "تحليل البيانات والدفاتر والنمذجة",
+  "Data collection, selection & documentation": "جمع البيانات واختيارها وتوثيقها",
   "Noor Alawadhi": "نور العوضي",
   "Rawan Mahdi": "روان مهدي",
 

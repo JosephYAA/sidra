@@ -151,7 +151,7 @@
           extreme heat and little water, and has given shade for generations. We want Bahrain's new islands to be just as resilient.</p>
 </div>
 <div class="card" style="display:grid;place-items:center;text-align:center">
-<div><div data-i18n="" style="font-size:4.5rem">🌳</div><div class="tiny" data-i18n="">Resilience · Shade · Heritage</div></div>
+<div><img class="sidr-tree" src="assets/img/sidr-tree.png" alt="Pixel illustration of a sidr tree"/><div class="tiny" data-i18n="">Resilience · Shade · Heritage</div></div>
 </div>
 </div>
 </section>
@@ -173,7 +173,7 @@
 <script src="assets/js/assistant.js?v=matched-land-1"></script>
 <script>
   document.getElementById("team").innerHTML = TEAM.map((m) => `
-    <div class="card member"><div class="avatar">${initials(m.name)}</div><b>${t(m.name)}</b><span>${t(m.major)}</span><span>${t(m.role)}</span></div>`).join("");
+    <div class="card member">${m.photo ? `<img class="avatar photo" src="${m.photo}" alt="${t(m.name)}" loading="lazy">` : `<div class="avatar">${initials(m.name)}</div>`}<b>${t(m.name)}</b><span>${t(m.major)}</span><span>${t(m.role)}</span></div>`).join("");
   let R = null;
   renderScan(document.getElementById("scan"));
   initChatWidget(() => summarizeResults(R));

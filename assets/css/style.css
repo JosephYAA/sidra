@@ -732,3 +732,11 @@ input[type=range]::-moz-range-thumb { border-color: #059669; }
   filter: brightness(1.15) saturate(1.2) drop-shadow(0 0 14px rgba(16, 185, 129, 0.35)); }
 .fb-brand .brand-logo { height: 72px; }
 @media (max-width: 640px) { .brand-logo { height: 50px; } }
+
+/* ---------- Team photos, Diyar pixel map, sidr tree ---------- */
+.avatar.photo { width: 112px; height: 112px; object-fit: cover; object-position: center top; display: block; padding: 0;
+  border: 2px solid rgba(16, 185, 129, 0.55); background: #06150F; box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.10), 0 14px 34px -14px rgba(16, 185, 129, 0.7); }
+.member .avatar:not(.photo) { width: 112px; height: 112px; font-size: 1.6rem; }
+.scan-svg .scan-map { opacity: 0.6; }
+.sidr-tree { width: min(220px, 70%); height: auto; display: block; margin: 0 auto 10px; image-rendering: auto;
+  filter: drop-shadow(0 10px 26px rgba(16, 185, 129, 0.35)); }
