@@ -296,6 +296,7 @@ const AR = {
   "Web app development": "تطوير تطبيق الويب",
   "Data analysis, notebooks & modelling": "تحليل البيانات والدفاتر والنمذجة",
   "Data collection, selection & documentation": "جمع البيانات واختيارها وتوثيقها",
+  "Illustrative thermal scan of Diyar Al Muharraq": "مسح حراري توضيحي لديار المحرق",
   "Noor Alawadhi": "نور العوضي",
   "Rawan Mahdi": "روان مهدي",
 
@@ -328,6 +329,7 @@ const AR = {
   "Click a hotspot to inspect it": "اضغط على نقطة ساخنة لاستكشافها",
   "Illustrative visual, not measured data.": "رسم توضيحي، وليس بيانات مقاسة.",
   "{n} heat hotspots · {mode}": "{n} نقاط ساخنة · {mode}",
+  "{n} heat hotspot · {mode}": "{n} نقطة ساخنة · {mode}",
   "live scan": "مسح مباشر",
   "greener layout": "مخطط أخضر",
   "Greened: ": "بعد التشجير: ",

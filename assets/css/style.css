@@ -737,6 +737,9 @@ input[type=range]::-moz-range-thumb { border-color: #059669; }
 .avatar.photo { width: 112px; height: 112px; object-fit: cover; object-position: center top; display: block; padding: 0;
   border: 2px solid rgba(16, 185, 129, 0.55); background: #06150F; box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.10), 0 14px 34px -14px rgba(16, 185, 129, 0.7); }
 .member .avatar:not(.photo) { width: 112px; height: 112px; font-size: 1.6rem; }
-.scan-svg .scan-map { opacity: 0.6; }
 .sidr-tree { width: min(220px, 70%); height: auto; display: block; margin: 0 auto 10px; image-rendering: auto;
   filter: drop-shadow(0 10px 26px rgba(16, 185, 129, 0.35)); }
+
+/* ---------- Diyar pixel scan (canvas) ---------- */
+.scan-canvas { width: 100%; height: auto; display: block; border-radius: 18px; cursor: pointer;
+  background: radial-gradient(circle at 50% 40%, rgba(16, 185, 129, 0.08), transparent 70%), #0B0F0D; }

@@ -185,52 +185,142 @@ function renderFooter() {
 }
 
 /* =====================================================================
-   Animated thermal scan (illustrative, for the idea page)
+   Animated thermal scan of Diyar (illustrative, for the idea page)
+   A scan bar sweeps down the Diyar pixel map and lights each cell up in
+   heat colours; rings pulse on the hotspots. "Greener layout" adds pixel
+   trees and cools the cells around them.
    ===================================================================== */
-const SCAN_SPOTS = [
-  { x: 205, y: 92, r: 15, kind: "built", label: "Dense built-up block", cool: "park" },
-  { x: 120, y: 112, r: 10, kind: "warm", label: "Paved car park", cool: "park" },
-  { x: 268, y: 160, r: 13, kind: "warm", label: "Road junction", cool: "warm" },
-  { x: 86, y: 196, r: 9, kind: "park", label: "Pocket park", cool: "park" },
-  { x: 182, y: 214, r: 18, kind: "hot", label: "Sand fill, no shade", cool: "park" },
-  { x: 250, y: 252, r: 9, kind: "warm", label: "New villas", cool: "park" },
-  { x: 160, y: 290, r: 11, kind: "water", label: "Open water channel", cool: "water" },
+const DIYAR_GRID = [
+  ".......................#######....................",
+  ".....................##########...................",
+  ".....................###########..................",
+  "....................#############.................",
+  "...................###############................",
+  "...................###############................",
+  "..................################................",
+  "..................#################...............",
+  ".................###################.##...........",
+  ".................#########.################.......",
+  "...............########.....################......",
+  "...............#########.....###...###.######.....",
+  "..............###############.##.###....######....",
+  ".............##################..###..##..#####...",
+  ".............###################.##############...",
+  "..............##################################..",
+  "...................#####################.########.",
+  "...........#####.....#################.....#######",
+  "..........######.###...#####################..####",
+  ".........############...####################...###",
+  ".........#############..###################.....##",
+  "........###############.##################.....###",
+  "........###############......#############.....##.",
+  ".......#################....##############...#....",
+  "......##################....###############..##...",
+  "......##################..........#########.###...",
+  ".....###################............###########...",
+  "....#.##################........##...##########...",
+  "....######################..#########.#######.....",
+  "...##################################..######.....",
+  "..#.#################################...####.#....",
+  "..####################################..###.......",
+  ".#####################################..###.......",
+  ".######################################..#........",
+  "#######################################...........",
+  ".#######################################..........",
+  "...######################################.........",
+  "....###################################...........",
+  "......#################################...........",
+  "........##############################............",
+  ".........##############################...........",
+  "...........##########################.............",
+  "............##################.#####..............",
+  "..............#######################.............",
+  "...............####################...............",
+  ".................#################................",
+  "...................###############................",
+  "....................##############................",
+  "......................############................",
+  "........................##########................",
+  ".........................########.................",
+  "........................#########.................",
+  ".......................####.######................",
+  ".......................##########.................",
+  ".....................#.######.###.................",
+  ".....................###########..................",
+  ".....................#########....................",
+  ".......................######.....................",
+  "........................#####.....................",
+  "........................######...................."
 ];
-const SPOT_COLORS = { hot: "#E5484D", built: "#D95926", warm: "#E8A33D", park: "#4ADE80", water: "#3987E5" };
+// Outline image: 8 source px of padding around the grid, 11 source px per cell.
+const DIYAR_OUTLINE = { src: "assets/img/diyar-outline.png", pad: 8, pitch: 11 };
+
+const SCAN_SPOTS = [
+  { c: 26, r: 38, label: "Sand fill, no shade", kind: "hot", cool: "park", heat: 1.0 },
+  { c: 23, r: 6, label: "Dense built-up block", kind: "built", cool: "park", heat: 0.85 },
+  { c: 10, r: 22, label: "Paved car park", kind: "warm", cool: "park", heat: 0.7 },
+  { c: 31, r: 15, label: "Road junction", kind: "warm", cool: "warm", heat: 0.7 },
+  { c: 27, r: 51, label: "New villas", kind: "warm", cool: "park", heat: 0.6 },
+];
+const SCAN_TREES = [[26, 38], [23, 6], [10, 22], [27, 51], [16, 31], [35, 26]];
+const SPOT_COLORS = { hot: "#E5484D", built: "#E07A5F", warm: "#E8A33D", park: "#4ADE80", water: "#3987E5" };
+// cool -> hot ramp, matched to the site's greens and the logo's coral
+const HEAT_RAMP = [[0, [47, 127, 110]], [0.35, [127, 191, 174]], [0.55, [205, 196, 180]], [0.75, [228, 168, 143]], [1, [224, 122, 95]]];
+const NEIGHBOURS = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+function heatColour(v) {
+  v = Math.max(0, Math.min(1, v));
+  for (let i = 1; i < HEAT_RAMP.length; i++) {
+    const [p1, c1] = HEAT_RAMP[i], [p0, c0] = HEAT_RAMP[i - 1];
+    if (v <= p1) { const k = (v - p0) / (p1 - p0); return c0.map((x, j) => Math.round(x + (c1[j] - x) * k)); }
+  }
+  return HEAT_RAMP.at(-1)[1];
+}
+
+function buildHeatFields() {
+  const R = DIYAR_GRID.length, C = DIYAR_GRID[0].length;
+  const land = (c, r) => r >= 0 && r < R && c >= 0 && c < C && DIYAR_GRID[r][c] === "#";
+  // distance (in cells) to the nearest water: the sea cools the shoreline
+  const dist = Array.from({ length: R }, () => Array(C).fill(Infinity));
+  const queue = [];
+  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {
+    if (land(c, r) && NEIGHBOURS.some(([dc, dr]) => !land(c + dc, r + dr))) { dist[r][c] = 1; queue.push([c, r]); }
+  }
+  for (let i = 0; i < queue.length; i++) {
+    const [c, r] = queue[i];
+    for (const [dc, dr] of NEIGHBOURS) {
+      const nc = c + dc, nr = r + dr;
+      if (land(nc, nr) && dist[nr][nc] === Infinity) { dist[nr][nc] = dist[r][c] + 1; queue.push([nc, nr]); }
+    }
+  }
+  let seed = 7;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const today = [], green = [];
+  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {
+    if (!land(c, r)) continue;
+    let h = 0.3;
+    for (const s of SCAN_SPOTS) h += s.heat * 0.72 * Math.exp(-((c - s.c) ** 2 + (r - s.r) ** 2) / 110);
+    const shore = Math.min(1, (dist[r][c] - 1) / 4);
+    h = h * (0.45 + 0.55 * shore) + (rand() - 0.5) * 0.12;
+    let g = h * 0.62 - 0.04;
+    for (const [tc, tr] of SCAN_TREES) g -= 0.5 * Math.exp(-((c - tc) ** 2 + (r - tr) ** 2) / 40);
+    today.push({ c, r, v: h });
+    green.push({ c, r, v: g });
+  }
+  return { R, C, today, green };
+}
 
 function renderScan(el) {
   if (!el) return;
   let greener = false;
-  const spotsSVG = () => SCAN_SPOTS.map((s, i) => {
-    const kind = greener ? s.cool : s.kind;
-    const c = SPOT_COLORS[kind];
-    const r = greener && kind === "park" && s.kind !== "park" ? s.r * 0.8 : s.r;
-    return `<g class="spot" data-i="${i}" tabindex="0" style="--d:${i * 0.35}s">
-      <circle cx="${s.x}" cy="${s.y}" r="${r * 3.2}" fill="url(#glow-${kind})" class="halo"/>
-      <circle cx="${s.x}" cy="${s.y}" r="${r}" fill="${c}" class="core"/>
-    </g>`;
-  }).join("");
-  const glowDefs = Object.entries(SPOT_COLORS).map(([k, c]) => `
-    <radialGradient id="glow-${k}"><stop offset="0" stop-color="${c}" stop-opacity="0.55"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join("");
-  const hotCount = () => SCAN_SPOTS.filter((s) => ["hot", "built", "warm"].includes(greener ? s.cool : s.kind)).length;
-
+  const isHot = (s) => ["hot", "built", "warm"].includes(greener ? s.cool : s.kind);
   el.innerHTML = `
     <div class="scan-card">
       <div class="scan-top">
         <span class="tiny">${t("Diyar Al Muharraq · thermal scan")}</span>
         <div class="seg" id="scan-seg"><button class="on" data-mode="today">${t("Today")}</button><button data-mode="green">${t("Greener layout")}</button></div>
       </div>
-      <svg viewBox="0 0 360 340" class="scan-svg" role="img" aria-label="Illustrative thermal scan of a reclaimed island">
-        <defs>
-          <pattern id="scan-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="rgba(74,222,128,0.07)"/></pattern>
-          <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ADE80" stop-opacity="0"/><stop offset="0.5" stop-color="#4ADE80" stop-opacity="0.35"/><stop offset="1" stop-color="#4ADE80" stop-opacity="0"/></linearGradient>
-          ${glowDefs}
-        </defs>
-        <rect width="360" height="340" fill="url(#scan-grid)"/>
-        <image class="scan-map" href="assets/img/diyar-pixels.png" x="38" y="8" width="284" height="324" preserveAspectRatio="xMidYMid meet"/>
-        <g id="scan-spots">${spotsSVG()}</g>
-        <rect class="beam" x="0" y="-60" width="360" height="60" fill="url(#beam)"/>
-      </svg>
+      <canvas class="scan-canvas" role="img" aria-label="${t("Illustrative thermal scan of Diyar Al Muharraq")}"></canvas>
       <div class="scan-foot">
         <span class="tiny" id="scan-info">${t("Click a hotspot to inspect it")}</span>
         <span class="scan-live"><span class="online"></span><span id="scan-count"></span></span>
@@ -238,26 +328,123 @@ function renderScan(el) {
       <div class="tiny" style="margin-top:6px;opacity:.8">${t("Illustrative visual, not measured data.")}</div>
     </div>`;
 
-  const update = () => {
-    el.querySelector("#scan-spots").innerHTML = spotsSVG();
-    el.querySelector("#scan-count").textContent = t("{n} heat hotspots · {mode}", { n: hotCount(), mode: t(greener ? "greener layout" : "live scan") });
-    bindSpots();
+  const canvas = el.querySelector("canvas");
+  const ctx = canvas.getContext("2d");
+  const F = buildHeatFields();
+  const outline = new Image();
+  outline.src = DIYAR_OUTLINE.src;
+  const CELL = 7, GAP = 1.4, PAD = Math.round(DIYAR_OUTLINE.pad * CELL / DIYAR_OUTLINE.pitch) + 6;
+  const W = F.C * CELL + PAD * 2, H = F.R * CELL + PAD * 2;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.aspectRatio = `${W} / ${H}`;
+  ctx.scale(dpr, dpr);
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const SWEEP = 3600, HOLD = 3200, FADE = 700, DARK = [22, 52, 44];
+  let start = performance.now(), visible = true, running = false;
+
+  const cellXY = (c, r) => [PAD + c * CELL, PAD + r * CELL];
+  const square = (c, r) => {
+    const [x, y] = cellXY(c, r);
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x + GAP / 2, y + GAP / 2, CELL - GAP, CELL - GAP, 1.6); else ctx.rect(x + GAP / 2, y + GAP / 2, CELL - GAP, CELL - GAP);
+    ctx.fill();
   };
-  const bindSpots = () => el.querySelectorAll(".spot").forEach((g) => {
-    const show = () => {
-      const s = SCAN_SPOTS[Number(g.dataset.i)];
+  const CANOPY = [];
+  [[-1, 1], [-2, 2], [-3, 3], [-3, 3], [-2, 2]].forEach(([a, b], i) => { for (let dc = a; dc <= b; dc++) CANOPY.push([dc, i - 4]); });
+  const LEAVES = ["#3FCF8E", "#2BB673", "#5BE0A0", "#22A065", "#34C27F"];
+  const drawTree = (c, r, alpha) => {
+    if (alpha <= 0) return;
+    ctx.globalAlpha = alpha;
+    CANOPY.forEach(([dc, dr], i) => { ctx.fillStyle = LEAVES[(i * 7) % LEAVES.length]; square(c + dc, r + dr); });
+    ctx.fillStyle = "#7A5C45";
+    square(c, r + 1);
+    square(c, r + 2);
+    square(c - 1, r + 2);
+    square(c + 1, r + 2);
+    ctx.globalAlpha = 1;
+  };
+  const reveal = (scanY, y, fadeOut) => Math.max(0, Math.min(1, (scanY - y) / (CELL * 3))) * (1 - fadeOut);
+
+  function frame(now) {
+    const cycle = SWEEP + HOLD + FADE;
+    const tt = reduced ? SWEEP : (now - start) % cycle;
+    const scanY = PAD + (Math.min(tt, SWEEP) / SWEEP) * (F.R * CELL + CELL * 3);
+    const fadeOut = !reduced && tt > SWEEP + HOLD ? (tt - SWEEP - HOLD) / FADE : 0;
+    ctx.clearRect(0, 0, W, H);
+    for (const { c, r, v } of greener ? F.green : F.today) {
+      const lit = reveal(scanY, cellXY(c, r)[1], fadeOut);
+      const hc = heatColour(v);
+      ctx.fillStyle = `rgb(${DARK.map((d, i) => Math.round(d + (hc[i] - d) * lit)).join(",")})`;
+      square(c, r);
+    }
+    if (greener) for (const [tc, tr] of SCAN_TREES) drawTree(tc, tr, reveal(scanY, cellXY(tc, tr)[1], fadeOut));
+    if (outline.complete && outline.naturalWidth) {
+      const k = CELL / DIYAR_OUTLINE.pitch;
+      ctx.globalAlpha = 0.75;
+      ctx.drawImage(outline, PAD - DIYAR_OUTLINE.pad * k, PAD - DIYAR_OUTLINE.pad * k, outline.naturalWidth * k, outline.naturalHeight * k);
+      ctx.globalAlpha = 1;
+    }
+    // pulsing rings on the hotspots the bar has passed
+    SCAN_SPOTS.forEach((s, i) => {
+      const [x, y] = cellXY(s.c, s.r);
+      if (!isHot(s) || scanY < y + CELL || fadeOut >= 1) return;
+      const cx = x + CELL / 2, cy = y + CELL / 2, ph = (now / 1600 + i * 0.27) % 1, a = 1 - fadeOut;
       const kind = greener ? s.cool : s.kind;
-      const words = { hot: "very hot", built: "hot", warm: "warm", park: "cool (vegetation)", water: "coolest (water)" };
-      el.querySelector("#scan-info").innerHTML = `<b style="color:${SPOT_COLORS[kind]}">●</b> ${greener && s.cool !== s.kind ? t("Greened: ") : ""}${t(s.label)} · ${t(words[kind])}`;
-    };
-    g.addEventListener("click", show);
-    g.addEventListener("keydown", (e) => { if (e.key === "Enter") show(); });
+      ctx.lineWidth = 1.6;
+      ctx.strokeStyle = `rgba(246, 214, 200, ${0.9 * a})`;
+      ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = `rgba(232, 140, 110, ${(1 - ph) * 0.8 * a})`;
+      ctx.beginPath(); ctx.arc(cx, cy, 6 + ph * (kind === "hot" ? 22 : 14), 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = `rgba(232, 140, 110, ${0.9 * a})`;
+      ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fill();
+    });
+    // the scan bar
+    if (!reduced && tt < SWEEP) {
+      const g = ctx.createLinearGradient(0, scanY - 34, 0, scanY);
+      g.addColorStop(0, "rgba(40, 90, 75, 0)");
+      g.addColorStop(1, "rgba(40, 90, 75, 0.75)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, scanY - 34, W, 34);
+      ctx.fillStyle = "#8EE3C8";
+      ctx.shadowColor = "#8EE3C8";
+      ctx.shadowBlur = 12;
+      ctx.fillRect(0, scanY - 1.5, W, 3);
+      ctx.shadowBlur = 0;
+    }
+    if (!reduced && visible) requestAnimationFrame(frame); else running = false;
+  }
+  const play = () => { if (reduced) frame(performance.now()); else if (!running) { running = true; requestAnimationFrame(frame); } };
+
+  const update = () => {
+    el.querySelector("#scan-count").textContent = (() => { const n = SCAN_SPOTS.filter(isHot).length; return t(n === 1 ? "{n} heat hotspot · {mode}" : "{n} heat hotspots · {mode}", { n, mode: t(greener ? "greener layout" : "live scan") }); })();
+    start = performance.now();
+    play();
+  };
+  canvas.addEventListener("click", (e) => {
+    const b = canvas.getBoundingClientRect(), k = W / b.width;
+    const px = (e.clientX - b.left) * k, py = (e.clientY - b.top) * k;
+    let best = null, bd = 18;
+    SCAN_SPOTS.forEach((s) => {
+      const [x, y] = cellXY(s.c, s.r), d = Math.hypot(px - x - CELL / 2, py - y - CELL / 2);
+      if (d < bd) { bd = d; best = s; }
+    });
+    if (!best) return;
+    const kind = greener ? best.cool : best.kind;
+    const words = { hot: "very hot", built: "hot", warm: "warm", park: "cool (vegetation)", water: "coolest (water)" };
+    el.querySelector("#scan-info").innerHTML = `<b style="color:${SPOT_COLORS[kind]}">●</b> ${greener && best.cool !== best.kind ? t("Greened: ") : ""}${t(best.label)} · ${t(words[kind])}`;
   });
   el.querySelectorAll("#scan-seg button").forEach((b) => b.addEventListener("click", () => {
     greener = b.dataset.mode === "green";
     el.querySelectorAll("#scan-seg button").forEach((x) => x.classList.toggle("on", x === b));
+    el.querySelector("#scan-info").textContent = t("Click a hotspot to inspect it");
     update();
   }));
+  outline.onload = () => { if (reduced) frame(performance.now()); };
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible) play(); }).observe(canvas);
+  }
   update();
 }
 
