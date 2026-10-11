@@ -8,9 +8,17 @@ Sidra uses satellite imagery to study summer surface heat on reclaimed land and 
 
 ## Business use case
 
+Sidra's users are planning and development teams at reclamation developers, municipalities and planning ministries in Bahrain and the wider Gulf, along with the environmental and design consultancies advising them. They decide where to prioritize shade, planting and open space before remaining plots are built, which areas of completed districts need inspection or potential retrofits, and which zones to monitor after treatment. Sidra supplies persistent-hotspot maps, comparisons with matched existing land, and a field-visit shortlist to inform those decisions.
 
-## Problem
+Today, the available approaches include consultant-led environmental assessments using weather-station data and site visits, ground sensors, generic urban heat maps, and microclimate simulations such as ENVI-met. Sensors provide limited spatial coverage, city-wide maps lack a site-specific benchmark, and simulations require detailed site models and specialist setup. Sidra adds measured, repeatable evidence across the development to help teams focus those studies and field visits.
 
+## Problem statement
+
+Heat evidence often arrives after construction, when the layout is already fixed. Reclamation replaces water with dry fill, asphalt and concrete, but planners lack affordable, site-specific evidence of where heat persists and which conditions warrant investigation while decisions about density, materials and public space can still change. Missing that opportunity can leave hotter outdoor spaces, greater heat exposure and cooling demand, and costly shading, planting or resurfacing retrofits.
+
+The challenge spans large developments and a growing regional pipeline. Bahrain's 2021 Strategic Projects Plan announced five new island cities intended to increase the country's land area by more than 60%. In the Diyar Al Muharraq pilot alone, Sidra maps about 11.4 km² of reclaimed land and about 34 ha of persistent inland hotspots. Heat varies within the site: the matched Diyar subset was cooler than comparable existing land, while the surrounding-land comparison remains inconclusive. These findings call for evidence at the level of individual zones rather than a single temperature label for the development.
+
+Satellite data fits this problem because it measures surface temperature across the site and surrounding land on the same observation dates, including places without ground sensors. Repeated summer observations distinguish persistent hotspots from a single hot day; the Landsat archive reconstructs land creation and earlier surface conditions; and Sentinel-2 and land-cover maps describe vegetation and surface patterns. These freely available records make assessments repeatable across large coastal sites without deploying a dense sensor network. They provide screening evidence at the scale of blocks: ground measurements are still needed to establish heat exposure and causes, and the pipeline does not yet predict how much a proposed intervention would cool a site.
 
 ## Data used
 
