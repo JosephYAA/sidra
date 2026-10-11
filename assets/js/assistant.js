@@ -81,6 +81,21 @@ const TOPICS = [
     next: ["cause", "accuracy", "limits"],
   },
   {
+    id: "priority",
+    q: ["Which hotspot zone should we check first?", "أي منطقة ساخنة نفحص أولاً؟"],
+    kw: ["priority", "priorities", "rank", "ranking", "first", "which zone", "where to start", "where do we start", "where should we start", "start", "start with", "most urgent", "decision", "اولويه", "الاولويات", "ترتيب", "اول", "نبدا", "ابدا", "اي منطقه"],
+    a: (M) => {
+      const z = (M.hotspot_zones || [])[0];
+      if (!z) return ["Open the Priorities tab: it ranks the hotspot zones by persistence and temperature excess once notebook 1 has published its zone file.",
+        "افتح تبويب الأولويات: يرتّب مناطق البؤر الحرارية حسب الاستمرار وفرق الحرارة بعد أن ينشر الدفتر الأول ملف المناطق."];
+      return [
+        `Start with Zone ${z.zone}: about ${fx(z.excess_c, 2)}°C above Diyar's median summer surface, and in the hottest 10% on ${fx(100 * z.persistence, 0)}% of summer dates (${fx(z.area_ha, 1)} ha, ${z.driver.toLowerCase()}). The Priorities tab ranks all ${M.hotspot_zones.length} zones and lists next steps for each, such as checking surface materials, shade and vegetation, and taking spot temperature measurements. It is a screening ranking, not proof of what causes the heat.`,
+        `ابدأ بالمنطقة ${z.zone}: أعلى بنحو ${fx(z.excess_c, 2)}°م من وسيط حرارة سطح ديار صيفاً، وضمن أحر 10% في ${fx(100 * z.persistence, 0)}% من التواريخ الصيفية (${fx(z.area_ha, 1)} هكتار). يرتّب تبويب الأولويات كل المناطق الـ${M.hotspot_zones.length} ويعرض الخطوات التالية لكل منها، مثل فحص مواد السطح والظل والنباتات وأخذ قياسات حرارة ميدانية. هذا ترتيب للفرز وليس دليلاً على سبب الحرارة.`,
+      ];
+    },
+    next: ["fieldvisit", "hotspots", "reduce"],
+  },
+  {
     id: "fieldvisit",
     q: ["Where should we inspect?", "أين يجب أن نفحص ميدانياً؟"],
     kw: ["inspect", "inspection", "field visit", "site visit", "visit", "shortlist", "priority", "candidate", "where should", "فحص", "زياره", "ميداني", "الاولويه", "المرشحه", "اين نذهب", "field", "field team", "on site", "check on", "نزور", "الزياره الميدانيه", "الفريق الميداني", "وين نروح"],
@@ -339,7 +354,7 @@ const TOPICS = [
   },
 ];
 const TOPIC_BY_ID = Object.fromEntries(TOPICS.map((tp) => [tp.id, tp]));
-const DEFAULT_SUGGESTIONS = ["tax", "hotspots", "coast", "surround", "fieldvisit"];
+const DEFAULT_SUGGESTIONS = ["priority", "tax", "hotspots", "coast", "surround"];
 
 function matchTopic(question) {
   const q = normalizeText(question);

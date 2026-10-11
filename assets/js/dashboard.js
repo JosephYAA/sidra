@@ -34,6 +34,7 @@ function showView(name) {
   document.querySelectorAll("#nav button").forEach((b) => b.classList.toggle("active", b.dataset.view === name));
   history.replaceState(null, "", `${location.search}#${name}`);
   if (name === "mapview") initMap();
+  if (name === "priorities") initPriorityMap();
   Object.values(charts).forEach((c) => c.resize());
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -300,6 +301,190 @@ function initMap() {
   $("scene-kv").innerHTML = kv.map(([k, v]) => `<div class="kv"><span>${k}</span><span>${v}</span></div>`).join("");
 }
 
+/* ---------- Priorities: hotspot zones ranked for planners ----------
+   Reads results/reclaimed_land_hotspot_zones.geojson (written by notebook 1 and
+   published by scripts/publish_results.py). No new model: zones are ranked by
+   the notebook's own persistence and temperature-excess values. */
+const ZONE_SORTS = {
+  priority: (z) => z.score,
+  persistence: (z) => z.persistence,
+  excess: (z) => z.excess,
+  area: (z) => z.area,
+};
+let ZONES = [];
+let zoneSort = "priority";
+let zoneSelected = null;
+let priorityMap = null;
+const zoneLayers = {};
+
+function stabilityOf(share) {
+  if (share >= 0.5) return { key: "High", cls: "ok" };
+  if (share >= 0.25) return { key: "Medium", cls: "mid" };
+  return { key: "Low", cls: "low" };
+}
+
+function zoneSteps(z) {
+  const steps = [t("Visit at midday: measure surface and air temperature with a handheld thermometer and an infrared camera.")];
+  if (z.driver === "Exposed reclaimed fill") {
+    steps.push(t("Check the fill material: bare sand, gravel or dark aggregate."));
+    steps.push(t("The land is still unbuilt: plan shade, trees and planted open space before plots are built."));
+  } else if (z.driver === "Dense hard surfaces") {
+    steps.push(t("Survey roof and paving materials and colours (dark or reflective)."));
+    steps.push(t("Map existing street trees, shade structures and irrigation."));
+    steps.push(t("Consider street trees, shade structures and high-reflectance roofs and paving."));
+  } else {
+    steps.push(t("Map which parts are unbuilt and which are paved, and treat the open parts first."));
+  }
+  if (z.stability.key === "Low") steps.push(t("Low stability: re-check with the next summer's satellite scenes before acting."));
+  else if (z.stability.key === "High") steps.push(t("High stability under the method checks: a good first site to visit."));
+  steps.push(t("Record what you find, so the next satellite update can show whether the zone changes."));
+  return steps;
+}
+
+function buildZones(geo) {
+  const feats = (geo && geo.features) || [];
+  const rows = feats.map((f) => {
+    const p = f.properties || {};
+    return {
+      id: p.zone_id, area: p.area_ha, lat: p.lat, lon: p.lon,
+      excess: p["excess_°C"], persistence: p.persistence,
+      persistentShare: p.persistent_share, stableShare: p.stable_share,
+      built: p["built_%"], bare: p["bare_%"], veg: p["vegetation_%"],
+      year: p.year_created, driver: p.main_driver, guidance: p.guidance, feature: f,
+    };
+  }).filter((z) => z.id != null && Number.isFinite(z.excess) && Number.isFinite(z.persistence));
+  const maxEx = Math.max(...rows.map((z) => z.excess), 1e-9), maxPe = Math.max(...rows.map((z) => z.persistence), 1e-9);
+  rows.forEach((z) => {
+    z.score = Math.round(100 * (0.5 * Math.max(0, z.excess) / maxEx + 0.5 * z.persistence / maxPe));
+    z.stability = stabilityOf(z.stableShare ?? 0);
+  });
+  rows.sort((a, b) => b.score - a.score).forEach((z, i) => { z.rank = i + 1; });
+  return rows;
+}
+
+function renderPriorities() {
+  ZONES = buildZones(R.zones);
+  const r = R.hot.results;
+  const hasZones = ZONES.length > 0;
+  $("p-chip").textContent = hasZones ? t("{n} hotspot zones ranked", { n: ZONES.length }) : t("Zone table not published yet");
+  $("p-method").textContent = t("Priority = average of temperature excess and persistence, each scaled so the top zone scores 100. Values come from notebook 1.");
+
+  // Key findings, each with what it means for a planner
+  const maxEx = hasZones ? Math.max(...ZONES.map((z) => z.excess)) : null;
+  const findings = [
+    [fmt(r.hotspot_area_ha["Persistent hotspot"], 0), t("ha"), t("Persistent hotspots"), t("In the hottest 10% on at least half of the summer dates: heat that keeps coming back."), "flame"],
+    [fmt(r.stable_hotspot_area_ha, 0), t("ha"), t("Stable core"), t("Still flagged under every method check, so the safest place to start."), "check"],
+    [maxEx == null ? "--" : signed(maxEx, 1), "°C", t("Warmest zone"), t("How much hotter the top zone is than Diyar's median summer surface."), "thermo"],
+    [signed(-r.coastal_cooling_0_30m_c, 1), "°C", t("Shoreline, 0–30 m"), t("Land next to the water is cooler than the interior, so inland zones need attention most."), "waves"],
+  ];
+  $("p-findings").innerHTML = findings.map(([v, u, label, text, ic]) => `
+    <div class="card kpi finding">
+      <div class="card-head" style="margin:0"><span class="label">${label}</span><span class="icon-ring" data-icon="${ic}"></span></div>
+      <div class="value"><span>${v}</span><small>${u}</small></div>
+      <div class="foot"><span>${text}</span></div>
+    </div>`).join("");
+  renderIcons($("p-findings"));
+
+  if (!hasZones) {
+    $("p-table").innerHTML = `<tbody><tr><td>${t("The hotspot zone file is not in the results folder yet. Run notebook 1 (or the GitHub workflow) to publish it.")}</td></tr></tbody>`;
+    $("p-detail").innerHTML = "";
+    return;
+  }
+  const pointsOnly = ZONES.every((z) => z.feature.geometry && z.feature.geometry.type === "Point");
+  $("p-map-note").textContent = pointsOnly ? t("Circles show each zone's centre and area. Exact outlines appear after the next notebook run.") : "";
+  document.querySelectorAll("#p-sort button").forEach((b) => b.addEventListener("click", () => {
+    zoneSort = b.dataset.sort;
+    document.querySelectorAll("#p-sort button").forEach((x) => x.classList.toggle("on", x === b));
+    renderZoneTable();
+  }));
+  $("p-csv").addEventListener("click", downloadZonesCSV);
+  renderZoneTable();
+  selectZone(ZONES[0].id, false);
+}
+
+function renderZoneTable() {
+  const rows = [...ZONES].sort((a, b) => ZONE_SORTS[zoneSort](b) - ZONE_SORTS[zoneSort](a));
+  const bar = (v, max, cls) => `<span class="mini-bar ${cls}"><i style="width:${Math.max(4, Math.min(100, (100 * v) / max))}%"></i></span>`;
+  const maxEx = Math.max(...ZONES.map((z) => z.excess)), maxA = Math.max(...ZONES.map((z) => z.area));
+  const head = [t("Rank"), t("Zone"), t("Priority"), t("Excess vs Diyar median"), t("Persistence"), t("Area"), t("Stability"), t("Main surface")];
+  $("p-table").innerHTML = `<thead><tr>${head.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map((z) => `
+    <tr data-zone="${z.id}" class="${z.id === zoneSelected ? "sel" : ""}">
+      <td><span class="rank-badge">${z.rank}</span></td>
+      <td>${t("Zone {id}", { id: z.id })}</td>
+      <td class="mono"><b>${z.score}</b></td>
+      <td class="mono">${bar(z.excess, maxEx, "hot")} ${signed(z.excess, 2)}°C</td>
+      <td class="mono">${bar(z.persistence, 1, "pers")} ${fmt(100 * z.persistence, 0)}%</td>
+      <td class="mono">${bar(z.area, maxA, "area")} ${fmt(z.area, 1)} ${t("ha")}</td>
+      <td><span class="stab ${z.stability.cls}">${t(z.stability.key)}</span></td>
+      <td>${t(z.driver || "--")}</td>
+    </tr>`).join("")}</tbody>`;
+  $("p-table").querySelectorAll("tbody tr").forEach((tr) => tr.addEventListener("click", () => selectZone(Number(tr.dataset.zone), true)));
+}
+
+function selectZone(id, fly) {
+  const z = ZONES.find((x) => x.id === id);
+  if (!z) return;
+  zoneSelected = id;
+  $("p-table").querySelectorAll("tbody tr").forEach((tr) => tr.classList.toggle("sel", Number(tr.dataset.zone) === id));
+  const kv = [
+    [t("Area"), `${fmt(z.area, 1)} ${t("ha")}`],
+    [t("Excess vs Diyar median"), `${signed(z.excess, 2)}°C`],
+    [t("Persistence"), t("{p}% of summer dates in the hottest 10%", { p: fmt(100 * z.persistence, 0) })],
+    [t("Persistent cells"), `${fmt(100 * (z.persistentShare ?? 0), 0)}%`],
+    [t("Stable under checks"), `${fmt(100 * (z.stableShare ?? 0), 0)}% · ${t(z.stability.key)}`],
+    [t("Surfaces"), t("{b}% built · {s}% bare · {v}% vegetation", { b: fmt(z.built, 0), s: fmt(z.bare, 0), v: fmt(z.veg, 0) })],
+    [t("Built on the sea"), z.year ? t("around {y}", { y: z.year }) : "--"],
+  ];
+  $("p-detail").innerHTML = `
+    <div class="card-head"><div><div class="eyebrow">${t("Priority #{r}", { r: z.rank })}</div><div class="card-title" style="font-size:1.25rem">${t("Zone {id}", { id: z.id })} · ${t(z.driver || "")}</div></div><span class="stab ${z.stability.cls}">${t(z.stability.key)}</span></div>
+    ${kv.map(([k, v]) => `<div class="kv"><span>${k}</span><span>${v}</span></div>`).join("")}
+    ${z.guidance ? `<div class="callout mt"><b>${t("From the notebook:")}</b> ${t(z.guidance)}</div>` : ""}
+    <div class="card-title mt" style="font-size:.95rem">${t("Recommended next steps")}</div>
+    <ul class="checklist">${zoneSteps(z).map((s) => `<li><span class="ok" data-icon="check" data-size="16"></span>${s}</li>`).join("")}</ul>
+    <div class="tiny mt">${t("Suggested checks, not proven causes or measured cooling benefits.")}</div>`;
+  renderIcons($("p-detail"));
+  Object.entries(zoneLayers).forEach(([zid, layer]) => layer.setStyle && layer.setStyle(zoneStyle(Number(zid) === id)));
+  if (fly && priorityMap) priorityMap.flyTo([z.lat, z.lon], 15, { duration: 0.6 });
+}
+
+function zoneStyle(selected) {
+  return { color: selected ? "#FDE7DD" : "#E07A5F", weight: selected ? 3 : 1.5, fillColor: "#E07A5F", fillOpacity: selected ? 0.55 : 0.35 };
+}
+
+function initPriorityMap() {
+  if (priorityMap || !ZONES.length) { if (priorityMap) setTimeout(() => priorityMap.invalidateSize(), 150); return; }
+  try {
+    priorityMap = L.map($("p-map"), { scrollWheelZoom: false });
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { attribution: "Tiles &copy; Esri", maxZoom: 18 }).addTo(priorityMap);
+    const bounds = [];
+    ZONES.forEach((z) => {
+      const g = z.feature.geometry;
+      const layer = g && g.type !== "Point"
+        ? L.geoJSON(z.feature, { style: () => zoneStyle(z.id === zoneSelected) })
+        : L.circle([z.lat, z.lon], { radius: Math.sqrt((z.area * 10000) / Math.PI), ...zoneStyle(z.id === zoneSelected) });
+      layer.on("click", () => selectZone(z.id, false)).addTo(priorityMap);
+      zoneLayers[z.id] = layer;
+      L.marker([z.lat, z.lon], { icon: L.divIcon({ className: "rank-pin", html: `<span>${z.rank}</span>`, iconSize: [26, 26] }) })
+        .on("click", () => selectZone(z.id, false)).addTo(priorityMap);
+      bounds.push([z.lat, z.lon]);
+    });
+    priorityMap.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
+    setTimeout(() => priorityMap.invalidateSize(), 200);
+  } catch (err) {
+    $("p-map").innerHTML = `<div class="map-fallback">${t("The map needs an internet connection to load.")}</div>`;
+  }
+}
+
+function downloadZonesCSV() {
+  const cols = ["rank", "zone_id", "priority_score", "area_ha", "excess_vs_diyar_median_c", "persistence", "persistent_share", "stable_share", "stability", "built_pct", "bare_pct", "vegetation_pct", "year_created", "main_driver", "lat", "lon", "notebook_guidance", "recommended_next_steps"];
+  const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = ZONES.map((z) => [z.rank, z.id, z.score, z.area, z.excess, z.persistence, z.persistentShare, z.stableShare, z.stability.key, z.built, z.bare, z.veg, z.year, z.driver, z.lat, z.lon, z.guidance, zoneSteps(z).join(" | ")].map(esc).join(","));
+  const blob = new Blob(["﻿" + [cols.join(","), ...lines].join("\n")], { type: "text/csv;charset=utf-8" });
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: "sidra_hotspot_priorities.csv" });
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
 /* ---------- Assistant ---------- */
 function answer(question) {
   return sidraAnswer(question, summarizeResults(R));
@@ -318,6 +503,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (img.complete && img.naturalWidth === 0) swap(); else img.addEventListener("error", swap);
   });
   renderOverview();
+  renderPriorities();
   renderHotspots();
   renderSurroundings();
   renderModel();

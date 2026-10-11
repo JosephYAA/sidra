@@ -1,0 +1,137 @@
+{
+ "type": "FeatureCollection",
+ "name": "hotspot_zones",
+ "note": "Zone table from notebook 1 (section 10). Points mark zone centres; the next notebook run replaces this file with the zone outlines.",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     50.63605,
+     26.33283
+    ]
+   },
+   "properties": {
+    "zone_id": 1,
+    "area_ha": 4.9,
+    "lat": 26.33283,
+    "lon": 50.63605,
+    "excess_°C": 1.14,
+    "persistence": 0.49,
+    "persistent_share": 0.5,
+    "stable_share": 0.67,
+    "built_%": 0,
+    "bare_%": 100,
+    "vegetation_%": 0,
+    "year_created": 2012,
+    "main_driver": "Exposed reclaimed fill",
+    "guidance": "Still unbuilt, so the layout is still open: plan shade and planted open space here before plots are built."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     50.63599,
+     26.30828
+    ]
+   },
+   "properties": {
+    "zone_id": 5,
+    "area_ha": 79.4,
+    "lat": 26.30828,
+    "lon": 50.63599,
+    "excess_°C": 1.09,
+    "persistence": 0.41,
+    "persistent_share": 0.37,
+    "stable_share": 0.5,
+    "built_%": 68,
+    "bare_%": 32,
+    "vegetation_%": 2,
+    "year_created": 2008,
+    "main_driver": "Dense hard surfaces",
+    "guidance": "Built blocks with almost no planting: candidate measures are street trees, shade structures, and high-reflectance roofs and paving."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     50.64183,
+     26.32381
+    ]
+   },
+   "properties": {
+    "zone_id": 2,
+    "area_ha": 6.5,
+    "lat": 26.32381,
+    "lon": 50.64183,
+    "excess_°C": 0.99,
+    "persistence": 0.38,
+    "persistent_share": 0.25,
+    "stable_share": 0.25,
+    "built_%": 0,
+    "bare_%": 100,
+    "vegetation_%": 0,
+    "year_created": 2009,
+    "main_driver": "Exposed reclaimed fill",
+    "guidance": "Still unbuilt, so the layout is still open: plan shade and planted open space here before plots are built."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     50.62767,
+     26.32116
+    ]
+   },
+   "properties": {
+    "zone_id": 3,
+    "area_ha": 4.9,
+    "lat": 26.32116,
+    "lon": 50.62767,
+    "excess_°C": 0.82,
+    "persistence": 0.23,
+    "persistent_share": 0.0,
+    "stable_share": 0.0,
+    "built_%": 0,
+    "bare_%": 100,
+    "vegetation_%": 0,
+    "year_created": 2009,
+    "main_driver": "Exposed reclaimed fill",
+    "guidance": "Still unbuilt, so the layout is still open: plan shade and planted open space here before plots are built."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     50.64089,
+     26.29953
+    ]
+   },
+   "properties": {
+    "zone_id": 6,
+    "area_ha": 3.2,
+    "lat": 26.29953,
+    "lon": 50.64089,
+    "excess_°C": 0.76,
+    "persistence": 0.15,
+    "persistent_share": 0.25,
+    "stable_share": 0.0,
+    "built_%": 100,
+    "bare_%": 0,
+    "vegetation_%": 0,
+    "year_created": 2008,
+    "main_driver": "Dense hard surfaces",
+    "guidance": "Built blocks with almost no planting: candidate measures are street trees, shade structures, and high-reflectance roofs and paving."
+   }
+  }
+ ]
+}

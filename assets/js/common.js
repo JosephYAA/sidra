@@ -34,6 +34,7 @@ const ICONS = {
   volume: '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>',
   mute: '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/>',
   close: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  list: '<path d="M9 6h12"/><path d="M9 12h12"/><path d="M9 18h12"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/>',
   // Sidra assistant: leaf-shaped chat bubble (two dots + a warm coral dot)
   leafchat: '<path d="M4.6 20.2 6.4 15.6C4.4 11.2 7.3 5 19.6 4.2c-.1 9.9-4.9 12.4-10.2 12.3z"/><circle cx="9.4" cy="12.6" r="1.25" fill="currentColor" stroke="none"/><circle cx="12.4" cy="10.6" r="1.25" fill="currentColor" stroke="none"/><circle cx="15.6" cy="8.4" r="1.25" fill="#F2A285" stroke="none"/>',
   building: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',
@@ -60,11 +61,12 @@ async function loadJSON(path) {
 
 /* The notebooks write these two files; the website reads them directly. */
 async function loadResults() {
-  const [hot, sur] = await Promise.all([
+  const [hot, sur, zones] = await Promise.all([
     loadJSON("results/reclaimed_land_metrics.json"),
     loadJSON("results/surrounding_land_summary.json"),
+    loadJSON("results/reclaimed_land_hotspot_zones.geojson").catch(() => null), // optional
   ]);
-  return { hot, sur };
+  return { hot, sur, zones };
 }
 
 /* A short, flat summary of both result files: used by the assistant and the AI webhook. */
@@ -98,6 +100,9 @@ function summarizeResults(R) {
     priority_cells: s.review_priority_cells,
     inspection_areas: s.candidate_inspection_areas,
     interpretation: s.interpretation,
+    hotspot_zones: R.zones && R.zones.features ? R.zones.features.map((f) => f.properties)
+      .map((p) => ({ zone: p.zone_id, area_ha: p.area_ha, excess_c: p["excess_°C"], persistence: p.persistence, stable_share: p.stable_share, driver: p.main_driver }))
+      .sort((a, b) => (b.excess_c / 1.14 + b.persistence / 0.49) - (a.excess_c / 1.14 + a.persistence / 0.49)) : [],
   };
 }
 
@@ -173,7 +178,7 @@ function renderFooter() {
         <p>${t("Satellite evidence for coastal heat planning, for Bahrain's planners and coastal developers.")}</p>
         <div class="fb-badges"><span class="badge green">${t("Theme 05")}</span><span class="badge gold">${t("Open data")}</span></div>
       </div>
-      ${col("Platform", [["Overview", "index.html#overview"], ["Hotspots", "index.html#hotspots"], ["Surroundings", "index.html#surroundings"], ["Field visit", "index.html#fieldvisit"], ["The Idea", "idea.html"]])}
+      ${col("Platform", [["Overview", "index.html#overview"], ["Priorities", "index.html#priorities"], ["Hotspots", "index.html#hotspots"], ["Surroundings", "index.html#surroundings"], ["Field visit", "index.html#fieldvisit"], ["The Idea", "idea.html"]])}
       ${col("Alignment", [["Bahrain Economic Vision 2030"], ["National Afforestation Plan"], ["Net Zero by 2060 pledge"], ["UN SDG 11 · Sustainable Cities"]])}
       ${col("Data sources", [["Landsat Collection 2 L2 (USGS)"], ["Sentinel-2 L2A (ESA Copernicus)"], ["ERA5 reanalysis (Copernicus C3S)"], ["Annual land cover (Impact Observatory)"]])}
     </div>

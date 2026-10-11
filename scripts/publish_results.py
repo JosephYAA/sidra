@@ -19,6 +19,7 @@ PUBLISH = {
     "hotspots/figures/q1_reclamation_history.png": "reclamation_history.png",
     "hotspots/figures/q2_matched_land.png": "reclaimed_land_matched.png",
     "hotspots/figures/q3_hotspots.png": "reclaimed_land_hotspots.png",
+    "hotspots/hotspot_zones.geojson": "reclaimed_land_hotspot_zones.geojson",
     "hotspots/matched_land_annual.csv": "reclaimed_land_matched_annual.csv",
     "hotspots/matched_land_balance.csv": "reclaimed_land_matched_balance.csv",
     "hotspots/matched_land_coverage.csv": "reclaimed_land_matched_coverage.csv",

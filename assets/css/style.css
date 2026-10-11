@@ -743,3 +743,26 @@ input[type=range]::-moz-range-thumb { border-color: #059669; }
 /* ---------- Diyar pixel scan (canvas) ---------- */
 .scan-canvas { width: 100%; height: auto; display: block; border-radius: 18px; cursor: pointer;
   background: radial-gradient(circle at 50% 40%, rgba(16, 185, 129, 0.08), transparent 70%), #0B0F0D; }
+
+/* ---------- Priorities (decision support) ---------- */
+.p-map { height: 420px; border-radius: 16px; overflow: hidden; background: #06110D; }
+.finding .foot span { font-size: 0.78rem; line-height: 1.45; color: var(--ink-2); }
+.p-head { flex-wrap: wrap; gap: 12px; }
+.p-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.p-csv { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; font-size: 0.82rem; }
+.p-table tbody tr { cursor: pointer; }
+.p-table tbody tr.sel { background: rgba(224, 122, 95, 0.12); box-shadow: inset 3px 0 0 #E07A5F; }
+.rank-badge { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font-weight: 800; color: #fff;
+  background: linear-gradient(135deg, #E8A08A, #C9583E); box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.18); }
+.mini-bar { display: inline-block; vertical-align: middle; width: 64px; height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.07); margin-right: 6px; overflow: hidden; }
+.mini-bar i { display: block; height: 100%; border-radius: 4px; }
+.mini-bar.hot i { background: linear-gradient(90deg, #E8A08A, #E07A5F); }
+.mini-bar.pers i { background: linear-gradient(90deg, #10B981, #34D399); }
+.mini-bar.area i { background: linear-gradient(90deg, #3987E5, #7FB2F0); }
+.stab { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; white-space: nowrap; }
+.stab.ok { color: #34D399; background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.4); }
+.stab.mid { color: #E8C45A; background: rgba(232, 196, 90, 0.12); border: 1px solid rgba(232, 196, 90, 0.35); }
+.stab.low { color: #F2A285; background: rgba(224, 122, 95, 0.12); border: 1px solid rgba(224, 122, 95, 0.35); }
+.rank-pin span { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; font: 800 13px/1 var(--font); color: #fff;
+  background: #C9583E; border: 2px solid #FDE7DD; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
+@media (max-width: 680px) { .p-map { height: 320px; } .mini-bar { width: 40px; } }
