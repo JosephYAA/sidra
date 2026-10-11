@@ -3,7 +3,7 @@
 const TEAM = [
   { name: "Noor Alawadhi", major: "Computer Science", role: "Web app development", photo: "assets/img/team/noor.jpg" },
   { name: "Rawan Mahdi", major: "Data Science & AI", role: "Data analysis, notebooks & modelling", photo: "assets/img/team/rawan.jpg" },
-  { name: "Yusuf Alatawi", major: "Cybersecurity", role: "Data analysis, notebooks & modelling", photo: "" },
+  { name: "Yusuf Alatawi", major: "Cybersecurity", role: "Data analysis, notebooks & modelling", photo: "assets/img/team/yusuf.jpg" },
   { name: "Abdulaziz Ajlan", major: "Mechanical Engineering", role: "Data collection, selection & documentation", photo: "assets/img/team/abdulaziz.jpg" },
   { name: "Malak Alsalam", major: "Mechanical Engineering", role: "Data collection, selection & documentation", photo: "assets/img/team/malak.jpg" },
 ];
