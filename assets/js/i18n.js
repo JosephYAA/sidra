@@ -3,6 +3,21 @@
    "English text": "النص العربي",                                                       */
 
 const AR = {
+  // ---- Better data for cooling interventions ----
+  "These priorities are a starting point. Hyperspectral imagery, detailed field observations, local air temperature and humidity measurements, and better traffic data would help us choose more suitable cooling interventions for each zone.": "هذه الأولويات نقطة بداية. ستساعدنا الصور فائقة الطيف، والملاحظات الميدانية المفصلة، والقياسات المحلية لحرارة الهواء والرطوبة، وبيانات المرور الأفضل على اختيار تدخلات تبريد أنسب لكل منطقة.",
+  "Better data for better cooling interventions": "بيانات أفضل لتدخلات تبريد أفضل",
+  "With hyperspectral imagery, more detailed field visits, higher-resolution local weather observations and better traffic data, we could develop more targeted interventions to reduce heat.": "بوجود صور فائقة الطيف، وزيارات ميدانية أكثر تفصيلاً، وأرصاد جوية محلية أعلى دقة، وبيانات مرور أفضل، يمكننا تطوير تدخلات أكثر استهدافاً لتخفيف الحرارة.",
+  "Hyperspectral imagery:": "الصور فائقة الطيف:",
+  "Better distinguish roofing, paving and vegetation to guide material and greening choices.": "تمييز مواد الأسقف والرصف والغطاء النباتي بصورة أفضل لتوجيه اختيار المواد والتشجير.",
+  "Field visits:": "الزيارات الميدانية:",
+  "Record materials, shade, airflow and how people use each hotspot to identify suitable interventions.": "توثيق المواد والظل وحركة الهواء وكيفية استخدام الناس لكل بؤرة حرارية لتحديد التدخلات المناسبة.",
+  "Local weather:": "الطقس المحلي:",
+  "Higher spatial and temporal resolution air temperature, humidity, wind and solar radiation to assess conditions at street level.": "بيانات أعلى دقة مكانياً وزمنياً عن حرارة الهواء والرطوبة والرياح والإشعاع الشمسي لتقييم الظروف على مستوى الشارع.",
+  "Traffic data:": "بيانات المرور:",
+  "More detailed vehicle counts, types, speeds and congestion patterns to assess traffic-related heat and possible transport measures.": "بيانات أكثر تفصيلاً عن أعداد المركبات وأنواعها وسرعاتها وأنماط الازدحام لتقييم الحرارة المرتبطة بحركة المرور وإجراءات النقل الممكنة.",
+  "Before-and-after monitoring would still be needed to measure the cooling benefit.": "ستظل المراقبة قبل التدخل وبعده ضرورية لقياس فائدة التبريد.",
+  "What would strengthen the next phase": "ما الذي سيعزز المرحلة القادمة",
+  "Richer information on surface materials, conditions observed during field visits, street-level weather and traffic would help turn the hotspot shortlist into more targeted cooling proposals.": "ستساعد المعلومات الأكثر تفصيلاً عن مواد الأسطح، والظروف المرصودة خلال الزيارات الميدانية، والطقس وحركة المرور على مستوى الشارع في تحويل قائمة البؤر الحرارية المرشحة إلى مقترحات تبريد أكثر استهدافاً.",
   "{n} complete summers": "{n} مواسم صيف كاملة",
   "Median eligible target share matched: {v}%": "وسيط نسبة الخلايا المستهدفة المؤهلة المطابقة: {v}%",
   "Conditional 95% interval: {lo} to {hi}°C": "نطاق 95% المشروط: {lo} إلى {hi}°م",
